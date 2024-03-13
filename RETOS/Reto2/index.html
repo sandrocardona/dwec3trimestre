@@ -7,47 +7,117 @@
 </head>
 <body>
 <h1>Reto 2</h1>
-<button type="submit" onclick="ordenar(coches)">Numero1</button>
+<p>Número 1</p>
+<button type="submit" onclick="ordenar(coches)">Array sin repeticiones</button>
+<br><br>
+<p>Número 2</p>
+<button type="submit" onclick="exclusive(carrakos, cars)">Coches exclusivos</button>
+<br><br>
+<p>Número 3</p>
+<button type="submit" onclick="honda(buddies)">Quién tiene Honda</button>
+<br><br>
+<button type="submit" onclick="used(buddies)">Coches usados</button>
+<br><br>
+<button type="submit" onclick="unused(cars, buddies)">Coches no usados</button>
+<br><br>
+<button type="submit" onclick="totalUsed(buddies)">Nº Coches usados</button>
+<br><br>
+<button type="submit" onclick="totalUnused(cars, buddies)">Nº Coches NO usados</button>
 
 <script>
     var cars = ["Saab", "Volvo", "BMW",["Honda", "Toyota",["Lexus", "Mercedes", "Lada"], "Hyunday"]];
     var carrakos = ["Chevrolet", "Tesla", "BMW",["Honda", "Infiniti",["Lexus", "Mercedes", "Kia"], "Hyunday"],["Mazda", "Mercedes", "Jeep",["KTM", "Nissan", "Isuzu"]]];
 
-    //Alguien sabe hacer una lista única de coches con los dos arrays (sin repeticiones)?
-    console.log("1: Lista de los dos array sin repeticiones");
-    let coches = cars.map((e) => e).flat(Infinity).concat(carrakos.map((e) => e).flat(Infinity));
+    /* === NUMERO 1 === */
+    //hacer una lista única de coches con los dos arrays (sin repeticiones)?
 
+    let coches = cars.map((e) => e).flat(Infinity).concat(carrakos.map((e) => e).flat(Infinity));
+/*     console.log(coches); */
+
+
+    /* funcion para ordenar un array y mostrarlo sin repeticiones */
     function ordenar(array){
-        let arr = [];
-        for (let i = 0; i < arr.length; i++) {
-            if(array[i]==!array[i+1]){
-                arr.push(array[i]);
-            }
-        }
-        console.log(arr)
-        return arr;
+        array.sort();
+        let marcas = array.filter((e, index) => {
+            return array.indexOf(e) === index;
+        });
+
+        console.log("Lista de array sin repeticiones:");
+        console.log(marcas)
     }
 
-    coches.sort();
-    console.log(coches);
-
+    /* === NUMERO 2 === */
     //Alguien sabría decirme los coches de carrakos que no estén en cars?
-    console.log("2: Coches de carrakos que no están en cars");
 
+
+    function exclusive(arr1, arr2){
+        
+        let cars2 = arr2.flat(Infinity);
+        let carrakos2 = arr1.flat(Infinity);
+
+        let exclusivos = carrakos2.filter(v=>!cars2.find(f => f===v));
+        console.log("Carrakos no incluidos en cars");
+        console.log(exclusivos);
+    }
+
+    /* === NUMERO 3 === */
 
     var cars = ["Saab", "Volvo", "BMW",["Honda", "Toyota",["Lexus", "Mercedes", "Lada"], "Hyunday"]];
     var buddies = [{firstName:"Chuck", lastName:"Norris", car:"Honda"},{firstName:"Yakie", lastName:"Chang", car:"BMV"},{firstName:"Bruce", lastName:"Lee", car:"Honda"},{firstName:"Steven", lastName:"Seagal", car:"Lada"}];
+    
     //-Nombre y apellidos de los buddies que usan un Honda
+
+    function honda(arr){
+        let aux = arr.filter(e => e.car === "Honda");
+
+        console.log(aux.map(v => v.firstName));
+        return aux;
+    }
 
     //-Marcas utilizadas por los buddies
 
+    function used(arr){
+        let aux = arr.map(e => e.car);
+        aux.sort();
+        console.log(aux);
+    }
+
     //-Marcas no utilizadas por los buddies.
+    function unused(arr1,arr2){
+        let auxCars = arr1.flat(Infinity);
+        let auxBuddies = arr2.map(e => e.car);
+
+        let auxUnused = auxCars.filter(v => !auxBuddies.find(f => f===v));
+        console.log(auxUnused);
+    }
 
     //-Cuantas marcas han sido utilizadas
+    function totalUsed(arr){
+        let auxCars = arr.flat(Infinity).map(e => e.car);
+        auxCars.sort();
+        console.log("Marcas usadas: ")
+        console.log(auxCars);
+
+        let marcas = auxCars.filter((e, index) => {
+            return auxCars.indexOf(e) === index;
+        });
+
+        console.log("Marcas sin repetir: ")
+        console.log(marcas);
+
+        console.log("Número de marcas usadas: " + marcas.length);
+    }
 
     //-Cuantas marcas no han sido utilizadas
 
+    function totalUnused(arr1,arr2){
+        let auxCars = arr1.flat(Infinity);
+        let auxBuddies = arr2.map(e => e.car);
 
+        let auxUnused = auxCars.filter(v => !auxBuddies.find(f => f===v));
+        console.log(auxUnused.length);
+    }
+    
 </script>
 </body>
 </html>
