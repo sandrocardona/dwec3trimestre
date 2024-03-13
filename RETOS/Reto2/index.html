@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reto 2</title>
+</head>
+<body>
+<h1>Reto 2</h1>
+<button type="submit" onclick="ordenar(coches)">Numero1</button>
+
+<script>
+    var cars = ["Saab", "Volvo", "BMW",["Honda", "Toyota",["Lexus", "Mercedes", "Lada"], "Hyunday"]];
+    var carrakos = ["Chevrolet", "Tesla", "BMW",["Honda", "Infiniti",["Lexus", "Mercedes", "Kia"], "Hyunday"],["Mazda", "Mercedes", "Jeep",["KTM", "Nissan", "Isuzu"]]];
+
+    //Alguien sabe hacer una lista única de coches con los dos arrays (sin repeticiones)?
+    console.log("1: Lista de los dos array sin repeticiones");
+    let coches = cars.map((e) => e).flat(Infinity).concat(carrakos.map((e) => e).flat(Infinity));
+
+    function ordenar(array){
+        let arr = [];
+        for (let i = 0; i < arr.length; i++) {
+            if(array[i]==!array[i+1]){
+                arr.push(array[i]);
+            }
+        }
+        console.log(arr)
+        return arr;
+    }
+
+    coches.sort();
+    console.log(coches);
+
+    //Alguien sabría decirme los coches de carrakos que no estén en cars?
+    console.log("2: Coches de carrakos que no están en cars");
+
+
+    var cars = ["Saab", "Volvo", "BMW",["Honda", "Toyota",["Lexus", "Mercedes", "Lada"], "Hyunday"]];
+    var buddies = [{firstName:"Chuck", lastName:"Norris", car:"Honda"},{firstName:"Yakie", lastName:"Chang", car:"BMV"},{firstName:"Bruce", lastName:"Lee", car:"Honda"},{firstName:"Steven", lastName:"Seagal", car:"Lada"}];
+    //-Nombre y apellidos de los buddies que usan un Honda
+
+    //-Marcas utilizadas por los buddies
+
+    //-Marcas no utilizadas por los buddies.
+
+    //-Cuantas marcas han sido utilizadas
+
+    //-Cuantas marcas no han sido utilizadas
+
+
+</script>
+</body>
+</html>
