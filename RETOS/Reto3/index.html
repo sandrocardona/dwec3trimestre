@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RETOS III</title>
+</head>
+<body>
+    <h1>Retos 3</h1>
+    <p>Mostrar la suma y la media de las notas de DWEC</p>
+    <button onclick="suma(valumnos)">Suma</button>
+    <button onclick="media(valumnos)">Media</button>
+    <script>
+        var valumnos = {
+            "alumnos": [
+                {
+                    "nombre": "Fulanito",
+                    "notas": {
+                        "DWEC": 8,
+                        "DWESE": 0.71,
+                        "ED": 7.04,
+                        "SSOO": 3.37,
+                        "BBDD": 0.22,
+                        "PROG": 1.09,
+                        "EINEM": 6.17
+                    }
+                },
+                {
+                    "nombre": "Menganito",
+                    "notas": {
+                        "DWEC": 7,
+                        "DWESE": 0.71,
+                        "ED": 7.04,
+                        "SSOO": 3.37,
+                        "BBDD": 0.22,
+                        "PROG": 1.09,
+                        "EINEM": 6.17
+                    }
+                }
+                ,
+                {
+                    "nombre": "Cetanito",
+                    "notas": {
+                        "DWEC": 6,
+                        "DWESE": 0.71,
+                        "ED": 7.04,
+                        "SSOO": 3.37,
+                        "BBDD": 0.22,
+                        "PROG": 1.09,
+                        "EINEM": 6.17
+                    }
+                }
+            ]
+        };
+
+
+        /* función para la suma de las notas de DWEC de todos los alumnos */
+        /* usamos primero la función .map() para iterar para cada alumno, resultando en un array y después usamos .reduce() para acumular un valor inicial "total" y sumar la "nota" al "total" */
+        function suma(data){
+            console.log(data.alumnos.map(e => e.notas.DWEC).reduce((total, nota) => total + nota));
+        }
+
+        /* función para la media de las notas DWEC */
+        /* ahora, el resultado que nos da la función anterior lo dividimos por la cantidad total de alumnos ya que todos tienen DWEC */
+        function media(data){
+            console.log((data.alumnos.map(e => e.notas.DWEC).reduce((total, nota) => total + nota))/data.alumnos.length);
+        }
+    </script>
+</body>
+</html>
