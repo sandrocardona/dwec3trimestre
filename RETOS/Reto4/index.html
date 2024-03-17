@@ -55,7 +55,8 @@
 
     function mostrar(data){
        var text = document.getElementById("result");
-       text.innerHTML = JSON.stringify(data.alumnos.map(e => e.notas));
+       var students = data.alumnos.map(e => ({nombre: e.nombre, notas: e.notas}));
+       text.innerHTML = JSON.stringify(students);
     }
 </script>
 </html>
