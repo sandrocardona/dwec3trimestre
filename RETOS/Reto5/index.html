@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reto 5</title>
+</head>
+<body>
+    <h1>Reto 5</h1>
+        <p>
+            <button onclick="tropic(tropicales, frutas)" type="button">tropicales</button>
+        </p>
+        <p>
+            <button onclick="notropic(tropicales, frutas)" type="button">No tropicales</button>
+        </p>
+        <p>
+            <button onclick="stock(tropicStock)" type="button">Stock &gt;21</button>
+        </p>
+    <script>
+        let frutas = ["aguacate","pera","manzana","naranja","tomate","granada", "mango", "litchi","nispero"];
+        let tropicales = ["aguacate", "mango", "litchi","nispero"];
+        let tropicStock = [{fruta:"aguacate",stock:50}, {fruta:"mango",stock:10}, {fruta:"litchi",stock:20},{fruta:"nispero",stock:25}];
+
+        // frutas del array frutas que sean tropicales
+            /* pasaremos dos arrays a la funcion
+            realizamos un filter para cada elemento del array de frutas (arr2)
+            después realizamos un find a las tropicales (arr1) para encontrar 
+            los elementos que también se encuentren
+            en la lista de frutas (el arr2) */
+        function tropic(arr1, arr2){
+            let sontropic = arr2.filter(e => arr1.find(f => f===e));
+            console.log("Frutas que son tropicales");
+            console.log(sontropic);
+        }
+
+        // frutas del array frutas que NO sean tropicales
+            /* pasaremos dos arrays a la funcion
+            realizamos un filter para cada elemento del array de frutas (arr2)
+            después realizamos un find y lo negamos con '!' a las tropicales (arr1) para encontrar 
+            los elementos que NO se encuentren
+            en la lista de frutas (el arr2) */
+        function notropic(arr1, arr2){
+            let notropicales = arr2.filter(e => !arr1.find(f => f===e));
+            console.log("Frutas que no son tropicales");
+            console.log(notropicales);
+        }
+
+        //Nombre de las frutas con un stock mayor de 21
+        function stock(arr){
+            let stock = arr.filter(e => e.stock > 21).map(f=> f.fruta);
+            console.log("Frutas con stock mayor que 21");
+            console.log(stock)
+        }
+    </script>
+</body>
+</html>
