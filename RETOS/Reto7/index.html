@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reto VII</title>
+</head>
+<body>
+    <h1>Reto 7</h1>
+    <h2>Frutas con Stock </h2>
+    <ul id="frutas"></ul>
+
+    <script>
+
+
+        let frutas = ["aguacate", "pera", "manzana", "naranja", "tomate", "granada", "mango", "litchi", "nispero"];
+        let tropicStock = [{fruta:"aguacate",stock:50}, {fruta:"mango",stock:10}, {fruta:"litchi",stock:20},{fruta:"nispero",stock:25}];
+
+        // muestra las frutas tropicales con stock menor a 40 como elementos li y su nodo padre será el ul frutas
+      
+        let minStock = tropicStock.filter(e => e.stock < 40).map(f => f.fruta);
+
+        let padre = document.getElementById("frutas");
+
+        let lista = minStock.map(e => {
+
+            /* creamos los li */
+            let li = document.createElement("li");
+
+            /* creamos un nodo tipo texto */
+            let texto = document.createTextNode(e);
+
+            /* append el texto al li */
+
+            li.appendChild(texto);
+
+            /* append el li al elemento padre */
+
+            padre.appendChild(li);
+        })
+
+    </script>
+</body>
+</html>

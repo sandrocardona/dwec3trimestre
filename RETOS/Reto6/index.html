@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reto VI</title>
+</head>
+<body>
+    <h1>Reto 6</h1>
+    <ul id="frutas"></ul>
+
+    <script>
+
+
+        let frutas = ["aguacate", "pera", "manzana", "naranja", "tomate", "granada", "mango", "litchi", "nispero"];
+        // muestra las frutas como elementos li y su nodo padre será el ul frutas
+       
+        /* primero definimos quién es el padre */
+        let padre = document.getElementById("frutas");
+
+        /* despues realizamos map() para cada elemento de fruta que irá contenido en un li */
+        frutas.map(e => {
+            /* creamos los li */
+            let li = document.createElement("li");
+
+            /* creamos un nodo tipo texto */
+            let texto = document.createTextNode(e);
+
+            /* append el texto al li */
+
+            li.appendChild(texto);
+
+            /* append el li al elemento padre */
+
+            padre.appendChild(li);
+        })
+       
+    </script>
+</body>
+</html>
