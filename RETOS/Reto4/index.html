@@ -10,53 +10,53 @@
     <p>Mostrar todas las notas de los alumnos</p>
     <button type="submit" onclick="mostrar(valumnos)">Ver notas</button>
     <p id="result"></p>
+    <script>
+        var valumnos = {
+            "alumnos": [
+                {
+                "nombre": "Fulanito",
+                "notas": {
+                    "DWEC": 8,
+                    "DWESE": 0.71,
+                    "ED": 7.04,
+                    "SSOO": 3.37,
+                    "BBDD": 0.22,
+                    "PROG": 1.09,
+                    "EINEM": 6.17
+                }
+                },
+                {
+                "nombre": "Menganito",
+                "notas": {
+                    "DWEC": 7,
+                    "DWESE": 0.71,
+                    "ED": 7.04,
+                    "SSOO": 3.37,
+                    "BBDD": 0.22,
+                    "PROG": 1.09,
+                    "EINEM": 6.17
+                }
+                },
+                {
+                "nombre": "Cetanito",
+                "notas": {
+                    "DWEC": 6,
+                    "DWESE": 0.71,
+                    "ED": 7.04,
+                    "SSOO": 3.37,
+                    "BBDD": 0.22,
+                    "PROG": 1.09,
+                    "EINEM": 6.17
+                }
+                }
+            ]
+        };
+    
+        function mostrar(data){
+           var text = document.getElementById("result");
+           var students = data.alumnos.map(e => ({nombre: e.nombre, notas: e.notas}));
+           text.innerHTML = JSON.stringify(students);
+        }
+    </script>
 </body>
-<script>
-    var valumnos = {
-        "alumnos": [
-            {
-            "nombre": "Fulanito",
-            "notas": {
-                "DWEC": 8,
-                "DWESE": 0.71,
-                "ED": 7.04,
-                "SSOO": 3.37,
-                "BBDD": 0.22,
-                "PROG": 1.09,
-                "EINEM": 6.17
-            }
-            },
-            {
-            "nombre": "Menganito",
-            "notas": {
-                "DWEC": 7,
-                "DWESE": 0.71,
-                "ED": 7.04,
-                "SSOO": 3.37,
-                "BBDD": 0.22,
-                "PROG": 1.09,
-                "EINEM": 6.17
-            }
-            },
-            {
-            "nombre": "Cetanito",
-            "notas": {
-                "DWEC": 6,
-                "DWESE": 0.71,
-                "ED": 7.04,
-                "SSOO": 3.37,
-                "BBDD": 0.22,
-                "PROG": 1.09,
-                "EINEM": 6.17
-            }
-            }
-        ]
-    };
-
-    function mostrar(data){
-       var text = document.getElementById("result");
-       var students = data.alumnos.map(e => ({nombre: e.nombre, notas: e.notas}));
-       text.innerHTML = JSON.stringify(students);
-    }
-</script>
 </html>
