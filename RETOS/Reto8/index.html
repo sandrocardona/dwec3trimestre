@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reto VIII</title>
+</head>
+<body>
+    <h1>Reto 8</h1>
+    <ul id="carrakos"> </ul>
+    <!-- Se pide que muestres los datos del array en forma arborescente como en la imagen suministrada. -->
+    <button type="button" onclick="listar(document.getElementById('carrakos'),carrakos)">Ver Carrakos</button>
+
+    <script>
+    
+        var carrakos = ["Chevrolet", "Tesla", "BMW",["Honda", "Infiniti",["Lexus", "Mercedes", "Kia"], "Hyunday"],["Mazda", "Mercedes", "Jeep",["KTM", "Nissan", "Isuzu"]]];
+    
+        function listar(padre, arr){
+
+            let lista = arr.map(e => {
+            
+                /* creamos los li */
+                let li = document.createElement("li");
+                
+                /* creamos un nodo tipo texto */
+                if(Array.isArray(e)){
+                    let ul = document.createElement("ul");
+                    padre.appendChild(ul);
+                    listar(ul, e)
+                } else {
+                    let texto = document.createTextNode(e);
+                    /* append el texto al li */
+                    li.appendChild(texto);
+                    /* append el li al elemento padre */
+                    padre.appendChild(li);
+                }
+
+            })
+        }
+    
+    </script>
+</body>
+</html>
