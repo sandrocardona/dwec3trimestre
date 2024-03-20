@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reto VIII</title>
+</head>
+<body>
+    <h1>Reto 9</h1>
+    <ul id="carrakos"></ul>
+    <button type="button" onclick="listar(papa ,carrakos)">show</button>
+    <script>
+
+        let papa = document.getElementById('carrakos');
+
+        let carrakos = ["Chevrolet", "Tesla", "BMW",["Honda", "Infiniti",["Lexus", "Mercedes", "Kia"], "Hyunday"],["Mazda", "Mercedes", "Jeep",["KTM", "Nissan", "Isuzu"]]];
+        let xungos = [{nombre:"Bruce Lee",carros:["Chevrolet", "Tesla", "BMW"]},{nombre:"YakiChan",carros:["Lexus", "Mercedes", "Kia"]}]
+
+        let coches = carrakos.flat(Infinity);
+
+        let used = xungos.map(e => (e));
+
+
+        function listar(padre, arr){
+
+            let lista = arr.map(e => {
+
+                /* creamos un nodo tipo texto */
+                if(Array.isArray(e)){
+                    let ul = document.createElement("ul");
+                    padre.appendChild(ul);
+                    listar(ul, e)
+                } else {
+                    let li = document.createElement("li");
+                    let owner = xungos.find(x => x.carros.find(f => f == e));
+                    let texto = "";
+                    console.log(owner);
+
+                    /* si el coche tiene dueño */
+                    (xungos.map(x => x.carros.find(f => f == e)).filter(u => u != undefined) != "")
+                    ? 
+                    texto = document.createTextNode(e + " de " + owner.nombre)
+                    :
+                    texto = document.createTextNode(e);
+
+
+                    /* append el texto al li */
+                    li.appendChild(texto);
+                    /* append el li al elemento padre */
+                    padre.appendChild(li);
+                }
+        
+            })      
+        }
+
+    </script>
+</body>
+</html>
