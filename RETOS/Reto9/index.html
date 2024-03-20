@@ -36,7 +36,7 @@
                     let texto = "";
                     console.log(owner);
 
-                    /* si el coche tiene dueño */
+                    /* si el coche tiene dueño lo indicamos, sino tan solo la marca de coche */
                     (xungos.map(x => x.carros.find(f => f == e)).filter(u => u != undefined) != "")
                     ? 
                     texto = document.createTextNode(e + " de " + owner.nombre)
