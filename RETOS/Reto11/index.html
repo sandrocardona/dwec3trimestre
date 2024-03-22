@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reto XI</title>
+</head>
+<body>
+    <h1>Reto 11</h1>
+    <p>Realiza una función flecha que dado el nombre de un vikingo diga si fue un rey o no</p>
+    <script>
+        var vikings = '{"vikingos":[{"reino":"Noruega","reyes":["Hakon","Harald",["Ivar",["Olaf","Lars","Lasse"],"Bjorn"],"Ragnar"]},{"reino":"Dinamarca","reyes":["Frodo","Hamming",["Angantyr","Sarunas"],"Horik"]}]}';
+
+        const obj = JSON.parse(vikings);
+
+        const encontrar = (nombre) => {
+            let nombres = obj.vikingos.map(e => e.reyes.flat(Infinity).find(v => v === nombre));
+            if(nombres.includes(nombre))
+                return "Es un Rey";
+            else
+                return "Es un plebeyo";
+        }
+
+
+        console.log(encontrar("Lars"));
+        console.log(encontrar("Sandro"));
+        console.log(encontrar("Felipe"));
+        console.log(encontrar("Ivar"));
+        console.log(encontrar("Angantyr"));
+    </script>
+</body>
+</html>

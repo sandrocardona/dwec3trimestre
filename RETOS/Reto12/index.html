@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reto XII</title>
+</head>
+<body>
+    <h1>Reto 12</h1>
+
+    <script>
+        let carrakos = ["Chevrolet", "Tesla", "BMW",["Honda", "Infiniti",["Lexus", "Mercedes", "Kia"], "Hyunday"],["Mazda", "Mercedes", "Jeep",["KTM", "Nissan", "Isuzu"]]];
+        let xungos = [{nombre:"Bruce Lee",carros:["Chevrolet", "Tesla", "BMW"]},{nombre:"Steven Seagal",carros:["Mazda", "Jeep", "Nissan"]},{nombre:"YakiChan",carros:["Lexus", "Mercedes", "Kia"]}]
+
+        let coches = carrakos.flat(Infinity);
+
+        let lista = coches.map(e => {
+           let owner = xungos.find(f => f.carros.includes(e));
+           
+           return {nombre: e, propietario: owner ? owner.nombre : "No tiene" };
+        })
+
+        console.log(lista);
+    </script>
+</body>
+</html>
