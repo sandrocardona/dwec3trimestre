@@ -27,7 +27,7 @@ class App extends Component {
   }
 
   aleman(){
-    this.setState({saludo: "Was geht Mann!"})
+    this.setState({saludo: "Was geht, Mann!"})
   }
 
   andalu(){
