@@ -32,7 +32,7 @@ class App extends Component {
     }
   }
 
-  componentWillMount() {
+  montador() {
   // Utilízalo si necesitas hacer algo antes de renderizar
   }
 
