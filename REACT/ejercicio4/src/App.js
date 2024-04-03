@@ -9,9 +9,9 @@ class App extends React.Component {
     super();
     this.state = {
       users: [
-        {id: 1, name: "perico", email: "perico@myfpschool.com"},
-        {id: 2, name: "juanico", email: "juanico@myfpschool.com"},
-        {id: 3, name: "andrés", email: "andres@myfpschool.com"},
+        {id: 1, name: "nacho", email: "nacho@myfpschool.com"},
+        {id: 2, name: "alberto", email: "juanico@myfpschool.com"},
+        {id: 3, name: "cristina", email: "cristina@myfpschool.com"},
       ]
     }
   }
