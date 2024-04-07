@@ -15,13 +15,11 @@ const MapaBotones = (props) => {
         fila.push(<Button onClick={() => props.click(i, j)} key={`${i}${j}`} outline />);
       }
       else if(props.tablero[i][j]==="1"){
-        colorBoton = props.listaColores[0];
-        fila.push(<Button color={colorBoton} onClick={() => props.click(i, j)} key={`${i}${j}`} />);
+        fila.push(<Button color={"primary"} onClick={() => props.click(i, j)} key={`${i}${j}`} />);
       }
 
       else if(props.tablero[i][j]==="0"){
-        colorBoton = props.listaColores[1];
-        fila.push(<Button color={colorBoton} onClick={() => props.click(i, j)} key={`${i}${j}`} />);
+        fila.push(<Button color={"danger"} onClick={() => props.click(i, j)} key={`${i}${j}`} />);
       }
 
     }
@@ -51,8 +49,7 @@ class App extends Component {
     
   }
   componentWillMount(){
-    this.state.listaBotones[5][5]="1";
-    this.state.listaBotones[4][4]="0";
+
   }
 
   clickar(i, j){
@@ -60,12 +57,15 @@ class App extends Component {
     if(i === 0){
       console.log(i + " " + j);
       /* cambiar turno y color del btnTurno */
-      if(this.state.turno === 1){
+      if(this.state.turno === 1 && this.state.listaBotones[i][j]=="x"){
         this.setState({players: "rojo"})
         this.setState({turno: 0})
-      } else {
+        this.state.listaBotones[i][j]="1";
+      } 
+      else if(this.state.turno === 0 && this.state.listaBotones[i][j]=="x"){
         this.setState({players: "azul"})
         this.setState({turno: 1})
+        this.state.listaBotones[i][j]="0";
       }
 
     } else {
