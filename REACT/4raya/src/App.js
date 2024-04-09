@@ -30,7 +30,7 @@ const MapaBotones = (props) => {
 }
 
 const BotonTurno = (props) => {
-  return (<Button className='btnTurno' color={props.color}>{"Turno de "}{props.players}</Button>)
+    return (<Button className='btnTurno' color={props.color}>{"Turno de "}{props.players}</Button>)
 }
 
 class App extends Component {
@@ -44,7 +44,8 @@ class App extends Component {
       // tendrás que añadir más atributos al state como el turno...
       ganador: false,
       turno: 1,
-      players: "azul"
+      players: "azul",
+      titulo: "4 en rayas",
     }
 
   }
@@ -71,7 +72,7 @@ class App extends Component {
           list[i][j] == list[i][j + 2] &&
           list[i][j] == list[i][j + 3]
         ){
-          this.setState({ganador: true})
+          this.setState({ganador: true, titulo: "Ganador " + this.state.players})
           return list[i][j]
         }
       }
@@ -85,7 +86,7 @@ class App extends Component {
           list[i][j] == list[i + 2][j] &&
           list[i][j] == list[i + 3][j]
         ){
-          this.setState({ganador: true})
+          this.setState({ganador: true, titulo: "Ganador " + this.state.players})
           return list[i][j]
         }
       }
@@ -133,7 +134,7 @@ class App extends Component {
 
     return (
       <div className="App">
-        <h1 id="titulo">4 en rayas</h1>
+        <h1 id="titulo">{this.state.titulo}</h1>
         <MapaBotones tablero={this.state.listaBotones} longitud={this.state.longitud} click={(i, j) => this.clickar(i, j)}></MapaBotones><br></br>
         <BotonTurno color={colorBotonTurno} players={this.state.players} ></BotonTurno><br></br>
         <Button className='btnLimpiar' onClick={() => this.limpiarTablero()} outline>{"Limpiar tablero"}</Button>
