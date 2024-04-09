@@ -28,8 +28,15 @@
   color: #61dafb;
 }
 
-.btnTurno{
+button{
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.btnTurno, .btnLimpiar{
   margin: 1rem;
+  width: 10rem;
+  height: 2.5rem;
 }
 
 #titulo{
