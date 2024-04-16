@@ -49,7 +49,6 @@ class App extends Component {
     }
 
     console.log("Puntuacion total: " + total)
-    console.log("respuestas: " + respuestasAux)
 
     //Si ya se han respondido a las 7 preguntas
     if(respuestasAux.length > 6)
@@ -61,7 +60,6 @@ class App extends Component {
   clickar(puntos, index){
     console.log("Puntos " + puntos);
     this.puntuacion(puntos, index);
-    console.log(index);
   }
 
   render() {
