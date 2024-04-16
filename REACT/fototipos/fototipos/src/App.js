@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
-import { Button } from 'reactstrap';
+import { Button, Card, CardBody, CardTitle, CardSubtitle, CardText } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
 import Questionario from './componentes/Questionario';
+import TarjetaResultado from './componentes/TarjetaResultado';
+import PUNTUAJE from './componentes/puntuacion';
 
 class App extends Component {
   constructor(props) {
@@ -11,6 +13,7 @@ class App extends Component {
     this.state = {
       titulo: "Fototipos",
       puntuacion: 0,
+      plantilla: PUNTUAJE,
       respuestas: [],
       completado: false,
     }
@@ -65,13 +68,14 @@ class App extends Component {
   render() {
     return this.state.completado ? (
       <div className='App'>
-        <p>respuesta</p>
+        <h1 className='titulo'>{this.state.titulo}</h1>
         <p>{this.state.puntuacion}</p>
+        <TarjetaResultado puntuacion={this.state.puntuacion} plantilla={this.state.plantilla}/>
         <Button onClick={() => this.reiniciar()} className='btnReiniciar'>Reiniciar</Button>
       </div>
     ) : (
-      <div className="App">
-        <h1 id="titulo">{this.state.titulo}</h1>
+      <div className='App'>
+        <h1 className='titulo'>{this.state.titulo}</h1>
         <Questionario clickar={this.clickar}/>
       </div>
     )

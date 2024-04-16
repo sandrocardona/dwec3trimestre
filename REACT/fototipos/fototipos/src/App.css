@@ -14,7 +14,10 @@ button{
 }
 
 .App {
+  display: flex;
+  flex-direction: column;
   text-align: center;
+  align-items: center;
   background-color: #282c34;
   color: white;
   height: 100%;
