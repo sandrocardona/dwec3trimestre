@@ -12,7 +12,7 @@ const TarjetaResultado = (props) => {
 
     let respuesta = plantilla.find(
         f => 
-            resultado >= f.rangoInicio && (resultado < f.rangoFin || f.rangoFin === null)
+            resultado >= f.rangoInicio && (resultado <= f.rangoFin || f.rangoFin === null)
         );
 
     if(respuesta){
@@ -29,16 +29,16 @@ const TarjetaResultado = (props) => {
               />
               <CardBody>
                 <CardTitle tag="h5">
-                  Card title
+                  {respuesta.tipo_piel}
                 </CardTitle>
                 <CardSubtitle
                   className="mb-2 text-muted"
                   tag="h6"
                 >
-                  Card subtitle
+                  Rango {respuesta.puntuacion}
                 </CardSubtitle>
                 <CardText>
-                  Some quick example text to build on the card title and make up the bulk of the card‘s content.
+                  {respuesta.descripcion}
                 </CardText>
               </CardBody>
             </Card>
