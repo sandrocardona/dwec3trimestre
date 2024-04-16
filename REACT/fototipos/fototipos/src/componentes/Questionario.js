@@ -5,10 +5,6 @@ import { useState } from "react";
 
 
 
-
-
-
-
 const Questionario = (props) => {
     const [color, setColor] = useState(null);
 
