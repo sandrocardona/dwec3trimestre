@@ -28,19 +28,31 @@ class App extends Component {
 
   puntuacion(puntos, index){
     // Variables
-    let respuestasAux = this.state.respuestas;
+    let respuestasAux = [...this.state.respuestas];
     let total = this.state.puntuacion;
 
+    //Verificar si la respuesta ya ha sido seleccionada
+    const respuestaIndex = respuestasAux.findIndex(item => item.index === index);
+
     // Incluir respuesta
-    if(!respuestasAux.includes(index)){
-      respuestasAux.push(index);
-      total+=puntos;
+    if(respuestaIndex !== -1){
+      //si ya ha sido seleccionada
+      total -= respuestasAux[respuestaIndex].puntos;
+      // Actualizar la respuesta con el nuevo valor
+      respuestasAux[respuestaIndex] = { index, puntos };
+      // Actualizar la puntuación sumando los nuevos puntos
+      total += puntos;
+    } else {
+        // Si la respuesta no ha sido seleccionada, simplemente agregarla al array de respuestas y sumar los puntos
+        respuestasAux.push({ index, puntos });
+        total += puntos;
     }
 
     console.log("Puntuacion total: " + total)
     console.log("respuestas: " + respuestasAux)
 
-    if(this.state.respuestas.length > 6)
+    //Si ya se han respondido a las 7 preguntas
+    if(respuestasAux.length > 6)
       this.setState({puntuacion: total, respuestas: respuestasAux, completado: true})
     else
       this.setState({puntuacion: total, respuestas: respuestasAux})
@@ -56,6 +68,7 @@ class App extends Component {
     return this.state.completado ? (
       <div className='App'>
         <p>respuesta</p>
+        <p>{this.state.puntuacion}</p>
         <Button onClick={() => this.reiniciar()} className='btnReiniciar'>Reiniciar</Button>
       </div>
     ) : (
