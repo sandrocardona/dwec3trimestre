@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Button, Card, CardBody, CardTitle, CardSubtitle, CardText } from 'reactstrap';
 import PUNTUAJE from './puntuacion';
+import axios from 'axios';
 
-
-
+//Tarjeta para mostrar el resultado final
 const TarjetaResultado = (props) => {
 
     let resultado = props.puntuacion;
@@ -48,5 +48,7 @@ const TarjetaResultado = (props) => {
     }
 
 }
+
+//Grafica
 
 export default TarjetaResultado;

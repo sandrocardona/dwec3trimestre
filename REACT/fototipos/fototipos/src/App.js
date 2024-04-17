@@ -69,7 +69,7 @@ class App extends Component {
     return this.state.completado ? (
       <div className='App'>
         <h1 className='titulo'>{this.state.titulo}</h1>
-        <p>{this.state.puntuacion}</p>
+        <p>Puntuación: {this.state.puntuacion}</p>
         <TarjetaResultado puntuacion={this.state.puntuacion} plantilla={this.state.plantilla}/>
         <Button onClick={() => this.reiniciar()} className='btnReiniciar'>Reiniciar</Button>
       </div>
