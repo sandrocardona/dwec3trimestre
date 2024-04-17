@@ -15,6 +15,10 @@ const TarjetaResultado = (props) => {
             resultado >= f.rangoInicio && (resultado <= f.rangoFin || f.rangoFin === null)
         );
 
+    //Conexion Axios
+
+
+    //Si existe una respuesta la muestro. Si no existe especifico que no hay resultado.
     if(respuesta){
         return(
             <Card
@@ -46,7 +50,6 @@ const TarjetaResultado = (props) => {
     } else {
         return (<div>No hay resultado</div>);
     }
-
 }
 
 //Grafica
