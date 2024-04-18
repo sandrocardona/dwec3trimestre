@@ -25,6 +25,19 @@ button{
   padding-top: 2rem;
 }
 
+#contenedor-resultado{
+  display: flex;
+  flex-direction: row nowrap;
+}
+
+#tarjeta-resultado{
+  padding: 0.5rem;
+}
+
+#grafica-resultado{
+  padding: 0.5rem;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
