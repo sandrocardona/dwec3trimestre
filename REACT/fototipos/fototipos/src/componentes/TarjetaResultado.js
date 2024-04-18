@@ -4,7 +4,7 @@ import PUNTUAJE from './puntuacion';
 import axios from 'axios';
 import { CONEXIONPHP } from './ruta';
 import { useState } from 'react';
-import { Chart } from "react-google-charts";
+import { Grafica } from './Grafica';
 
 //Tarjeta para mostrar el resultado final
 const TarjetaResultado = (props) => {
@@ -54,16 +54,7 @@ const TarjetaResultado = (props) => {
 
       console.log("Datos php: " + final)
 
-      //Datos para la Gráfica
-      const data = [
-        ["Element", "Density", { role: "style" }],
-        ["Tipo 1", 8.94, "#b87333"], // RGB value
-        ["Tipo 2", 10.49, "silver"], // English color name
-        ["Tipo 3", 19.3, "gold"],
-        ["Tipo 4", 19.3, "gold"],
-        ["Tipo 5", 19.3, "gold"],
-        ["Tipo 6", 21.45, "color: #e5e4e2"], // CSS-style declaration
-      ];
+
 
     //Si existe una respuesta la muestro. Si no existe especifico que no hay resultado.
     if(respuesta){
@@ -97,7 +88,7 @@ const TarjetaResultado = (props) => {
             </Card>
             </div>
             <div id='grafica-resultado'>
-              <Chart chartType="ColumnChart" width="100%" height="600px" data={data} />
+              <Grafica result={final}/>
             </div>
           </div>
         )
