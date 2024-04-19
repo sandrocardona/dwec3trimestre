@@ -1,0 +1,1 @@
+export const PHPLOGIN = "http://localhost/Recuperacion/ReactServer/Applogin/datos.php";
