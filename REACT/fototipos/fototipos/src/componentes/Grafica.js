@@ -6,7 +6,6 @@ export const Grafica = (props) => {
     let estadisticas = props.result || "";
 
     let resultadoFinal = estadisticas.split("||").map(valor => parseInt(valor, 10));
-    console.log(resultadoFinal+" esto son los datos dspus del split");
 
     //Datos para la Gráfica
     const data = [
