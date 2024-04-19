@@ -4,7 +4,7 @@ export const PUNTUAJE=[
       "puntuacion": "0-7",
       "rangoInicio": 0,
       "rangoFin": 7,
-      "imagen": "../images/tipo1.png",
+      "imagen": "https://www.thematic-learning.com/2DAW2024/SANDRO/FOTOTIPOS/images/tipo1.png",
       "tipo_piel": "Tipo de piel I",
       "descripcion": "Muy sensible a la luz solar"
     },
@@ -13,7 +13,7 @@ export const PUNTUAJE=[
       "puntuacion": "8-21",
       "rangoInicio": 8,
       "rangoFin": 21,
-      "imagen": "../images/tipo2.png",
+      "imagen": "https://www.thematic-learning.com/2DAW2024/SANDRO/FOTOTIPOS/images/tipo2.png",
       "tipo_piel": "Tipo de piel II",
       "descripcion": "Sensible a la luz solar"
     },
@@ -22,7 +22,7 @@ export const PUNTUAJE=[
       "puntuacion": "22-42",
       "rangoInicio": 22,
       "rangoFin": 42,
-      "imagen": "../images/tipo3.png",
+      "imagen": "https://www.thematic-learning.com/2DAW2024/SANDRO/FOTOTIPOS/images/tipo3.png",
       "tipo_piel": "Tipo de piel III",
       "descripcion": "Sensibilidad normal a la luz solar"
     },
@@ -31,7 +31,7 @@ export const PUNTUAJE=[
       "puntuacion": "43-68",
       "rangoInicio": 43,
       "rangoFin": 68,
-      "imagen": "../images/tipo4.png",
+      "imagen": "https://www.thematic-learning.com/2DAW2024/SANDRO/FOTOTIPOS/images/tipo4.png",
       "tipo_piel": "Tipo de piel IV",
       "descripcion": "La piel tiene tolerancia a la luz solar"
     },
@@ -40,7 +40,7 @@ export const PUNTUAJE=[
       "puntuacion": "69-84",
       "rangoInicio": 69,
       "rangoFin": 84,
-      "imagen": "../images/tipo5.png",
+      "imagen": "https://www.thematic-learning.com/2DAW2024/SANDRO/FOTOTIPOS/images/tipo5.png",
       "tipo_piel": "Tipo de piel V",
       "descripcion": "La piel es oscura. Alta tolerancia"
     },
@@ -49,7 +49,7 @@ export const PUNTUAJE=[
       "puntuacion": "+85",
       "rangoInicio": 85,
       "rangoFin": null,
-      "imagen": "../images/tipo6.png",
+      "imagen": "https://www.thematic-learning.com/2DAW2024/SANDRO/FOTOTIPOS/images/tipo6.png",
       "tipo_piel": "Tipo de piel VI",
       "descripcion": "La piel es negra. Altísima tolerancia"
     }
