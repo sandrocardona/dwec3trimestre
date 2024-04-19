@@ -22,11 +22,11 @@ class App extends Component {
   }
 
   userLogin(telefono,password){
-    /*
+    
     if (telefono=="Myfpschool" && password=="2023"){
       this.setState({logged:true})
     }
-    */
+
     axios.post(PHPLOGIN,JSON.stringify({
       telefono:telefono,
       password:password
