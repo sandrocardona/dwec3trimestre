@@ -21,11 +21,11 @@ export default function AppLogin(props) {
         if (password==''||telefono==''){
             setInfo('CUMPLIMENTE TODOS LOS DATOS')
         }else{
-//            if (telefono=='Myfpschool'&& password=="2023"){
+            if (telefono=='Myfpschool'&& password=="2023"){
                 props.userLogin(telefono,password)
-//            }else{
-//                setInfo('DATOS INCORRECTOS');
-//            }
+            }else{
+                setInfo('DATOS INCORRECTOS');
+            }
         }
     }
 

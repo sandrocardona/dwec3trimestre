@@ -21,11 +21,15 @@ class App extends Component {
     this.setState({menuItem:item})
   }
 
+  prueba(item){
+    console.log("clickado" + item);
+  }
+
   userLogin(telefono,password){
     
-/*     if (telefono=="Myfpschool" && password=="2023"){
+    if (telefono=="Myfpschool" && password=="2023"){
       this.setState({logged:true})
-    } */
+    }
 
     axios.post(PHPLOGIN,JSON.stringify({
       telefono:telefono,
@@ -40,7 +44,7 @@ class App extends Component {
   }
 
   render(){
-    let obj=<><Menu menuItem={this.state.menuItem} changeMenu={(item)=>this.changeMenu(item)} /></>
+    let obj=<><Menu menuItem={this.state.menuItem} changeMenu={(item)=>this.changeMenu(item)} prueba={(item) => this.prueba(item)} /></>
     if (!this.state.logged){
       obj=<AppLogin userLogin={(telefono,password)=>this.userLogin(telefono,password)}/>
     }

@@ -27,9 +27,9 @@ export default function Menu(props){
        <Navbar>
          <NavbarBrand href="/">MYFPSCHOOL</NavbarBrand>
          <NavLink>
-         <Button color={colorUno} onClick={()=>props.changeMenu("UNO")}>UNO</Button>{" "}
-         <Button color={colorDos} onClick={()=>props.changeMenu("DOS")}>DOS</Button>{" "}
-         <Button color={colorTres} onClick={()=>props.changeMenu("TRES")}>TRES</Button>
+         <Button color={colorUno} onClick={()=>{props.changeMenu("UNO"); props.prueba("UNO");}}>UNO</Button>{" "}
+         <Button color={colorDos} onClick={()=>{props.changeMenu("DOS"); props.prueba("DOS");}}>DOS</Button>{" "}
+         <Button color={colorTres} onClick={()=>{props.changeMenu("TRES"); props.prueba("TRES");}}>TRES</Button>
          </NavLink>
        </Navbar>
      </div>
