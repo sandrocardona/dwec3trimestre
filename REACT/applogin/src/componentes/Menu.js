@@ -25,7 +25,7 @@ export default function Menu(props){
    return (
      <div>
        <Navbar>
-         <NavbarBrand href="/">MYFPSCHOOL</NavbarBrand>
+         <NavbarBrand href="/">MINIJUEGOS</NavbarBrand>
          <NavLink>
          <Button color={colorUno} onClick={()=>{props.changeMenu("UNO"); props.prueba("UNO");}}>UNO</Button>{" "}
          <Button color={colorDos} onClick={()=>{props.changeMenu("DOS"); props.prueba("DOS");}}>DOS</Button>{" "}

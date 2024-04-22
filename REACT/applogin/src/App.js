@@ -7,6 +7,8 @@ import Menu from './componentes/Menu'
 import { Component } from 'react';
 import {PHPLOGIN} from './componentes/Datos';
 import axios from 'axios';
+import CuatroRaya from './componentes/4raya';
+import Game from './componentes/3raya';
 
 class App extends Component {
   constructor(props){
@@ -23,6 +25,7 @@ class App extends Component {
 
   prueba(item){
     console.log("clickado" + item);
+    console.log("estado: " + this.state.menuItem)
   }
 
   userLogin(telefono,password){
@@ -44,7 +47,23 @@ class App extends Component {
   }
 
   render(){
-    let obj=<><Menu menuItem={this.state.menuItem} changeMenu={(item)=>this.changeMenu(item)} prueba={(item) => this.prueba(item)} /></>
+    console.log("render " + this.state.menuItem)
+    let app = "";
+    switch (this.state.menuItem) {
+      case "UNO":
+        app = <CuatroRaya />
+        break;
+      case "DOS":
+        app = <Game />
+        break;
+      case "TRES":
+        app = <div>TRES</div>
+        break;
+    }
+    let obj=<>
+              <Menu menuItem={this.state.menuItem} changeMenu={(item)=>this.changeMenu(item)} prueba={(item) => this.prueba(item)} />
+              <div>{app}</div>
+            </>
     if (!this.state.logged){
       obj=<AppLogin userLogin={(telefono,password)=>this.userLogin(telefono,password)}/>
     }
