@@ -14,7 +14,7 @@ class App extends Component {
   constructor(props){
     super(props)
     this.state={
-      menuItem:"UNO",
+      menuItem:"TRES",
       logged:false,
     }
   }
@@ -24,15 +24,13 @@ class App extends Component {
   }
 
   prueba(item){
-    console.log("clickado" + item);
-    console.log("estado: " + this.state.menuItem)
   }
 
   userLogin(telefono,password){
     
-    if (telefono=="Myfpschool" && password=="2023"){
+/*     if (telefono=="Myfpschool" && password=="2023"){
       this.setState({logged:true})
-    }
+    } */
 
     axios.post(PHPLOGIN,JSON.stringify({
       telefono:telefono,
@@ -47,7 +45,6 @@ class App extends Component {
   }
 
   render(){
-    console.log("render " + this.state.menuItem)
     let app = "";
     switch (this.state.menuItem) {
       case "UNO":
@@ -57,7 +54,7 @@ class App extends Component {
         app = <Game />
         break;
       case "TRES":
-        app = <div>TRES</div>
+        app = <div>COMPONENTE Nº TRES</div>
         break;
     }
     let obj=<>
