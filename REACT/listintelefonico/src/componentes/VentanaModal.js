@@ -9,7 +9,7 @@ const VentanaModal = (props) => {
 
   return (
     <div>
-      <Modal isOpen={props.mostrar} toggle={props.toggle} className={className} onEntering={() => {}}>
+      <Modal isOpen={props.mostrar} toggle={props.toggle} className={className} onEnter={() => {}}>
         <ModalHeader toggle={props.toggle}>{props.titulo}</ModalHeader>
         <ModalBody>
 
