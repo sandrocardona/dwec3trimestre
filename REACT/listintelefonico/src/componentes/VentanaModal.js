@@ -9,7 +9,7 @@ const VentanaModal = (props) => {
 
   return (
     <div>
-      <Modal isOpen={props.mostrar} toggle={props.toggle} className={className} onEntering={() => {  }}>
+      <Modal isOpen={props.mostrar} toggle={props.toggle} className={className} onEntering={() => {}}>
         <ModalHeader toggle={props.toggle}>{props.titulo}</ModalHeader>
         <ModalBody>
 
@@ -35,7 +35,16 @@ const VentanaModal = (props) => {
 
         </ModalBody>
         <ModalFooter>
-          <Button color="primary" onClick={props.toggle}>{props.aceptar}</Button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <p id="p-error">{props.error}</p>
+            {/* Boton Añadir */}
+          <Button color="primary" onClick={() => {
+            const nombre = document.getElementById('nombre').value;
+            const telefono = document.getElementById('telefono').value;
+
+            props.annadir(nombre, telefono);
+            }}>
+                {props.aceptar}
+            </Button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         </ModalFooter>
       </Modal>
     </div>

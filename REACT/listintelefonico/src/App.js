@@ -26,7 +26,7 @@ class App extends Component {
       // INSERTE AQUÍ EL ESTADO NECESARIO. AQUÍ SE GUARDARÁ TODA LA INFORMACIÓN
       listaUsuarios: [],
       isOpen: false,
-
+      error: ""
     };
   }
 
@@ -37,9 +37,20 @@ class App extends Component {
     this.setState({ isOpen: d })
   }
 
-  toggleModal() { this.setIsOpen(!this.state.isOpen); }
+  toggleModal(){
+      this.setIsOpen(!this.state.isOpen);
+      this.setState({error: ""})
+  }
 
+  annadir(nombre, telefono){
+    console.log(nombre, telefono);
 
+    if(nombre != "" && telefono != ""){
+      this.toggleModal();
+    } else {
+      this.setState({error: "Introduce datos"})
+    }
+  }
 
   render() {
     return (
@@ -54,7 +65,9 @@ class App extends Component {
           mostrar={this.state.isOpen}
           aceptar={"Añadir"}
           toggle={() => this.toggleModal()}
+          annadir={(nombre, telefono) => this.annadir(nombre, telefono)}
           titulo={"Alta en el listín"}
+          error={this.state.error}
         />
       </div>
     );
