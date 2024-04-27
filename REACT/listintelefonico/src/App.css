@@ -37,10 +37,23 @@
 .plistin{
   display: flex;
   justify-content: space-between;
+  padding-left: 1rem;
+}
+
+ul{
+  padding: none;
+  margin-right: 2rem;
+}
+
+.listado{
+  width: 100%;
+}
+
+.listado:nth-child(2n){
+  background-color: grey;
 }
 
 .btnlistin{
-
 }
 
 li{

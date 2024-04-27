@@ -7,26 +7,14 @@ import logo from './logo.svg';
 import './App.css';
 import VentanaModal from './componentes/VentanaModal';
 
-
-/* const Mostrar = (props) => {
-  return (
-    <ul>
-      <li>
-          {" NOMBRE - TELEFONO  "}
-          <Button>Borrar</Button>
-        </li>
-    </ul>
-  );
-}; */
-
 const Mostrar = (props) => {
     return(
       <ul>
       {props.listaUsuarios.map((x, index) => (
-        <li key={index}>
+        <li className='listado' key={index}>
           <p className='plistin'>
             {index+1 + ". " + x.nombre + " - " + x.telefono}
-            <Button className='btnlistin' onClick={() => props.borrar(index)}>Borrar {" " + (index+1)}</Button>
+            <Button color='primary' className='btnlistin' onClick={() => props.borrar(index)}>Borrar {" " + (index+1)}</Button>
           </p>
         </li>
     ))}
@@ -38,7 +26,6 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      // INSERTE AQUÍ EL ESTADO NECESARIO. AQUÍ SE GUARDARÁ TODA LA INFORMACIÓN
       listaUsuarios: [],
       isOpen: false,
       error: ""
@@ -91,6 +78,7 @@ class App extends Component {
       else{
         // Cierra la ventana y error=""
         this.toggleModal();
+
         // Variables
         let listaUsuariosAux = this.state.listaUsuarios;
         let obj = {nombre: nombre, telefono: telefono};
