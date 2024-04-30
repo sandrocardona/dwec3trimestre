@@ -13,17 +13,13 @@ function Botonera(props) {
     for (let columna = 0; columna < tableroBase[fila].length; columna++) {
       let indiceAux = fila + columna + 2;
       let clave = [[fila],[columna]];
-      if(fila < 3 || fila > 5){
-        if(indiceAux %2 === 0)
-          if(fila < 3)
-            tableroAuxCol.push(<Button className='btnDama' onClick={() => props.handleClick(clave)} key={clave} color="primary"></Button>)
-          else
-            tableroAuxCol.push(<Button className='btnDama' onClick={() => props.handleClick(clave)} key={clave} color="danger"></Button>)
-        else
-          tableroAuxCol.push(<Button className='btnDama btnGris' key={clave} color="secondary"></Button>)
-      } else {
+
+      if(props.tablero[fila][columna]==1)
+        tableroAuxCol.push(<Button className='btnDama' onClick={() => props.handleClick(clave)} key={clave} color="primary"></Button>)
+      else if(props.tablero[fila][columna]==2)
+        tableroAuxCol.push(<Button className='btnDama' onClick={() => props.handleClick(clave)} key={clave} color="danger"></Button>)
+      else
         tableroAuxCol.push(<Button className='btnDama btnGris' key={clave} color="secondary"></Button>)
-      }
     }
     
     tableroAuxCol.push(<br key={"br" + fila}></br>)
@@ -50,25 +46,76 @@ class App extends Component {
                 [0,0,0,0,0,0,0,0,0],
                 [0,0,0,0,0,0,0,0,0],
               ],
-      jugador: 1,
+      jugador: "azul",
       fichaSeleccionada: false
     }
   }
 
-  click(e){
+  //Ficha Roja
+  moverArriba(){
     let fichaSeleccionadaAux = this.state.fichaSeleccionada;
     fichaSeleccionadaAux = !fichaSeleccionadaAux;
-    console.log("clickado: " + e)
+    console.log("mover arriba");
     console.log(fichaSeleccionadaAux)
 
-    if(fichaSeleccionadaAux){
-      if(e[0]<3){
-
-      }
-    }
-    
-    this.setState({fichaSeleccionada:fichaSeleccionadaAux})
+    this.setState({fichaSeleccionada:fichaSeleccionadaAux});
   }
+
+  //Ficha azul
+  moverAbajo(){
+    let turno = this.state.jugador;
+    let nextTurn = "rojo";
+    let fichaSeleccionadaAux = this.state.fichaSeleccionada;
+    fichaSeleccionadaAux = !fichaSeleccionadaAux;
+
+    console.log("mover abajo");
+    console.log("turno de: " + turno);
+    console.log(fichaSeleccionadaAux)
+
+    this.setState({
+      fichaSeleccionada:fichaSeleccionadaAux,
+      jugador:nextTurn
+    });
+  }
+
+  click(e){
+    let copiaTablero = this.state.tablero.slice();
+
+    console.log("clickado: " + e)
+    console.log(this.state.tablero)
+
+/*       copiaTablero[e[0]][e[1]]=0 */
+      if(this.state.jugador=="azul" && copiaTablero[e[0]][e[1]]==1){
+        this.moverAbajo();
+      } else if(this.state.jugador=="azul" && copiaTablero[e[0]][e[1]]==2) {
+        this.moverArriba();
+      }
+    
+    this.setState({
+      tablero:copiaTablero
+    })
+  }
+
+  componentWillMount(){
+    let plantilla = this.state.tablero.slice();
+    
+    for (let i = 0; i < plantilla.length; i++) {
+      for (let j = 0; j < plantilla[i].length; j++) {
+        let indiceAux = i + j + 2;
+        if(i < 3 || i > 5){
+          if(indiceAux %2 === 0)
+            if(i < 3)
+              plantilla[i][j]=1;
+            else
+              plantilla[i][j]=2;
+          else
+              plantilla[i][j]=0;
+        } else {
+          plantilla[i][j]=0;
+        }
+      }
+  }
+}
 
   render(){
     return (
@@ -79,6 +126,7 @@ class App extends Component {
         <h1>{this.state.titulo}</h1>
         <div className="tablero">
           <Botonera handleClick={(key) => this.click(key)} tablero={this.state.tablero} />
+          <p>{this.state.jugador}</p>
         </div>
       </div>
     );
