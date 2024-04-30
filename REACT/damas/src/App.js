@@ -53,23 +53,26 @@ class App extends Component {
 
   //Ficha Roja
   moverArriba(){
+    let nextTurn = "azul";
+
     let fichaSeleccionadaAux = this.state.fichaSeleccionada;
     fichaSeleccionadaAux = !fichaSeleccionadaAux;
-    console.log("mover arriba");
+
     console.log(fichaSeleccionadaAux)
 
-    this.setState({fichaSeleccionada:fichaSeleccionadaAux});
+    this.setState({
+      fichaSeleccionada:fichaSeleccionadaAux,
+      jugador:nextTurn
+    });
   }
 
   //Ficha azul
   moverAbajo(){
-    let turno = this.state.jugador;
     let nextTurn = "rojo";
+
     let fichaSeleccionadaAux = this.state.fichaSeleccionada;
     fichaSeleccionadaAux = !fichaSeleccionadaAux;
 
-    console.log("mover abajo");
-    console.log("turno de: " + turno);
     console.log(fichaSeleccionadaAux)
 
     this.setState({
@@ -82,12 +85,12 @@ class App extends Component {
     let copiaTablero = this.state.tablero.slice();
 
     console.log("clickado: " + e)
-    console.log(this.state.tablero)
+/*     console.log(this.state.tablero) */
 
 /*       copiaTablero[e[0]][e[1]]=0 */
       if(this.state.jugador=="azul" && copiaTablero[e[0]][e[1]]==1){
         this.moverAbajo();
-      } else if(this.state.jugador=="azul" && copiaTablero[e[0]][e[1]]==2) {
+      } else if(this.state.jugador=="rojo" && copiaTablero[e[0]][e[1]]==2) {
         this.moverArriba();
       }
     
