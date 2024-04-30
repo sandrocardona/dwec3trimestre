@@ -20,9 +20,9 @@ function Botonera(props) {
           else
             tableroAuxCol.push(<Button className='btnDama' onClick={() => props.handleClick(clave)} key={clave} color="danger"></Button>)
         else
-          tableroAuxCol.push(<Button className='btnDama btnGris' key={clave} color="secondary" disabled></Button>)
+          tableroAuxCol.push(<Button className='btnDama btnGris' key={clave} color="secondary"></Button>)
       } else {
-        tableroAuxCol.push(<Button className='btnDama btnGris' key={clave} color="secondary" disabled></Button>)
+        tableroAuxCol.push(<Button className='btnDama btnGris' key={clave} color="secondary"></Button>)
       }
     }
     
@@ -51,12 +51,23 @@ class App extends Component {
                 [0,0,0,0,0,0,0,0,0],
               ],
       jugador: 1,
-              
+      fichaSeleccionada: false
     }
   }
 
   click(e){
+    let fichaSeleccionadaAux = this.state.fichaSeleccionada;
+    fichaSeleccionadaAux = !fichaSeleccionadaAux;
     console.log("clickado: " + e)
+    console.log(fichaSeleccionadaAux)
+
+    if(fichaSeleccionadaAux){
+      if(e[0]<3){
+
+      }
+    }
+    
+    this.setState({fichaSeleccionada:fichaSeleccionadaAux})
   }
 
   render(){
