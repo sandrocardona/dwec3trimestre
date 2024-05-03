@@ -1,9 +1,8 @@
 //SIGUIENTE PASO
 /* 
   Arreglar las coordenadas
-    - al pulsar la ficha y confirmar destino, borrarla
     - solo poder pulsar en una ficha
-    - destino al comprobar que la casilla esté libre
+    - Cuando ya existan coordenadas, no poder hacer click en fichas del otro color
   arreglar movimientoArriba y movimientoAbajo
 */
 
@@ -93,24 +92,36 @@ class App extends Component {
     let turno = this.state.jugador;
     let tableroAux = this.state.tablero;
     let indiceAux = e[0] + e[1] + 2;
+    let fichaMovida = this.state.coordenada;
 
     if (this.state.fichaSeleccionada) {
       console.log("Destino : " + e)
       console.log(tableroAux)
+      //Movimiento de ficha azul
       if (turno == "azul") {
         if(e[0] % 2 !== 0 && e[1] % 2 !== 0){
           tableroAux[e[0]][e[1]] = 1;
+          tableroAux[fichaMovida.fila][fichaMovida.columna] = 0;
           turno = "rojo";
         }
         else if(e[0] % 2 === 0 && e[1] % 2 === 0){
           tableroAux[e[0]][e[1]] = 1;
+          tableroAux[fichaMovida.fila][fichaMovida.columna] = 0;
           turno = "rojo";
         }
       }
-
+      //Movimiento de ficha roja
       else if (turno == "rojo") {
-        tableroAux[e[0]][e[1]] = 2;
-        turno = "azul";
+        if(e[0] % 2 !== 0 && e[1] % 2 !== 0){
+          tableroAux[e[0]][e[1]] = 2;
+          tableroAux[fichaMovida.fila][fichaMovida.columna] = 0;
+          turno = "azul";
+        }
+        else if(e[0] % 2 === 0 && e[1] % 2 === 0){
+          tableroAux[e[0]][e[1]] = 2;
+          tableroAux[fichaMovida.fila][fichaMovida.columna] = 0;
+          turno = "azul";
+        }
       }
     }
 
@@ -123,15 +134,17 @@ class App extends Component {
 
   cancelarMovimiento() {
     let fichaSeleccionadaAux = false;
+    let coordenadaAux = [];
     console.log("cancelar")
-    this.setState({ fichaSeleccionada: fichaSeleccionadaAux })
+    this.setState({
+      fichaSeleccionada: fichaSeleccionadaAux,
+      coordenada: coordenadaAux
+    })
   }
 
   click(e) {
     let copiaTablero = this.state.tablero.slice();
     let coordenadaAux = {fila: e[0], columna: e[1]};
-
-    console.log("coordenadas : " + coordenadaAux + " - " + typeof(coordenadaAux))
     console.log("clickado: " + e  + " - " + typeof(e))
     /*     console.log(this.state.tablero) */
 
@@ -183,6 +196,8 @@ class App extends Component {
       [0, 0, 0, 0, 0, 0, 0, 0, 0],
     ];
 
+    let turnoAux = "azul";
+
     for (let i = 0; i < plantilla.length; i++) {
       for (let j = 0; j < plantilla[i].length; j++) {
         let indiceAux = i + j + 2;
@@ -200,7 +215,10 @@ class App extends Component {
       }
     }
 
-    this.setState({ tablero: plantilla })
+    this.setState({
+      tablero: plantilla,
+      jugador: turnoAux
+    })
   }
 
   render() {
