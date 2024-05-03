@@ -41,6 +41,20 @@
   padding: 2rem;
 }
 
+#divTurno{
+  padding: 1rem;
+}
+
+.divButton{
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+}
+
+#txtFichaSeleccionada{
+  padding: 1rem;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
