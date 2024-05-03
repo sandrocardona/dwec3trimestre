@@ -92,13 +92,20 @@ class App extends Component {
     let fichaSeleccionadaAux = false;
     let turno = this.state.jugador;
     let tableroAux = this.state.tablero;
+    let indiceAux = e[0] + e[1] + 2;
 
     if (this.state.fichaSeleccionada) {
       console.log("Destino : " + e)
       console.log(tableroAux)
       if (turno == "azul") {
-        tableroAux[e[0]][e[1]] = 1;
-        turno = "rojo";
+        if(e[0] % 2 !== 0 && e[1] % 2 !== 0){
+          tableroAux[e[0]][e[1]] = 1;
+          turno = "rojo";
+        }
+        else if(e[0] % 2 === 0 && e[1] % 2 === 0){
+          tableroAux[e[0]][e[1]] = 1;
+          turno = "rojo";
+        }
       }
 
       else if (turno == "rojo") {
@@ -109,7 +116,7 @@ class App extends Component {
 
     this.setState({
       fichaSeleccionada: fichaSeleccionadaAux,
-
+      jugador: turno,
       tablero: tableroAux
     })
   }
