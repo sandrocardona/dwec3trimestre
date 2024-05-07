@@ -24,11 +24,9 @@ function Botonera(props) {
       let clave = [[fila], [columna]];
 
       if (props.tablero[fila][columna] == 1)
-        tableroAuxCol.push(<Button className='btnDama' onClick={() => props.handleClick(clave)} key={clave} color="primary">{props.tablero[fila][columna]}</Button>)
-      else if(props.tablero[fila][columna] == 3)
-        tableroAuxCol.push(<Button className='btnDama' onClick={() => props.handleClick(clave)} key={clave} color="primary" outline>{props.tablero[fila][columna]}</Button>)
+        tableroAuxCol.push(<Button className='btnDama btnDamaclick' onClick={() => props.handleClick(clave)} key={clave} color="primary">{props.tablero[fila][columna]}</Button>)
       else if (props.tablero[fila][columna] == 2)
-        tableroAuxCol.push(<Button className='btnDama' onClick={() => props.handleClick(clave)} key={clave} color="danger">{props.tablero[fila][columna]}</Button>)
+        tableroAuxCol.push(<Button className='btnDama btnDamaclick' onClick={() => props.handleClick(clave)} key={clave} color="danger">{props.tablero[fila][columna]}</Button>)
       else
         tableroAuxCol.push(<Button className='btnDama btnGris' onClick={() => props.movimiento(clave)} key={clave} color="secondary">0</Button>)
     }
@@ -100,6 +98,7 @@ class App extends Component {
     if (this.state.fichaSeleccionada) {
       console.log("Destino : " + e)
       console.log(tableroAux)
+      
       //Movimiento de ficha azul
       if (turno == "azul") {
         if(e[0] % 2 !== 0 && e[1] % 2 !== 0){
@@ -150,18 +149,22 @@ class App extends Component {
   click(e) {
     let copiaTablero = this.state.tablero.slice();
     let coordenadaAux = this.state.coordenada;
-
-/*     if(this.state.jugador == "azul"){
-      copiaTablero[e[0][e[1]]] = 3
-    } else if(this.state.jugador == "rojo"){
-      copiaTablero[e[0][e[1]]] = 4
-    } */
+    let jugadorAux = this.state.jugador;
 
     console.log("Boton clicado: " + copiaTablero[e[0][e[1]]]);
 
     //Si las coordenadas están vacías, entonces añadimos las coordenadas del botón clicado
     if(coordenadaAux.length < 1)
       coordenadaAux = {fila: e[0], columna: e[1]};
+
+    //Si las coordenadas están llenas y el turno corresponde a azul, actualizamos coordenadas
+    if(jugadorAux = "azul" && copiaTablero[e[0]][e[1]] == 1)
+      coordenadaAux = {fila: e[0], columna: e[1]};
+
+    //Si las coordenadas están llenas y el turno corresponde a rojo, actualizamos coordenadas
+    if(jugadorAux = "rojo" && copiaTablero[e[0]][e[1]] == 2)
+      coordenadaAux = {fila: e[0], columna: e[1]};
+
     console.log("Posicion ficha: " + e[0] + " " + e[1]);
     /*       copiaTablero[e[0]][e[1]]=0 */
     if (this.state.jugador == "azul" && copiaTablero[e[0]][e[1]] == 1) {
