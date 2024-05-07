@@ -87,38 +87,24 @@ class App extends Component {
     let fichaMovida = this.state.coordenada;
 
     if (this.state.fichaSeleccionada) {
-      console.log("Destino e[0] : " + e[0]);
-      console.log("FIcha movida fila: " + fichaMovida.fila)
-/*       console.log(tableroAux) */
+      console.log("Destino : " + e)
+      console.log(tableroAux)
 
       //Movimiento de ficha azul
       if (turno == "azul") {
-        if(
-          (parseInt(e[0]) - 1) == (fichaMovida.fila) && (parseInt(e[1]) + 1) == fichaMovida.columna ||
-          (parseInt(e[0]) - 1) == fichaMovida.fila && (parseInt(e[1]) - 1) == fichaMovida.columna
-        ){
-          //casillas impares
-          if(e[0] % 2 !== 0 && e[1] % 2 !== 0){
-            tableroAux[e[0]][e[1]] = 1;
-            tableroAux[fichaMovida.fila][fichaMovida.columna] = 0;
-            turno = "rojo";
-          }
-          //Casillas pares
-          else if(e[0] % 2 === 0 && e[1] % 2 === 0){
-            tableroAux[e[0]][e[1]] = 1;
-            tableroAux[fichaMovida.fila][fichaMovida.columna] = 0;
-            turno = "rojo";
-          }
-        } else {
-          this.cancelarMovimiento();
+        if(e[0] % 2 !== 0 && e[1] % 2 !== 0){
+          tableroAux[e[0]][e[1]] = 1;
+          tableroAux[fichaMovida.fila][fichaMovida.columna] = 0;
+          turno = "rojo";
+        }
+        else if(e[0] % 2 === 0 && e[1] % 2 === 0){
+          tableroAux[e[0]][e[1]] = 1;
+          tableroAux[fichaMovida.fila][fichaMovida.columna] = 0;
+          turno = "rojo";
         }
       }
       //Movimiento de ficha roja
       else if (turno == "rojo") {
-        if(
-          (parseInt(e[0]) + 1) == (fichaMovida.fila) && (parseInt(e[1]) - 1) == fichaMovida.columna ||
-          (parseInt(e[0]) + 1) == fichaMovida.fila && (parseInt(e[1]) + 1) == fichaMovida.columna
-        ){
         if(e[0] % 2 !== 0 && e[1] % 2 !== 0){
           tableroAux[e[0]][e[1]] = 2;
           tableroAux[fichaMovida.fila][fichaMovida.columna] = 0;
@@ -129,8 +115,6 @@ class App extends Component {
           tableroAux[fichaMovida.fila][fichaMovida.columna] = 0;
           turno = "azul";
         }
-      } else {
-        this.cancelarMovimiento();
       }
     }
 
@@ -142,8 +126,6 @@ class App extends Component {
       coordenada: coordenadaAux
     })
   }
-
-}
 
   cancelarMovimiento() {
     let fichaSeleccionadaAux = false;
