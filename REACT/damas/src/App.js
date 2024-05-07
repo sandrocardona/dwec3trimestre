@@ -61,31 +61,22 @@ class App extends Component {
     }
   }
 
-  //Ficha Roja
-  moverArriba() {
-
+  //Activar movimiento
+  ActivarMovimiento(){
     let fichaSeleccionadaAux = this.state.fichaSeleccionada;
     fichaSeleccionadaAux = true;
-
-    console.log("ficha seleccionada: " + fichaSeleccionadaAux)
 
     this.setState({
       fichaSeleccionada: fichaSeleccionadaAux,
     });
   }
 
+  //Ficha Roja
+  moverArriba() {
+  }
+
   //Ficha azul
   moverAbajo() {
-
-    let fichaSeleccionadaAux = this.state.fichaSeleccionada;
-    fichaSeleccionadaAux = true;
-
-    console.log("ficha seleccionada: " + fichaSeleccionadaAux);
-
-
-    this.setState({
-      fichaSeleccionada: fichaSeleccionadaAux,
-    });
   }
 
   movimiento(e) {
@@ -98,7 +89,7 @@ class App extends Component {
     if (this.state.fichaSeleccionada) {
       console.log("Destino : " + e)
       console.log(tableroAux)
-      
+
       //Movimiento de ficha azul
       if (turno == "azul") {
         if(e[0] % 2 !== 0 && e[1] % 2 !== 0){
@@ -157,20 +148,22 @@ class App extends Component {
     if(coordenadaAux.length < 1)
       coordenadaAux = {fila: e[0], columna: e[1]};
 
+    console.log("coordenadaAux: " + coordenadaAux.fila + " - " + coordenadaAux.columna);
+
     //Si las coordenadas están llenas y el turno corresponde a azul, actualizamos coordenadas
-    if(jugadorAux = "azul" && copiaTablero[e[0]][e[1]] == 1)
-      coordenadaAux = {fila: e[0], columna: e[1]};
+    if(jugadorAux = "azul" && copiaTablero[e[0]][e[1]] == 2)
+      this.cancelarMovimiento();
 
     //Si las coordenadas están llenas y el turno corresponde a rojo, actualizamos coordenadas
-    if(jugadorAux = "rojo" && copiaTablero[e[0]][e[1]] == 2)
-      coordenadaAux = {fila: e[0], columna: e[1]};
+    if(jugadorAux = "rojo" && copiaTablero[e[0]][e[1]] == 1)
+      this.cancelarMovimiento();
 
     console.log("Posicion ficha: " + e[0] + " " + e[1]);
     /*       copiaTablero[e[0]][e[1]]=0 */
     if (this.state.jugador == "azul" && copiaTablero[e[0]][e[1]] == 1) {
-      this.moverAbajo();
+      this.ActivarMovimiento();
     } else if (this.state.jugador == "rojo" && copiaTablero[e[0]][e[1]] == 2) {
-      this.moverArriba();
+      this.ActivarMovimiento();
     }
 
     this.setState({
@@ -178,6 +171,8 @@ class App extends Component {
       coordenada: coordenadaAux
     })
   }
+
+  //Montar el tablero al iniciar la aplicación
 
   componentWillMount() {
     //realiza copia del tablero
@@ -215,6 +210,8 @@ class App extends Component {
     ];
 
     let turnoAux = "azul";
+    let coordenadaAux = [];
+    let fichaSeleccionadaAux = false;
 
     for (let i = 0; i < plantilla.length; i++) {
       for (let j = 0; j < plantilla[i].length; j++) {
@@ -235,7 +232,9 @@ class App extends Component {
 
     this.setState({
       tablero: plantilla,
-      jugador: turnoAux
+      jugador: turnoAux,
+      coordenada:coordenadaAux,
+      fichaSeleccionada:fichaSeleccionadaAux
     })
   }
 
