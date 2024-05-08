@@ -97,24 +97,24 @@ class Filter extends Component {
                 <Row>
                   <Col>
                     <Alert color="info">
-                      Incluir X Medicamentos:
+                      Incluir X Medicamentos: (100)
                       <Input type="textarea"
                         name="rxseleccionar" onChange={this.handleChange.bind(this)} value={this.state.rxseleccionar} />
                     
-                      <Button
-                        onClick={() => { this.toggleModal() }} color="info">Add</Button> {" "}<Button color="info"
-                          onClick={""}>Clear</Button>
+                      <Button onClick={() => { this.toggleModal() }} color="info">Add</Button>
+                      {" "}
+                      <Button color="info" onClick={""}>Clear</Button>
                     </Alert>
                   </Col>
                   <Col>
                     <Alert color="danger">
-                      Excluir X Medicamentos:
+                      Excluir X Medicamentos: (111)
                       <Input type="textarea" name="rxenmascarar"
                         onChange={this.handleChange.bind(this)}
                         value={this.state.rxenmascarar} />
-                      <Button
-                        onClick={() => { this.toggleModal() }} color="danger">Add</Button> {" "}<Button color="danger"
-                          onClick={""}>Clear</Button>
+                      <Button onClick={() => { this.toggleModal() }} color="danger">Add</Button>
+                      {" "}
+                      <Button color="danger" onClick={""}>Clear</Button>
                     </Alert>
                   </Col>
                 </Row>
