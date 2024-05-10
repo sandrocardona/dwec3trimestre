@@ -10,36 +10,21 @@ const VentanaModalDiccionario = (props) => {
     className
   } = props;
 
-  const [filtro, setFiltro] = useState('');
-  const [datossel, setDatossel] = useState(undefined);
-
   const handleChange = (event) => {
-    const target = event.target;
-    if (target.name == "filtro") {
-      setFiltro(target.value.toUpperCase())
-    }
-    if (target.name == "selectMulti") {
-      setDatossel(target.value);
-    }
+    // COMPLETA ESTA FUNCION 
   }
 
   const getData = () => {
-    if (props.diccionario == "FARMACOS") {
-      if (filtro != "") {
-        return (FARMACOS.filter(f => f.descATC.search(filtro) >= 0).map(e => <option>{e.codATC}|{e.descATC}</option>))
-      }
-      return (FARMACOS.map(e =>
-        <option>{e.codATC}|{e.descATC}</option>))
-    }
+    
   }
 
   return (
     <div>
-      <Modal isOpen={props.mostrar} toggle={props.toggle} className={className} onEntering={() => { setFiltro(""); getData(); setDatossel(undefined) }}>
-        <ModalHeader
-          toggle={props.toggle}>{props.titulo}</ModalHeader>
-        <ModalBody>
+      <Modal isOpen={props.mostrar} toggle={props.toggle}
+        className={className} onEntering={"//ESTO SE EJECUTA CUANDO MUESTRAS LA VENTANA"}>
+        <ModalHeader toggle={props.toggle}>{props.titulo}</ModalHeader> <ModalBody>
           <FormGroup row>
+          
             <Label sm={2} > Filtrar: </Label>
             <Col sm={10}>
               <Input onChange={handleChange}
@@ -50,22 +35,22 @@ const VentanaModalDiccionario = (props) => {
           </FormGroup>
           <FormGroup row>
             <Col sm={12}>
-              <Input onChange={handleChange}
-                onClick={handleChange}
-                id="selectMulti"
+              <Input onChange={handleChange} onClick={handleChange} id="selectMulti"
                 name="selectMulti"
                 type="select"
               >
-                {getData()}
+                <option>CODIGO1|DESCRIPCION1</option>
+                <option>CODIGO2|DESCRIPCION2</option>
+                <option>CODIGO3|DESCRIPCION3</option>
+                <option>CODIGO4|DESCRIPCION4</option>
+                <option>CODIGO5|DESCRIPCION5</option>
               </Input>
             </Col>
           </FormGroup>
         </ModalBody>
         <ModalFooter>
-          {datossel != undefined ? datossel + " " :
-            ""}<Button color="primary" onClick={() => {
-              props.add(datossel); setFiltro(""); setDatossel("")
-            }}>{props.aceptar}</Button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </ModalFooter>
+          {"AQUÍ VA EL FÁRMACO ELEGIDO"}<Button color="primary"
+            onClick={() => { }}>{props.aceptar}</Button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </ModalFooter>
       </Modal>
     </div>
   );
@@ -76,51 +61,16 @@ class Filter extends Component {
     super(props);
     this.state = {
       isOpen: false,
-      diccionario: "FARMACOS",
-      donde: "",
       rxseleccionar: "",
       rxenmascarar: "",
+      diccionario: "FÁRMACO"
     }
   }
 
   handleChange = (event) => {
-    const target = event.target;
-    if (target.name == "rxseleccionar") {
-      this.setRxseleccionar(target.value)
-    }
-    if (target.name == "rxenmascarar") {
-      this.setRxenmascarar(target.value)
-    }
-  }
-
-  setRxseleccionar(d) {
-    if (d == undefined) return;
-    this.setState({ rxseleccionar: d })
-  }
-
-  setRxenmascarar(d) {
-    if (d == undefined) return;
-    this.setState({ rxenmascarar: d })
-  }
-
-  setDonde(d) {
-    if (d == undefined) return;
-    this.setState({ donde: d })
   }
 
   add(datos) {
-    if (this.state.donde == "RXSELECCIONAR" && datos != undefined && datos.length > 0) {
-      let d = datos.split("|")
-      this.state.rxseleccionar.length == 0 ?
-        this.setRxseleccionar(d[0]) :
-        this.setRxseleccionar(this.state.rxseleccionar + "," + d[0])
-    }
-    if (this.state.donde == "RXENMASCARAR" && datos != undefined && datos.length > 0) {
-      let d = datos.split("|")
-      this.state.rxenmascarar.length == 0 ?
-        this.setRxenmascarar(d[0]) :
-        this.setRxenmascarar(this.state.rxenmascarar + "," + d[0])
-    }
     this.toggleModal();
   }
 
@@ -129,7 +79,10 @@ class Filter extends Component {
     this.setState({ isOpen: d })
   }
 
-  toggleModal() { this.setIsOpen(!this.state.isOpen); }
+  toggleModal(){
+    this.setIsOpen(!this.state.isOpen);
+  }
+
   render() {
     return (
       <>
@@ -148,34 +101,33 @@ class Filter extends Component {
                 <Row>
                   <Col>
                     <Alert color="info">
-                      Incluir X Medicamentos:
+                      Incluir X Medicamentos: (100)
                       <Input type="textarea"
                         name="rxseleccionar" onChange={this.handleChange.bind(this)} value={this.state.rxseleccionar} />
-                      <Button onClick={() => {
-                        this.setDonde("RXSELECCIONAR"); this.toggleModal()
-                      }} color="info">Add</Button>
-                      {" "}<Button color="info"
-                        onClick={() => this.setRxseleccionar("")}>Clear</Button> </Alert>
+                    
+                      <Button onClick={() => { this.toggleModal() }} color="info">Add</Button>
+                      {" "}
+                      <Button color="info" onClick={""}>Clear</Button>
+                    </Alert>
                   </Col>
                   <Col>
                     <Alert color="danger">
-                      Excluir X Medicamentos:
-                      <Input type="textarea"
-                        name="rxenmascarar" onChange={this.handleChange.bind(this)} value={this.state.rxenmascarar} />
-                      <Button onClick={() => {
-                        this.setDonde("RXENMASCARAR"); this.toggleModal()
-                      }}
-                        color="danger">Add</Button>
-                      {" "}<Button color="danger"
-                        onClick={() => this.setRxenmascarar("")}>Clear</Button> </Alert>
+                      Excluir X Medicamentos: (111)
+                      <Input type="textarea" name="rxenmascarar"
+                        onChange={this.handleChange.bind(this)}
+                        value={this.state.rxenmascarar} />
+                      <Button onClick={() => { this.toggleModal() }} color="danger">Add</Button>
+                      {" "}
+                      <Button color="danger" onClick={""}>Clear</Button>
+                    </Alert>
                   </Col>
                 </Row>
               </AccordionBody>
             </AccordionItem>
           </UncontrolledAccordion>
         </div>
-        <VentanaModalDiccionario
-          diccionario={this.state.diccionario} add={(datos) => this.add(datos)} mostrar={this.state.isOpen} aceptar={"Añadir"} toggle={() => this.toggleModal()} titulo={"Add " + this.state.diccionario} /> <br />
+        <VentanaModalDiccionario diccionario={this.state.diccionario} add={(datos) => this.add(datos)} mostrar={this.state.isOpen} aceptar={"Añadir"} toggle={() => this.toggleModal()} titulo={"Add " + this.state.diccionario} />
+        <br />
       </>
     );
   }
