@@ -11,23 +11,33 @@ const VentanaModalDiccionario = (props) => {
   } = props;
 
   const [filtro, setFiltro] = useState('');
-  const [datossel, setDatossel] = useState(undefined);
+  const [seleccion, setSeleccion] = useState(undefined);
 
   const handleChange = (event) => {
+    //cogemos el input
     const target = event.target;
+    //si el input es el filtro
     if (target.name == "filtro") {
+      //asignamos el valor en mayusculas al hook filtro
       setFiltro(target.value.toUpperCase())
     }
+    //si el input es el option con los fármacos
     if (target.name == "selectMulti") {
-      setDatossel(target.value);
+      //asignamos el farmaco seleccionado al hook seleccion
+      setSeleccion(target.value);
     }
   }
 
+  //Traemos data del archivo datos.js
   const getData = () => {
+    //Si la estado diccionario es FARMACOS
     if (props.diccionario == "FARMACOS") {
+      //si el usuario escribe en el filtro
       if (filtro != "") {
+        //realizamos un filter a farmacos y despues buscamos el valor guardado en el hook filtro. Entonces le hacemos un map para devolver un option con cada valor que coincida con lo introducido por el usuario
         return (FARMACOS.filter(f => f.descATC.search(filtro) >= 0).map(e => <option>{e.codATC}|{e.descATC}</option>))
       }
+      //si el usuario no introduce nada, devolvemos un option por cada fármaco
       return (FARMACOS.map(e =>
         <option>{e.codATC}|{e.descATC}</option>))
     }
@@ -35,7 +45,7 @@ const VentanaModalDiccionario = (props) => {
 
   return (
     <div>
-      <Modal isOpen={props.mostrar} toggle={props.toggle} className={className} onEntering={() => { setFiltro(""); getData(); setDatossel(undefined) }}>
+      <Modal isOpen={props.mostrar} toggle={props.toggle} className={className} onEntering={() => { setFiltro(""); getData(); setSeleccion(undefined) }}>
         <ModalHeader
           toggle={props.toggle}>{props.titulo}</ModalHeader>
         <ModalBody>
@@ -62,9 +72,9 @@ const VentanaModalDiccionario = (props) => {
           </FormGroup>
         </ModalBody>
         <ModalFooter>
-          {datossel != undefined ? datossel + " " :
+          {seleccion != undefined ? seleccion + " " :
             ""}<Button color="primary" onClick={() => {
-              props.add(datossel); setFiltro(""); setDatossel("")
+              props.add(seleccion); setFiltro(""); setSeleccion("")
             }}>{props.aceptar}</Button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </ModalFooter>
       </Modal>
     </div>
