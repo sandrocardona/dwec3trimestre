@@ -11,7 +11,7 @@ const VentanaModalDiccionario = (props) => {
   } = props;
 
   const [filtro, setFiltro] = useState('');
-  const [datossel, setDatossel] = useState(undefined);
+  const [seleccion, setSeleccion] = useState(undefined);
 
   const handleChange = (event) => {
     const target = event.target;
@@ -19,7 +19,7 @@ const VentanaModalDiccionario = (props) => {
       setFiltro(target.value.toUpperCase())
     }
     if (target.name == "selectMulti") {
-      setDatossel(target.value);
+      setSeleccion(target.value);
     }
   }
 
@@ -35,7 +35,7 @@ const VentanaModalDiccionario = (props) => {
 
   return (
     <div>
-      <Modal isOpen={props.mostrar} toggle={props.toggle} className={className} onEntering={() => { setFiltro(""); getData(); setDatossel(undefined) }}>
+      <Modal isOpen={props.mostrar} toggle={props.toggle} className={className} onEntering={() => { setFiltro(""); getData(); setSeleccion(undefined) }}>
         <ModalHeader
           toggle={props.toggle}>{props.titulo}</ModalHeader>
         <ModalBody>
@@ -62,9 +62,9 @@ const VentanaModalDiccionario = (props) => {
           </FormGroup>
         </ModalBody>
         <ModalFooter>
-          {datossel != undefined ? datossel + " " :
+          {seleccion != undefined ? seleccion + " " :
             ""}<Button color="primary" onClick={() => {
-              props.add(datossel); setFiltro(""); setDatossel("")
+              props.add(seleccion); setFiltro(""); setSeleccion("")
             }}>{props.aceptar}</Button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </ModalFooter>
       </Modal>
     </div>
