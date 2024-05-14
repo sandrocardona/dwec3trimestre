@@ -94,52 +94,69 @@ class Filter extends Component {
   }
 
   handleChange = (event) => {
+    //capturamos quien ha activado handleChange
     const target = event.target;
+    //si es rxseleccionar
     if (target.name == "rxseleccionar") {
+      //llama a setRxseleccionar con el valor del target
       this.setRxseleccionar(target.value)
     }
+    //si es rxenmascarar
     if (target.name == "rxenmascarar") {
+      //llama a setRxenmascarar con el valor del target
       this.setRxenmascarar(target.value)
     }
   }
 
   setRxseleccionar(d) {
     if (d == undefined) return;
+    //asigna el valor d al estado rxseleccionar
     this.setState({ rxseleccionar: d })
   }
 
   setRxenmascarar(d) {
     if (d == undefined) return;
+    //asigna el valor d al estado rxenmascarar
     this.setState({ rxenmascarar: d })
   }
 
   setDonde(d) {
     if (d == undefined) return;
+    //asigna al estado donde se ha clicado rxseleccionar o rxenmascarar
     this.setState({ donde: d })
   }
 
   add(datos) {
+    //en caso que donde sea rxseleccionar y haya datos distintos de undefined
     if (this.state.donde == "RXSELECCIONAR" && datos != undefined && datos.length > 0) {
       let d = datos.split("|")
+      //si aun no hay datos, añadir d[0]
       this.state.rxseleccionar.length == 0 ?
         this.setRxseleccionar(d[0]) :
+        //si ya hay datos concatenar d[0]
         this.setRxseleccionar(this.state.rxseleccionar + "," + d[0])
     }
+    //en caso que donde sea rxenmascarar y haya datos distintos de undefined
     if (this.state.donde == "RXENMASCARAR" && datos != undefined && datos.length > 0) {
       let d = datos.split("|")
       this.state.rxenmascarar.length == 0 ?
+        //si aun no hay datos, añadir d[0]
         this.setRxenmascarar(d[0]) :
+        //si ya hay datos concatenar d[0]
         this.setRxenmascarar(this.state.rxenmascarar + "," + d[0])
     }
+
     this.toggleModal();
   }
 
   setIsOpen(d) {
+    //booleano. Asigna el opuesto para abrir o cerrar el Modal
     if (d == undefined) return;
     this.setState({ isOpen: d })
   }
 
   toggleModal() { this.setIsOpen(!this.state.isOpen); }
+  
   render() {
     return (
       <>
