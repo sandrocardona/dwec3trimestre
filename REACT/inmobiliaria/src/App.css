@@ -3,6 +3,8 @@
   min-height: 100vh;
   background-color: #282c34;
   color: white;
+  display: flex;
+  flex-flow: column;
 }
 
 .App-logo {
@@ -58,6 +60,16 @@
 .search-engine > form > input{
   width: 350px;
   margin-right: 0.5em;
+}
+
+/* MainBoard */
+
+.MainBoard{
+  width: 100vw;
+  height: 40vh;
+  background-color: white;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 
 @keyframes App-logo-spin {

@@ -3,6 +3,7 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { Component } from 'react';
 import { Button } from 'reactstrap';
+import { PHPDATA } from './components/url';
 
 const UploadPropertie = (props) => {
   return <Button outline>Subir anuncio</Button>
@@ -35,7 +36,6 @@ const SearchEngine = (props) => {
 const MainBoard = (props) => {
   return <>
     <div className='MainBoard'>
-
     </div>
   </>
 }
@@ -44,7 +44,8 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      slogan: "Buscar propiedad"
+      slogan: "Buscar propiedad",
+      data: PHPDATA,
     }
   }
   render(){
@@ -55,7 +56,7 @@ class App extends Component {
           <UploadPropertie />
         </header>
         <SearchEngine slogan={this.state.slogan} />
-        <MainBoard />
+        <MainBoard data={this.state.data}/>
       </div>
     );
   }
