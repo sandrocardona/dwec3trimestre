@@ -32,6 +32,14 @@ const SearchEngine = (props) => {
   </>
 }
 
+const MainBoard = (props) => {
+  return <>
+    <div className='MainBoard'>
+
+    </div>
+  </>
+}
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -47,6 +55,7 @@ class App extends Component {
           <UploadPropertie />
         </header>
         <SearchEngine slogan={this.state.slogan} />
+        <MainBoard />
       </div>
     );
   }
