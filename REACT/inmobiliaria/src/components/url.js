@@ -1,3 +1,7 @@
 //ruta del archivo PHP
 
-export const PHPURL = "http://localhost/Recuperacion/ReactServer/inmobiliaria/";
+//clase
+/* export const PHPURL = "http://localhost/Recuperacion/ReactServer/inmobiliaria/"; */
+
+//casa
+export const PHPURL = "http://localhost/Reactserver/ReactServer/inmobiliaria/";

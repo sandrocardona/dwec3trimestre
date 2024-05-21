@@ -1,26 +1,45 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import { Button } from 'reactstrap';
 
+
 const SearchEngine = (props) => {
-    const {slogan, data} = props;
+  let data = props.data.propiedades;
+  const [inputValue, setInputValue] = useState('');
+
+  const handleInputChange = (event) => {
+    setInputValue(event.target.value);
+  };
+
+  const handleClick = (event) => {
+    event.preventDefault(); // Prevenir comportamiento por defecto del formulario
+    props.clicar(inputValue); // Llama a la función clicar pasando el valor del input
+  };
+
     return <>
       <div className='search-engine'>
         <h2>{props.slogan}</h2>
         <form>
-          {/* Aquí irá bucle para traer tipo_venta */}
+          {/* === tipo_venta === */}
           <select>
-{/*             {data.map(dato => (
-              <option key={dato.id} value={dato.tipo_venta}>{dato.tipo_venta}</option>
-            ))} */}
+            <option key={"Comprar1"} value={1}>Comprar</option>
+            <option key={"Alquilar2"} value={2}>Alquilar</option>
+            <option key={"Compartir3"} value={3}>Compartir</option>
           </select>
-          {/* Aquí irá bucle para traer tipo_propiedad */}
+          {/* === tipo_propiedad === */}
           <select>
-{/*             {data.map(dato => (
-              <option key={dato.id} value={dato.tipo_propiedad}>{dato.tipo_propiedad}</option>
-            ))} */}
+            <option key={"Piso1"} value={1}>Piso</option>
+            <option key={"Casa2"} value={2}>Casa</option>
+            <option key={"Chalet3"} value={3}>Chalet</option>
+            <option key={"Atico4"} value={4}>Ático</option>
+            <option key={"Otros0"} value={0}>Otros</option>
           </select>
-          <input type='text' placeholder='Buscar localidad'></input>
-          <Button>Buscar</Button>
+          <input
+            onChange={handleInputChange}
+            value={inputValue}
+            type='text'
+            placeholder='Buscar localidad'
+          />
+          <Button onClick={handleClick}>Buscar</Button>
         </form>
       </div>
     </>

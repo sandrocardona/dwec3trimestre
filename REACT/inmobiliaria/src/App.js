@@ -19,15 +19,21 @@ class App extends Component {
     this.state = {
       slogan: "Buscar propiedad",
       propiedades: [],
+      data: [],
+      localidad:"",
     };
   }
+
   componentDidMount(){
     const fetchData = async () => {
       try {
         const response = await axios.get(
           PHPURL
         );
-        this.setState({propiedades:response.data});
+        this.setState({
+          propiedades:response.data,
+          data: response.data,
+        });
         console.log(response.data);
       } catch (error) {
         console.error("Error al obtener datos:", error);
@@ -37,15 +43,34 @@ class App extends Component {
     fetchData();
   }
 
-  filtrar(localidad){
-    let p = this.state.propiedades;
-    let flag = false
-    if (localidad != undefined && localidad!=""){
+  handleSearch = (inputValue) => {
+    this.filtrar(inputValue);
+  }
 
+  filtrar = (localidad) => {
+    let p = this.state.propiedades;
+    let flag = false;
+
+    if (localidad && localidad.trim() !== "") {
+      const propiedadesFiltradas = p.propiedades.filter(propiedad => propiedad.localidad.toLowerCase().includes(localidad.toLowerCase()));
+      
+      console.log("Propiedades filtradas:");
+      propiedadesFiltradas.forEach((propiedad, index) => {
+        console.log(`Propiedad ${index + 1}:`, propiedad);
+      });
+
+      if (propiedadesFiltradas.length > 0) {
+        flag = true;
+        this.setState({ propiedades: propiedadesFiltradas });
+      }
     }
-    if (flag){
-      this.setState({propiedades:p})
+
+    if (!flag) {
+      this.setState({ propiedades: p });
     }
+
+    this.setState({ localidad: localidad });
+    console.log("localidad: " + localidad);
   }
 
   render(){
@@ -55,7 +80,12 @@ class App extends Component {
           <h1>Inmobiliaria<img src={logo} className="App-logo" alt="logo" /></h1>
           <UploadPropertie />
         </header>
-        <SearchEngine slogan={this.state.slogan} data={this.state.data} />
+        <SearchEngine
+         slogan={this.state.slogan}
+         data={this.state.data}
+         propiedades={this.state.propiedades}
+         clicar = {this.handleSearch}
+         />
         <MainBoard propiedades={this.state.propiedades}/>
       </div>
     );

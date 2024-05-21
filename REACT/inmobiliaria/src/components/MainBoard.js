@@ -4,13 +4,13 @@ import { Button } from 'reactstrap';
 
 const MainBoard = (props) => {
 
-  
     return <>
       <div className='MainBoard'>
         {
         props.propiedades != "" ?
         props.propiedades.propiedades.map(dato => (
           <Card
+            key={dato.id_propiedad}
             style={{
               width: '18rem',
               margin: '0.5rem',
