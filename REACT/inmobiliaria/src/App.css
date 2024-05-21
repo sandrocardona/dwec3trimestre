@@ -66,10 +66,12 @@
 
 .MainBoard{
   width: 100vw;
-  height: 40vh;
   background-color: white;
   margin-top: 1rem;
   margin-bottom: 1rem;
+
+  display: flex;
+  flex-flow: row wrap;
 }
 
 @keyframes App-logo-spin {
