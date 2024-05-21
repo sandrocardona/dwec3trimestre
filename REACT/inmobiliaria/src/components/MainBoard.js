@@ -4,14 +4,12 @@ import { Button } from 'reactstrap';
 
 const MainBoard = (props) => {
 
-    let propiedades = Data();
-    console.log(propiedades);
   
     return <>
       <div className='MainBoard'>
         {
-        propiedades != "" ?
-        propiedades.propiedades.map(dato => (
+        props.propiedades != "" ?
+        props.propiedades.propiedades.map(dato => (
           <Card
             style={{
               width: '18rem',
