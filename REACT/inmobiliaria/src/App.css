@@ -62,6 +62,10 @@
   margin-right: 0.5em;
 }
 
+.search-engine > form > button{
+  margin-right: 0.5em;
+}
+
 /* MainBoard */
 
 .MainBoard{

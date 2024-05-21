@@ -5,6 +5,8 @@ import { Button } from 'reactstrap';
 const SearchEngine = (props) => {
   let data = props.data.propiedades;
   const [inputValue, setInputValue] = useState('');
+  const [tipoVenta, setTipoVenta] = useState('');
+  const [tipoPropiedad, setTipoPropiedad] = useState('');
 
   const handleInputChange = (event) => {
     setInputValue(event.target.value);
@@ -12,7 +14,19 @@ const SearchEngine = (props) => {
 
   const handleClick = (event) => {
     event.preventDefault(); // Prevenir comportamiento por defecto del formulario
-    props.clicar(inputValue); // Llama a la función clicar pasando el valor del input
+    props.clicar(inputValue, tipoVenta, tipoPropiedad); // Llama a la función clicar pasando el valor del input
+  };
+
+  const handleTipoVentaChange = (event) => {
+    setTipoVenta(event.target.value);
+  };
+
+  const handleTipoPropiedadChange = (event) => {
+    setTipoPropiedad(event.target.value);
+  };
+
+  const reiniciarApp = () => {
+    window.location.reload(); // Esto recarga la página
   };
 
     return <>
@@ -20,13 +34,13 @@ const SearchEngine = (props) => {
         <h2>{props.slogan}</h2>
         <form>
           {/* === tipo_venta === */}
-          <select>
+          <select value={tipoVenta} onChange={handleTipoVentaChange}>
             <option key={"Comprar1"} value={1}>Comprar</option>
             <option key={"Alquilar2"} value={2}>Alquilar</option>
             <option key={"Compartir3"} value={3}>Compartir</option>
           </select>
           {/* === tipo_propiedad === */}
-          <select>
+          <select value={tipoPropiedad} onChange={handleTipoPropiedadChange}>
             <option key={"Piso1"} value={1}>Piso</option>
             <option key={"Casa2"} value={2}>Casa</option>
             <option key={"Chalet3"} value={3}>Chalet</option>
@@ -40,6 +54,8 @@ const SearchEngine = (props) => {
             placeholder='Buscar localidad'
           />
           <Button onClick={handleClick}>Buscar</Button>
+          {" "}
+          <Button color="primary" outline onClick={() => reiniciarApp()}>Limpiar filtro</Button>
         </form>
       </div>
     </>
