@@ -1,0 +1,1 @@
+//aquí estaran los atajos a propiedades
