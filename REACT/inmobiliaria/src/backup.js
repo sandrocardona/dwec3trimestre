@@ -50,6 +50,13 @@ class App extends Component {
     let p = this.state.propiedades;
     let flag = false;
 
+    //Si tipoVenta == todos && tipoPropiedad == todos
+
+    //Si tipoVenta == todos && tipoPropiedad = x
+
+    //Si tipoVenta == x && tipoPropiedad = todos
+
+    //Si tipoVenta == x && tipoPropiedad = x
     if (localidad && localidad.trim() !== "") {
       const propiedadesFiltradas = p.propiedades.filter(propiedad => propiedad.localidad.toLowerCase().includes(localidad.toLowerCase()));
       let propiedades = {
@@ -88,6 +95,12 @@ class App extends Component {
          propiedades={this.state.propiedades}
          clicar = {this.handleSearch}
          />
+
+         {/* 
+          aquí dependiendo si se ha clicado buscar o no:
+          si no: atajos.js
+          si sí: filtros.js
+         */}
         <MainBoard propiedades={this.state.propiedades}/>
       </div>
     );

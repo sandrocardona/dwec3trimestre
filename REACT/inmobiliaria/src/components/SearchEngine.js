@@ -5,16 +5,16 @@ import { Button } from 'reactstrap';
 const SearchEngine = (props) => {
   let data = props.data.propiedades;
   const [inputValue, setInputValue] = useState('');
-  const [tipoVenta, setTipoVenta] = useState('');
-  const [tipoPropiedad, setTipoPropiedad] = useState('');
-
-  const handleInputChange = (event) => {
-    setInputValue(event.target.value);
-  };
+  const [tipoVenta, setTipoVenta] = useState(1);
+  const [tipoPropiedad, setTipoPropiedad] = useState(1);
 
   const handleClick = (event) => {
     event.preventDefault(); // Prevenir comportamiento por defecto del formulario
     props.clicar(inputValue, tipoVenta, tipoPropiedad); // Llama a la función clicar pasando los valores
+  };
+
+  const handleInputChange = (event) => {
+    setInputValue(event.target.value);
   };
 
   const handleTipoVentaChange = (event) => {
@@ -38,7 +38,7 @@ const SearchEngine = (props) => {
             <option key={"Comprar1"} value={1}>Comprar</option>
             <option key={"Alquilar2"} value={2}>Alquilar</option>
             <option key={"Compartir3"} value={3}>Compartir</option>
-            <option key={"Compartir3"} value={8}>Todos</option>
+            <option key={"TodosVenta"} value={8}>Todos</option>
           </select>
           {/* === tipo_propiedad === */}
           <select value={tipoPropiedad} onChange={handleTipoPropiedadChange}>
@@ -47,7 +47,7 @@ const SearchEngine = (props) => {
             <option key={"Chalet3"} value={3}>Chalet</option>
             <option key={"Atico4"} value={4}>Ático</option>
             <option key={"Otros0"} value={0}>Otros</option>
-            <option key={"Compartir3"} value={8}>Todos</option>
+            <option key={"TodosPropiedad"} value={8}>Todos</option>
           </select>
           <input
             onChange={handleInputChange}

@@ -34,6 +34,7 @@ const MainBoard = (props) => {
                 className="mb-2 text-muted"
                 tag="h6"
               >
+              {dato.id_venta === 1 ? "En venta " : dato.id_venta === 2 ? "Se alquila " : "Compartir "}
               {dato.metros + "m2 - " + dato.precio + "€"}
               </CardSubtitle>
               <CardText

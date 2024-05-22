@@ -20,7 +20,6 @@ class App extends Component {
       slogan: "Buscar propiedad",
       propiedades: [],
       data: [],
-      localidad:"",
     };
   }
 
@@ -50,28 +49,34 @@ class App extends Component {
     let p = this.state.propiedades;
     let flag = false;
 
-    //Si tipoVenta == todos && tipoPropiedad == todos
-
-    //Si tipoVenta == todos && tipoPropiedad = x
-
-    //Si tipoVenta == x && tipoPropiedad = todos
-
-    //Si tipoVenta == x && tipoPropiedad = x
+    // En caso de que exsista localidad
     if (localidad && localidad.trim() !== "") {
       const propiedadesFiltradas = p.propiedades.filter(propiedad => propiedad.localidad.toLowerCase().includes(localidad.toLowerCase()));
+
+      //nuevo objeto propiedades
       let propiedades = {
-      propiedades:  propiedadesFiltradas
-    };
-      console.log(propiedadesFiltradas);
-      console.log("Propiedades filtradas:");
-/*       propiedadesFiltradas.forEach((propiedad, index) => {
-        console.log(`Propiedad ${index + 1}:`, propiedad);
-      }); */
+        propiedades:  propiedadesFiltradas
+      };
+
+      //tipoVenta == 8 y tipoPropiedad == 8;
+      console.log("Tipo veta; " + tipoVenta);
+      console.log("Tipo propidead: " + tipoPropiedad);
+
+      //tipoVenta == otro valor y tipoPropiedad == otro valor
+
+      //tipoVenta == 8 y tipoPropiedad == otro valor
+
+      //tipoVenta == otro valor y tipoPropiedad == 8.
 
       if (propiedadesFiltradas.length > 0) {
         flag = true;
         this.setState({ propiedades: propiedades });
       }
+    
+    }
+    //En caso de que no exista localidad 
+    else if(!localidad){
+      
     }
 
     if (!flag) {
@@ -79,7 +84,6 @@ class App extends Component {
     }
 
     this.setState({ localidad: localidad });
-    console.log("localidad: " + localidad);
   }
 
   render(){
