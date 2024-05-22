@@ -49,41 +49,117 @@ class App extends Component {
     let p = this.state.propiedades;
     let flag = false;
 
-    // En caso de que exsista localidad
-    if (localidad && localidad.trim() !== "") {
-      const propiedadesFiltradas = p.propiedades.filter(propiedad => propiedad.localidad.toLowerCase().includes(localidad.toLowerCase()));
+    //tipoVenta != 8 y tipoPropiedad == 8;
+    if(tipoVenta != 8 && tipoPropiedad == 8){
+      if(localidad && localidad.trim() !== ""){
+        let propAux = this.state.propiedades;
 
-      //nuevo objeto propiedades
-      let propiedades = {
-        propiedades:  propiedadesFiltradas
-      };
+        let propiedadesVenta = propAux.propiedades.filter(propiedad => propiedad.localidad.toLowerCase().includes(localidad.toLowerCase()));
 
-      //tipoVenta == 8 y tipoPropiedad == 8;
-      console.log("Tipo veta; " + tipoVenta);
-      console.log("Tipo propidead: " + tipoPropiedad);
+        let propdef = propiedadesVenta.filter(pr => pr.id_venta == tipoVenta);
 
-      //tipoVenta == otro valor y tipoPropiedad == otro valor
+        let propiedades = {
+          propiedades:  propdef
+        };
 
-      //tipoVenta == 8 y tipoPropiedad == otro valor
-
-      //tipoVenta == otro valor y tipoPropiedad == 8.
-
-      if (propiedadesFiltradas.length > 0) {
         flag = true;
-        this.setState({ propiedades: propiedades });
+        this.setState({propiedades: propiedades});
+
+      } else if(localidad == ""){
+        let propAux = this.state.propiedades;
+
+        let propdef = propAux.propiedades.filter(pr => pr.id_venta == tipoVenta);
+
+        let propiedades = {
+          propiedades:  propdef
+        };
+
+        flag = true;
+        this.setState({propiedades: propiedades});
       }
-    
-    }
-    //En caso de que no exista localidad 
-    else if(!localidad){
-      
     }
 
+    //tipoVenta == 8 y tipoPropiedad != 8;
+    if(tipoVenta == 8 && tipoPropiedad != 8){
+      if(localidad && localidad.trim() !== ""){
+        let propAux = this.state.propiedades;
+
+        let propiedadesVenta = propAux.propiedades.filter(propiedad => propiedad.localidad.toLowerCase().includes(localidad.toLowerCase()));
+
+        let propdef = propiedadesVenta.filter(pr => pr.id_viviendas == tipoPropiedad);
+
+        let propiedades = {
+          propiedades:  propdef
+        };
+
+        flag = true;
+        this.setState({propiedades: propiedades});
+
+      } else if(localidad == ""){
+        let propAux = this.state.propiedades;
+
+        let propdef = propAux.propiedades.filter(pr => pr.id_viviendas == tipoPropiedad);
+
+        let propiedades = {
+          propiedades:  propdef
+        };
+
+        flag = true;
+        this.setState({propiedades: propiedades});
+      }
+    }
+
+    //tipoVenta != 8 y tipoPropiedad != 8;
+    if(tipoVenta != 8 && tipoPropiedad != 8){
+      if(localidad && localidad.trim() !== ""){
+        let propAux = this.state.propiedades;
+
+        let propiedadesVenta = propAux.propiedades.filter(propiedad => propiedad.localidad.toLowerCase().includes(localidad.toLowerCase()));
+
+        let propdef = propiedadesVenta.filter(pr => pr.id_viviendas == tipoPropiedad && pr.id_venta == tipoVenta);
+
+        let propiedades = {
+          propiedades:  propdef
+        };
+
+        flag = true;
+        this.setState({propiedades: propiedades});
+
+      } else if(localidad == ""){
+        let propAux = this.state.propiedades;
+
+        let propdef = propAux.propiedades.filter(pr => pr.id_viviendas == tipoPropiedad && pr.id_venta == tipoVenta);
+
+        let propiedades = {
+          propiedades:  propdef
+        };
+
+        flag = true;
+        this.setState({propiedades: propiedades});
+      }
+    }
+
+    //tipoVenta == 8 y tipoPropiedad == 8;
+    if(localidad && localidad.trim() !== "" && tipoVenta == 8 && tipoPropiedad == 8){
+        let propAux = this.state.propiedades;
+
+        let propdef = propAux.propiedades.filter(propiedad => propiedad.localidad.toLowerCase().includes(localidad.toLowerCase()));
+
+        let propiedades = {
+          propiedades:  propdef
+        };
+
+        flag = true;
+        this.setState({propiedades: propiedades});
+
+      }
+
+    /* si no hay flag reseteamos las propiedades */
     if (!flag) {
       this.setState({ propiedades: p });
     }
 
-    this.setState({ localidad: localidad });
+/*     this.setState({ localidad: localidad }); */
   }
 
   render(){
