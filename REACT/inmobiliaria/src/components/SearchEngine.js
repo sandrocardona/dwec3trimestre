@@ -3,7 +3,6 @@ import { Button } from 'reactstrap';
 
 
 const SearchEngine = (props) => {
-  let data = props.data.propiedades;
   const [inputValue, setInputValue] = useState('');
   const [tipoVenta, setTipoVenta] = useState(1);
   const [tipoPropiedad, setTipoPropiedad] = useState(1);

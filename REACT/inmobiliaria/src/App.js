@@ -165,6 +165,11 @@ class App extends Component {
   }
 
   /* filtro de atajos */
+  filtro = (valor) => {
+    let data = this.state.data.propiedades; /* lista completa de propiedades */
+
+    console.log("value button" + valor);
+  }
 
   render(){
     return (
@@ -185,7 +190,10 @@ class App extends Component {
           si no: atajos.js
           si sí: filtros.js
          */}
-         <Atajo data={this.state.data}/>
+         <Atajo
+          data={this.state.data} 
+          filtro = {this.filtro}
+          />
         <MainBoard propiedades={this.state.propiedades}/>
       </div>
     );

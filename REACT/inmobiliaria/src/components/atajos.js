@@ -1,26 +1,43 @@
 //aquí estaran los atajos a propiedades
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import { Button } from 'reactstrap';
 
 
 const Atajo = (props) => {
-    let data = props.data.propiedades; /* lista completa de propiedades */
+    const [tipoFiltro, setTipoFiltro] = useState('');
 
-    const handleClick = (event) =>{
-        
+    const clicado = (filtro) =>{
+        props.filtro(filtro);
+    }
+
+    const handleClick = (event) => {
+        event.preventDefault();
+        let valor = event.target.value;
+        let nuevoFiltro;
+        console.log("handleClick" + valor);
+        if(valor == 5){
+            nuevoFiltro = ["privada", "comunitaria"];
+        }else if(valor == 6){
+            nuevoFiltro = "segunda mano";
+        }else {
+            nuevoFiltro = valor;
+        }
+
+        setTipoFiltro(nuevoFiltro);
+        clicado(nuevoFiltro);
     }
 
     return  <>
                 <div className="divAtajo">
                     <form>
-                        <Button onClick={handleClick} color='primary' outline>Viviendas</Button> {/* id_tipo == 1 para viviendas */}
-                        <Button onClick={handleClick} color='primary' outline>Garajes</Button> {/* id_tipo == 2 garaje */}
-                        <Button onClick={handleClick} color='primary' outline>Trasteros</Button> {/* id_tipo == 3 trastero  */}
-                        <Button onClick={handleClick} color='primary' outline>Terrenos</Button> {/* id_tipo == 4 terrenos */}
-                        <Button onClick={handleClick} color='primary' outline>Con piscina</Button> {/* .piscina == comunitaria || privada */}
-                        <Button onClick={handleClick} color='primary' outline>Segunda Mano</Button> {/* .estado == segunda mano */}
+                        <Button onClick={handleClick} color='primary' outline value={1}>Viviendas</Button> {/* id_tipo == 1 para viviendas */}
+                        <Button onClick={handleClick} color='primary' outline value={2}>Garajes</Button> {/* id_tipo == 2 garaje */}
+                        <Button onClick={handleClick} color='primary' outline value={3}>Trasteros</Button> {/* id_tipo == 3 trastero  */}
+                        <Button onClick={handleClick} color='primary' outline value={4}>Terrenos</Button> {/* id_tipo == 4 terrenos */}
+                        <Button onClick={handleClick} color='primary' outline value={5}>Con piscina</Button> {/* .piscina == comunitaria || privada */}
+                        <Button onClick={handleClick} color='primary' outline value={6}>Segunda Mano</Button> {/* .estado == segunda mano */}
                     </form>
                 </div>
             </>
