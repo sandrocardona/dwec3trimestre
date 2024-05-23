@@ -7,10 +7,11 @@ import SearchEngine from './components/SearchEngine';
 import MainBoard from './components/MainBoard';
 import axios from 'axios';
 import { PHPURL } from './components/url';
+import Atajo from './components/atajos';
 
 
 const UploadPropertie = (props) => {
-  return <Button outline>Subir anuncio</Button>
+  return <Button outline color='success'>Subir anuncio</Button>
 }
 
 class App extends Component {
@@ -45,6 +46,7 @@ class App extends Component {
     this.filtrar(inputValue, tipoVenta, tipoPropiedad);
   }
 
+  /* filtro del SearchEngine */
   filtrar = (localidad, tipoVenta, tipoPropiedad) => {
     let p = this.state.propiedades;
     let flag = false;
@@ -162,6 +164,8 @@ class App extends Component {
 /*     this.setState({ localidad: localidad }); */
   }
 
+  /* filtro de atajos */
+
   render(){
     return (
       <div className="App">
@@ -181,6 +185,7 @@ class App extends Component {
           si no: atajos.js
           si sí: filtros.js
          */}
+         <Atajo data={this.state.data}/>
         <MainBoard propiedades={this.state.propiedades}/>
       </div>
     );
