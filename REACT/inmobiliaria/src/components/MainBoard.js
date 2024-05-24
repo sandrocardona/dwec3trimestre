@@ -51,7 +51,7 @@ const MainBoard = (props) => {
                 : ""
                 }
               </CardText>
-              <Button outline>
+              <Button onClick={props.openVer} outline>
                 Ver Propiedad
               </Button>
             </CardBody>

@@ -8,6 +8,7 @@ import MainBoard from './components/MainBoard';
 import axios from 'axios';
 import { PHPURL } from './components/url';
 import Atajo from './components/atajos';
+import ModalPropiedad from './components/VerPropiedad';
 
 
 const UploadPropertie = (props) => {
@@ -19,10 +20,18 @@ class App extends Component {
     super(props);
     this.state = {
       slogan: "Buscar propiedad",
-      propiedades: [],
-      data: [],
+      propiedades: [],  //lista para filtrar
+      data: [], //lista con todas las propiedades
+
+      modalPropiedad: false
     };
   }
+
+
+  openVer = () => {
+    let modal = !this.state.modalPropiedad;
+    this.setState({modalPropiedad: modal})
+  };
 
   componentDidMount(){
     const fetchData = async () => {
@@ -247,7 +256,14 @@ class App extends Component {
           data={this.state.data} 
           filtro = {this.filtro}
           />
-        <MainBoard propiedades={this.state.propiedades}/>
+        <MainBoard
+          propiedades={this.state.propiedades}
+          openVer = {this.openVer}
+        />
+        <ModalPropiedad 
+          isOpen={this.state.modalPropiedad}
+          openVer = {this.openVer}
+        />
       </div>
     );
   }
