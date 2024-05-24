@@ -212,6 +212,15 @@ class App extends Component {
       this.setState({propiedades: propiedades})
     }
 
+    // Terrenos
+    if(valor == 6){
+      let propdef = data.propiedades.filter(pr => pr.estado == "Segunda mano");
+      let propiedades = {
+        propiedades:  propdef
+      };
+      this.setState({propiedades: propiedades})
+    }
+
     console.log("value button: " + valor);
   }
 
