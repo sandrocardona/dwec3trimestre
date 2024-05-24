@@ -35,6 +35,7 @@ const MainBoard = (props) => {
                 tag="h6"
               >
               {dato.id_venta === 1 ? "En venta " : dato.id_venta === 2 ? "Se alquila " : "Compartir "}
+              <br />
               {dato.metros + "m2 - " + dato.precio + "€"}
               </CardSubtitle>
               <CardText
@@ -43,6 +44,12 @@ const MainBoard = (props) => {
                 }}
               >
                 {dato.informacion}
+                <br />
+                {
+                dato.piscina != "no" ?
+                "Piscina: " + dato.piscina
+                : ""
+                }
               </CardText>
               <Button outline>
                 Ver Propiedad

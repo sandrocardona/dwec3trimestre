@@ -15,15 +15,7 @@ const Atajo = (props) => {
     const handleClick = (event) => {
         event.preventDefault();
         let valor = event.target.value;
-        let nuevoFiltro;
-        console.log("handleClick" + valor);
-        if(valor == 5){
-            nuevoFiltro = ["privada", "comunitaria"];
-        }else if(valor == 6){
-            nuevoFiltro = "segunda mano";
-        }else {
-            nuevoFiltro = valor;
-        }
+        let nuevoFiltro = valor;
 
         setTipoFiltro(nuevoFiltro);
         clicado(nuevoFiltro);

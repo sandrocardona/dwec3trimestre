@@ -7,10 +7,11 @@ import SearchEngine from './components/SearchEngine';
 import MainBoard from './components/MainBoard';
 import axios from 'axios';
 import { PHPURL } from './components/url';
+import Atajo from './components/atajos';
 
 
 const UploadPropertie = (props) => {
-  return <Button outline>Subir anuncio</Button>
+  return <Button outline color='success'>Subir anuncio</Button>
 }
 
 class App extends Component {
@@ -20,7 +21,6 @@ class App extends Component {
       slogan: "Buscar propiedad",
       propiedades: [],
       data: [],
-      localidad:"",
     };
   }
 
@@ -46,40 +46,129 @@ class App extends Component {
     this.filtrar(inputValue, tipoVenta, tipoPropiedad);
   }
 
+  /* filtro del SearchEngine */
   filtrar = (localidad, tipoVenta, tipoPropiedad) => {
     let p = this.state.propiedades;
     let flag = false;
 
-    //Si tipoVenta == todos && tipoPropiedad == todos
+    //tipoVenta != 8 y tipoPropiedad == 8;
+    if(tipoVenta != 8 && tipoPropiedad == 8){
+      if(localidad && localidad.trim() !== ""){
+        let propAux = this.state.propiedades;
 
-    //Si tipoVenta == todos && tipoPropiedad = x
+        let propiedadesVenta = propAux.propiedades.filter(propiedad => propiedad.localidad.toLowerCase().includes(localidad.toLowerCase()));
 
-    //Si tipoVenta == x && tipoPropiedad = todos
+        let propdef = propiedadesVenta.filter(pr => pr.id_venta == tipoVenta);
 
-    //Si tipoVenta == x && tipoPropiedad = x
-    if (localidad && localidad.trim() !== "") {
-      const propiedadesFiltradas = p.propiedades.filter(propiedad => propiedad.localidad.toLowerCase().includes(localidad.toLowerCase()));
-      let propiedades = {
-      propiedades:  propiedadesFiltradas
-    };
-      console.log(propiedadesFiltradas);
-      console.log("Propiedades filtradas:");
-/*       propiedadesFiltradas.forEach((propiedad, index) => {
-        console.log(`Propiedad ${index + 1}:`, propiedad);
-      }); */
+        let propiedades = {
+          propiedades:  propdef
+        };
 
-      if (propiedadesFiltradas.length > 0) {
         flag = true;
-        this.setState({ propiedades: propiedades });
+        this.setState({propiedades: propiedades});
+
+      } else if(localidad == ""){
+        let propAux = this.state.propiedades;
+
+        let propdef = propAux.propiedades.filter(pr => pr.id_venta == tipoVenta);
+
+        let propiedades = {
+          propiedades:  propdef
+        };
+
+        flag = true;
+        this.setState({propiedades: propiedades});
       }
     }
 
+    //tipoVenta == 8 y tipoPropiedad != 8;
+    if(tipoVenta == 8 && tipoPropiedad != 8){
+      if(localidad && localidad.trim() !== ""){
+        let propAux = this.state.propiedades;
+
+        let propiedadesVenta = propAux.propiedades.filter(propiedad => propiedad.localidad.toLowerCase().includes(localidad.toLowerCase()));
+
+        let propdef = propiedadesVenta.filter(pr => pr.id_viviendas == tipoPropiedad);
+
+        let propiedades = {
+          propiedades:  propdef
+        };
+
+        flag = true;
+        this.setState({propiedades: propiedades});
+
+      } else if(localidad == ""){
+        let propAux = this.state.propiedades;
+
+        let propdef = propAux.propiedades.filter(pr => pr.id_viviendas == tipoPropiedad);
+
+        let propiedades = {
+          propiedades:  propdef
+        };
+
+        flag = true;
+        this.setState({propiedades: propiedades});
+      }
+    }
+
+    //tipoVenta != 8 y tipoPropiedad != 8;
+    if(tipoVenta != 8 && tipoPropiedad != 8){
+      if(localidad && localidad.trim() !== ""){
+        let propAux = this.state.propiedades;
+
+        let propiedadesVenta = propAux.propiedades.filter(propiedad => propiedad.localidad.toLowerCase().includes(localidad.toLowerCase()));
+
+        let propdef = propiedadesVenta.filter(pr => pr.id_viviendas == tipoPropiedad && pr.id_venta == tipoVenta);
+
+        let propiedades = {
+          propiedades:  propdef
+        };
+
+        flag = true;
+        this.setState({propiedades: propiedades});
+
+      } else if(localidad == ""){
+        let propAux = this.state.propiedades;
+
+        let propdef = propAux.propiedades.filter(pr => pr.id_viviendas == tipoPropiedad && pr.id_venta == tipoVenta);
+
+        let propiedades = {
+          propiedades:  propdef
+        };
+
+        flag = true;
+        this.setState({propiedades: propiedades});
+      }
+    }
+
+    //tipoVenta == 8 y tipoPropiedad == 8;
+    if(localidad && localidad.trim() !== "" && tipoVenta == 8 && tipoPropiedad == 8){
+        let propAux = this.state.propiedades;
+
+        let propdef = propAux.propiedades.filter(propiedad => propiedad.localidad.toLowerCase().includes(localidad.toLowerCase()));
+
+        let propiedades = {
+          propiedades:  propdef
+        };
+
+        flag = true;
+        this.setState({propiedades: propiedades});
+
+      }
+
+    /* si no hay flag reseteamos las propiedades */
     if (!flag) {
       this.setState({ propiedades: p });
     }
 
-    this.setState({ localidad: localidad });
-    console.log("localidad: " + localidad);
+/*     this.setState({ localidad: localidad }); */
+  }
+
+  /* filtro de atajos */
+  filtro = (valor) => {
+    let data = this.state.data.propiedades; /* lista completa de propiedades */
+
+    console.log("value button" + valor);
   }
 
   render(){
@@ -101,6 +190,10 @@ class App extends Component {
           si no: atajos.js
           si sí: filtros.js
          */}
+         <Atajo
+          data={this.state.data} 
+          filtro = {this.filtro}
+          />
         <MainBoard propiedades={this.state.propiedades}/>
       </div>
     );
