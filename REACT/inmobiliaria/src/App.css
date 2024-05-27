@@ -40,34 +40,60 @@
 .search-engine{
   background-color: white;
   color: black;
-  height: 20vh;
+  height: auto;
   display: flex;
   flex-flow: column;
   padding: 0.5rem;
+
 }
 
 .search-engine > form{
-
-  height: 8vh;
+  height: 100%;
+/*   height: 8vh; */
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-around;
-  max-width: 600px;
+/*   max-width: 600px; */
   align-self: center;
+  margin-bottom: 0.5rem;
 }
 
 .search-engine > form > select{
   margin-right: 0.5rem;
+  height: 3rem;
 }
 
 .search-engine > form > input{
   width: 350px;
   margin-right: 0.5em;
+  height: 3rem;
+}
+
+.search-engine > form > button{
+  height: 3rem;
 }
 
 .search-engine > form > button.btn-secondary{
   margin-right: 0.5em;
 }
 
+div.filter-options {
+  width: 100%; /* Take the full width */
+  margin-top: 1rem; /* Add some space above */
+  display: flex;
+  flex-direction: row wrap;
+  justify-content: space-around;
+}
+
+div.filter-options > p {
+text-align: left;
+}
+
+div.filter-options > p > select{
+  width: 7rem;
+  height: 2rem;
+  margin-bottom: 0.5rem;
+}
 /* MainBoard */
 
 .MainBoard{
@@ -83,8 +109,9 @@
 
 /* Atajo */
 .divAtajo {
-  height: 10rem;
-  margin-top: 2rem;
+  height: auto;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
   display: flex;
   justify-content: center; /* Centramos el formulario dentro del div */
   align-items: center;     /* Alineamos verticalmente el formulario */
@@ -94,19 +121,39 @@
 
   height: 100%;
   width: 100%;
-  max-width: 600px;
+/*   max-width: 600px; */
   display: flex;
   flex-wrap: wrap;          /* Permite que los elementos se distribuyan en varias filas */
-  justify-content: space-between;  /* Centramos los botones dentro del formulario */
+  justify-content: space-around;  /* Centramos los botones dentro del formulario */
   gap: 1rem;                /* Espacio entre los botones (opcional) */
 }
 
 .divAtajo > form > button {
-  width: 5rem;
+  width: 6rem;
   height: 3rem;
-  flex: 0 0 30%;            /* Ajustamos el ancho para asegurar que haya tres botones por fila */
-  box-sizing: border-box;   /* Para incluir el padding y el border en el ancho total */
+  font-size: 12px
+/*   flex: 0 0 30%; */           /* Ajustamos el ancho para asegurar que haya tres botones por fila */
+/*   box-sizing: border-box */;   /* Para incluir el padding y el border en el ancho total */
 }
+
+/* === filtro === */
+/* .filtro{
+  background-color: white;
+  color: black;
+  height: 20vh;
+  display: flex;
+  flex-flow: column;
+  padding: 0.5rem;
+}
+
+.filtro > form{
+  border: 1px solid red;
+  height: 100%;
+}
+
+.filtro > form > p{
+  text-align: left;
+} */
 
 @keyframes App-logo-spin {
   from {

@@ -61,7 +61,7 @@ class App extends Component {
   }
 
   /* filtro del SearchEngine */
-  filtrar = (localidad, tipoVenta, tipoPropiedad) => {
+  filtrar = (localidad, tipoVenta, tipoPropiedad, habitaciones) => {
 
     let p = this.state.data;
     let flag = false;
@@ -246,26 +246,17 @@ class App extends Component {
           <h1>Inmobiliaria<img src={logo} className="App-logo" alt="logo" /></h1>
           <UploadPropertie />
         </header>
-        <SearchEngine
-         slogan={this.state.slogan}
-         data={this.state.data}
-         propiedades={this.state.propiedades}
-         clicar = {this.handleSearch}
-         />
-        {this.state.buscar ?
         <Atajo
           data={this.state.data} 
           filtro = {this.filtro}
         />
-        
-        : 
-        
-        <Filtro 
-        
-        />
-
-        }
-
+        <SearchEngine
+          slogan={this.state.slogan}
+          data={this.state.data}
+          propiedades={this.state.propiedades}
+          clicar = {this.handleSearch}
+         />
+        {!this.state.buscar ? <Filtro /> : null}
         <MainBoard
           propiedades={this.state.propiedades}
           openVer = {this.openVer}

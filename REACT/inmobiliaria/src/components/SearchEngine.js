@@ -57,6 +57,8 @@ const SearchEngine = (props) => {
           <Button onClick={handleClick}>Buscar</Button>
           {" "}
           <Button color="primary" outline onClick={() => reiniciarApp()}>Limpiar filtro</Button>
+          
+
         </form>
       </div>
     </>

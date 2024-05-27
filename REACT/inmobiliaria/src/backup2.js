@@ -1,135 +1,147 @@
-import logo from './logo.svg';
-import './App.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import { Button } from 'reactstrap';
-import SearchEngine from './components/SearchEngine';
-import MainBoard from './components/MainBoard';
-import axios from 'axios';
-import { PHPURL } from './components/url';
 
 
-const UploadPropertie = (props) => {
-  return <Button outline>Subir anuncio</Button>
-}
+const SearchEngine = (props) => {
+  const [inputValue, setInputValue] = useState('');
+  const [tipoVenta, setTipoVenta] = useState(1);
+  const [tipoPropiedad, setTipoPropiedad] = useState(1);
+  const [habitaciones, setHabitaciones] = useState('');
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      slogan: "Buscar propiedad",
-      propiedades: [],
-      data: [],
-    };
-  }
+  const handleClick = (event) => {
+    event.preventDefault(); // Prevenir comportamiento por defecto del formulario
+    props.clicar(inputValue, tipoVenta, tipoPropiedad); // Llama a la función clicar pasando los valores
+  };
 
-  componentDidMount(){
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(
-          PHPURL
-        );
-        this.setState({
-          propiedades:response.data,
-          data: response.data,
-        });
-      } catch (error) {
-        console.error("Error al obtener datos:", error);
-      }
-    };
+  const handleInputChange = (event) => {
+    setInputValue(event.target.value);
+  };
 
-    fetchData();
-  }
+  const handleTipoVentaChange = (event) => {
+    setTipoVenta(event.target.value);
+  };
 
-  handleSearch = (inputValue, tipoVenta, tipoPropiedad) => {
-    this.filtrar(inputValue, tipoVenta, tipoPropiedad);
-  }
+  const handleHabitacionesChange = (event) => {
+    setHabitaciones(event.target.value);
+  };
 
-  filtrar = (localidad, tipoVenta, tipoPropiedad) => {
-    let p = this.state.propiedades;
-    let flag = false;
+  const handleTipoPropiedadChange = (event) => {
+    setTipoPropiedad(event.target.value);
+  };
 
-    //tipoVenta != 8 y tipoPropiedad == 8;
-    if(localidad && localidad.trim() !== "" && tipoVenta != 8 && tipoPropiedad == 8){
-      let propAux = this.state.propiedades;
+  const reiniciarApp = () => { //Botón Limpiar filtro
+    window.location.reload(); // Esto recarga la página
+  };
 
-      let propiedadesVenta = propAux.propiedades.filter(propiedad => propiedad.localidad.toLowerCase().includes(localidad.toLowerCase()));
+    return <>
+      <div className='search-engine'>
+        <h2>{props.slogan}</h2>
+        <form>
+          {/* === tipo_venta === */}
+          <select value={tipoVenta} onChange={handleTipoVentaChange}>
+            <option key={"Comprar1"} value={1}>Comprar</option>
+            <option key={"Alquilar2"} value={2}>Alquilar</option>
+            <option key={"Compartir3"} value={3}>Compartir</option>
+            <option key={"TodosVenta"} value={8}>Todos</option>
+          </select>
+          {/* === tipo_propiedad === */}
+          <select value={tipoPropiedad} onChange={handleTipoPropiedadChange}>
+            <option key={"Piso1"} value={1}>Piso</option>
+            <option key={"Casa2"} value={2}>Casa</option>
+            <option key={"Chalet3"} value={3}>Chalet</option>
+            <option key={"Atico4"} value={4}>Ático</option>
+            <option key={"Otros0"} value={0}>Otros</option>
+            <option key={"TodosPropiedad"} value={8}>Todos</option>
+          </select>
+          <input
+            onChange={handleInputChange}
+            value={inputValue}
+            type='text'
+            placeholder='Buscar localidad'
+          />
+          <div className='filter-options'>
+            {/* garaje */}
+            <p>
+              <input name="garaje" type="checkbox"></input>
+              <label htmlFor="garaje">Garaje</label>
+            </p>
+          {/* habitaciones */}
+          <p>
+            <input
+              id="habitaciones1"
+              name="habitaciones"
+              type="radio"
+              value={1}
+              onChange={handleHabitacionesChange}
+            />
+            <label htmlFor="habitaciones1">1 habitación</label>
+            <br />
+            <input
+              id="habitaciones2"
+              name="habitaciones"
+              type="radio"
+              value={2}
+              onChange={handleHabitacionesChange}
+            />
+            <label htmlFor="habitaciones2">2 habitaciones</label>
+            <br />
+            <input
+              id="habitaciones3"
+              name="habitaciones"
+              type="radio"
+              value={3}
+              onChange={handleHabitacionesChange}
+            />
+            <label htmlFor="habitaciones3">3 o más</label>
+            <br />
+            <input
+              id="habitaciones4"
+              name="habitaciones"
+              type="radio"
+              value={4}
+              onChange={handleHabitacionesChange}
+            />
+            <label htmlFor="habitaciones3">cualquiera</label>
+          </p>
+            {/* piscina */}
+            <p>
+                <input name="piscina" type="radio"></input>
+                <label htmlFor="piscina">no</label>
+                <br></br>
+                <input name="piscina" type="radio"></input>
+                <label htmlFor="piscina">comunitaria</label>
+                <br></br>
+                <input name="piscina" type="radio"></input>
+                <label htmlFor="piscina">privada</label>
+                <br></br>
+                <input name="piscina" type="radio"></input>
+                <label htmlFor="piscina">cualquiera</label>
+            </p>
+            {/* precio */}
+            <p>
+            <select>
+              <option>sin mínimo</option>
+              <option >100.000</option>
+              <option >250.000</option>
+              <option >500.000</option>
+          </select>
+          <br></br>
+          <select>
+              <option>sin máximo</option>
+              <option >250.000</option>
+              <option >500.000</option>
+              <option >1.000.000</option>
+          </select>
+            </p>
+          </div>
+          <Button color="primary" outline onClick={() => reiniciarApp()}>Limpiar filtro</Button>
+          {" "}
+          <Button onClick={handleClick}>Buscar</Button>
+          
 
-      let propdef = propiedadesVenta.filter(pr => pr.id_venta == tipoVenta);
-
-      let propiedades = {
-        propiedades:  propdef
-      };
-
-      flag = true;
-      this.setState({propiedades: propiedades});
-    }
-
-    //tipoVenta == 8 y tipoPropiedad != 8;
-    if(localidad && localidad.trim() !== "" && tipoVenta == 8 && tipoPropiedad != 8){
-      let propAux = this.state.propiedades;
-
-      let propiedadesVenta = propAux.propiedades.filter(propiedad => propiedad.localidad.toLowerCase().includes(localidad.toLowerCase()));
-
-      let propdef = propiedadesVenta.filter(pr => pr.id_viviendas == tipoPropiedad);
-
-      let propiedades = {
-        propiedades:  propdef
-      };
-
-      flag = true;
-      this.setState({propiedades: propiedades});
-    }
-
-    //tipoVenta != 8 y tipoPropiedad != 8;
-    if(localidad && localidad.trim() !== "" && tipoVenta != 8 && tipoPropiedad != 8){
-      let propAux = this.state.propiedades;
-
-      let propiedadesVenta = propAux.propiedades.filter(propiedad => propiedad.localidad.toLowerCase().includes(localidad.toLowerCase()));
-
-      let propdef = propiedadesVenta.filter(pr => pr.id_viviendas == tipoPropiedad && pr.id_venta == tipoVenta);
-
-      let propiedades = {
-        propiedades:  propdef
-      };
-
-      flag = true;
-      this.setState({propiedades: propiedades});
-    }
-
-
-    /* si no hay flag reseteamos las propiedades */
-    if (!flag) {
-      this.setState({ propiedades: p });
-    }
-
-/*     this.setState({ localidad: localidad }); */
-  }
-
-  render(){
-    return (
-      <div className="App">
-        <header className="App-header">
-          <h1>Inmobiliaria<img src={logo} className="App-logo" alt="logo" /></h1>
-          <UploadPropertie />
-        </header>
-        <SearchEngine
-         slogan={this.state.slogan}
-         data={this.state.data}
-         propiedades={this.state.propiedades}
-         clicar = {this.handleSearch}
-         />
-
-         {/* 
-          aquí dependiendo si se ha clicado buscar o no:
-          si no: atajos.js
-          si sí: filtros.js
-         */}
-        <MainBoard propiedades={this.state.propiedades}/>
+        </form>
       </div>
-    );
+    </>
   }
 
-}
-
-export default App;
+  export default SearchEngine;
