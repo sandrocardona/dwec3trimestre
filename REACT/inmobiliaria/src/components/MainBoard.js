@@ -24,7 +24,15 @@ const MainBoard = (props) => {
           >
             <img
               alt={dato.titulo}
-              src="https://picsum.photos/300/200"
+              src={
+                dato.id_viviendas === 1 ? "./images/piso.jpg" :
+                dato.id_viviendas === 2 ? "./images/casa.jpg" :
+                dato.id_viviendas === 3 ? "./images/chalet.jpg" :
+                dato.id_viviendas === 4 ? "./images/atico.jpg" :
+                dato.id_viviendas === 0 && dato.id_tipo === 2 ? "./images/garaje.jpg" :
+                dato.id_viviendas === 0 && dato.id_tipo === 3 ? "./images/trastero.jpg" :
+                dato.id_viviendas === 0 && dato.id_tipo === 4 ? "./images/terreno.jpg" :
+                ""}
             />
             <CardBody>
               <CardTitle
