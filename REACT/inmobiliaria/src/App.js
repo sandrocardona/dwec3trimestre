@@ -9,6 +9,7 @@ import axios from 'axios';
 import { PHPURL } from './components/url';
 import Atajo from './components/atajos';
 import ModalPropiedad from './components/VerPropiedad';
+import Filtro from './components/filtro';
 
 
 const UploadPropertie = (props) => {
@@ -22,15 +23,19 @@ class App extends Component {
       slogan: "Buscar propiedad",
       propiedades: [],  //lista para filtrar
       data: [], //lista con todas las propiedades
-
+      buscar: true,
+      idPropiedad: "",
       modalPropiedad: false
     };
   }
 
 
-  openVer = () => {
+  openVer = (id) => {
     let modal = !this.state.modalPropiedad;
-    this.setState({modalPropiedad: modal})
+    this.setState({
+      modalPropiedad: modal,
+      idPropiedad: id,
+    })
   };
 
   componentDidMount(){
@@ -60,6 +65,7 @@ class App extends Component {
 
     let p = this.state.data;
     let flag = false;
+    let t = false;
 
     //tipoVenta != 8 y tipoPropiedad == 8;
     if(tipoVenta != 8 && tipoPropiedad == 8){
@@ -75,7 +81,7 @@ class App extends Component {
         };
 
         flag = true;
-        this.setState({propiedades: propiedades});
+        this.setState({propiedades: propiedades, buscar: t});
 
       } else if(localidad == ""){
         let propAux = this.state.data;
@@ -87,7 +93,7 @@ class App extends Component {
         };
 
         flag = true;
-        this.setState({propiedades: propiedades});
+        this.setState({propiedades: propiedades, buscar: t});
       }
     }
 
@@ -105,7 +111,7 @@ class App extends Component {
         };
 
         flag = true;
-        this.setState({propiedades: propiedades});
+        this.setState({propiedades: propiedades, buscar: t});
 
       } else if(localidad == ""){
         let propAux = this.state.data;
@@ -117,7 +123,7 @@ class App extends Component {
         };
 
         flag = true;
-        this.setState({propiedades: propiedades});
+        this.setState({propiedades: propiedades, buscar: t});
       }
     }
 
@@ -135,7 +141,7 @@ class App extends Component {
         };
 
         flag = true;
-        this.setState({propiedades: propiedades});
+        this.setState({propiedades: propiedades, buscar: t});
 
       } else if(localidad == ""){
         let propAux = this.state.data;
@@ -147,7 +153,7 @@ class App extends Component {
         };
 
         flag = true;
-        this.setState({propiedades: propiedades});
+        this.setState({propiedades: propiedades, buscar: t});
       }
     }
 
@@ -162,13 +168,13 @@ class App extends Component {
         };
 
         flag = true;
-        this.setState({propiedades: propiedades});
+        this.setState({propiedades: propiedades, buscar: t});
 
       }
 
     /* si no hay flag reseteamos las propiedades */
     if (!flag) {
-      this.setState({ propiedades: p });
+      this.setState({propiedades: p,});
     }
   }
 
@@ -246,16 +252,20 @@ class App extends Component {
          propiedades={this.state.propiedades}
          clicar = {this.handleSearch}
          />
-
-         {/* 
-          aquí dependiendo si se ha clicado buscar o no:
-          si no: atajos.js
-          si sí: filtros.js
-         */}
-         <Atajo
+        {this.state.buscar ?
+        <Atajo
           data={this.state.data} 
           filtro = {this.filtro}
-          />
+        />
+        
+        : 
+        
+        <Filtro 
+        
+        />
+
+        }
+
         <MainBoard
           propiedades={this.state.propiedades}
           openVer = {this.openVer}
@@ -263,6 +273,8 @@ class App extends Component {
         <ModalPropiedad 
           isOpen={this.state.modalPropiedad}
           openVer = {this.openVer}
+          idPropiedad = {this.state.idPropiedad}
+          data = {this.state.data}
         />
       </div>
     );

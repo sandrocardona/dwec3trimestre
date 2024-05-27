@@ -1,8 +1,14 @@
+import { useState } from "react";
 import Data from "./Data";
 import {Card, CardBody, CardImg, CardTitle, CardSubtitle, CardText} from 'reactstrap';
 import { Button } from 'reactstrap';
 
 const MainBoard = (props) => {
+
+
+  const handleClick = (id) => {
+    props.openVer(id);
+  }
 
     return <>
       <div className='MainBoard'>
@@ -50,7 +56,7 @@ const MainBoard = (props) => {
                 : ""
                 }
               </CardText>
-              <Button onClick={props.openVer} outline>
+              <Button onClick={() => handleClick(dato.id_propiedad)} outline>
                 Ver Propiedad
               </Button>
             </CardBody>
