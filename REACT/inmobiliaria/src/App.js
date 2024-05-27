@@ -25,7 +25,8 @@ class App extends Component {
       data: [], //lista con todas las propiedades
       buscar: true,
       idPropiedad: "",
-      modalPropiedad: false
+      modalPropiedad: false,
+      tipoSales: "alquiler",
     };
   }
 
@@ -61,11 +62,12 @@ class App extends Component {
   }
 
   /* filtro del SearchEngine */
-  filtrar = (localidad, tipoVenta, tipoPropiedad, habitaciones) => {
+  filtrar = (localidad, tipoVenta, tipoPropiedad) => {
 
     let p = this.state.data;
     let flag = false;
     let t = false;
+    let tipoVentaAux = tipoVenta === 1 ? "compra" : "alquiler";
 
     //tipoVenta != 8 y tipoPropiedad == 8;
     if(tipoVenta != 8 && tipoPropiedad == 8){
@@ -81,7 +83,11 @@ class App extends Component {
         };
 
         flag = true;
-        this.setState({propiedades: propiedades, buscar: t});
+        this.setState({
+          propiedades: propiedades,
+          buscar: t,
+          tipoSales: tipoVentaAux
+        });
 
       } else if(localidad == ""){
         let propAux = this.state.data;
@@ -93,7 +99,11 @@ class App extends Component {
         };
 
         flag = true;
-        this.setState({propiedades: propiedades, buscar: t});
+        this.setState({
+          propiedades: propiedades,
+          buscar: t,
+          tipoSales: tipoVentaAux
+        });
       }
     }
 
@@ -111,7 +121,11 @@ class App extends Component {
         };
 
         flag = true;
-        this.setState({propiedades: propiedades, buscar: t});
+        this.setState({
+          propiedades: propiedades,
+          buscar: t,
+          tipoSales: tipoVentaAux
+        });
 
       } else if(localidad == ""){
         let propAux = this.state.data;
@@ -123,7 +137,11 @@ class App extends Component {
         };
 
         flag = true;
-        this.setState({propiedades: propiedades, buscar: t});
+        this.setState({
+          propiedades: propiedades,
+          buscar: t,
+          tipoSales: tipoVentaAux
+        });
       }
     }
 
@@ -141,7 +159,11 @@ class App extends Component {
         };
 
         flag = true;
-        this.setState({propiedades: propiedades, buscar: t});
+        this.setState({
+          propiedades: propiedades,
+          buscar: t,
+          tipoSales: tipoVentaAux
+        });
 
       } else if(localidad == ""){
         let propAux = this.state.data;
@@ -153,7 +175,11 @@ class App extends Component {
         };
 
         flag = true;
-        this.setState({propiedades: propiedades, buscar: t});
+        this.setState({
+          propiedades: propiedades,
+          buscar: t,
+          tipoSales: tipoVentaAux
+        });
       }
     }
 
@@ -168,7 +194,11 @@ class App extends Component {
         };
 
         flag = true;
-        this.setState({propiedades: propiedades, buscar: t});
+        this.setState({
+          propiedades: propiedades,
+          buscar: t,
+          tipoSales: tipoVentaAux
+        });
 
       }
 
@@ -256,7 +286,12 @@ class App extends Component {
           propiedades={this.state.propiedades}
           clicar = {this.handleSearch}
          />
-        {!this.state.buscar ? <Filtro /> : null}
+        {!this.state.buscar ? 
+        <Filtro
+          tipoVenta = {this.state.tipoVenta}
+
+        />
+        : null}
         <MainBoard
           propiedades={this.state.propiedades}
           openVer = {this.openVer}

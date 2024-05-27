@@ -1,34 +1,51 @@
-//El filtro varía según sea compra o alquiler
-//Filtrar por
-/* 
-    garaje: si/no
-    piscina: no/privada/comunitaria
-    habitaciones: 1, 2, 3 o más
-    precio: mínimo - máximo
 
-    Los valores de precio varían según sea compra o alquiler
-    Añadir además un valor "Sin límite" al máximo
-
-    
-*/
 import React, { Component, useState } from 'react';
-import { Button } from 'reactstrap';
 
+const Filtro = (props) => {
+    const [habitaciones, setHabitaciones] = useState(4);
+    const [garaje, setGaraje] = useState('no');
+    const [piscina, setPiscina] = useState(4);
+    const [precioMinimo, setPrecioMinimo] = useState(4);
+    const [precioMaximo, setPrecioMaximo] = useState(4);
 
-
-const Filtro = () => {
+    let ventaAux = props.tipoventa;
 
     const handleHabitacionesChange = (event) => {
         setHabitaciones(event.target.value);
+        props.filtroExtra(habitaciones, garaje, piscina, precioMinimo, precioMaximo);
+    };
+
+    const handleGaraje = (event) => {
+        setGaraje(event.target.checked ? 'si' : 'no');
+        props.filtroExtra(habitaciones, garaje, piscina, precioMinimo, precioMaximo);
+    };
+
+    const handlePiscinaChange = (event) => {
+        setPiscina(event.target.value);
+        props.filtroExtra(habitaciones, garaje, piscina, precioMinimo, precioMaximo);
+    };
+
+    const handlePrecioMinimo = (event) => {
+        setPrecioMinimo(event.target.value);
+        props.filtroExtra(habitaciones, garaje, piscina, precioMinimo, precioMaximo);
+    };
+
+    const handlePrecioMaximo = (event) => {
+        setPrecioMaximo(event.target.value);
+        props.filtroExtra(habitaciones, garaje, piscina, precioMinimo, precioMaximo);
     };
     
-    const [habitaciones, setHabitaciones] = useState('');
 
     return (<>
           <div className='filter-options'>
             {/* garaje */}
             <p>
-              <input name="garaje" type="checkbox"></input>
+              <input
+                id='garaje'
+                name="garaje" type="checkbox"
+                onChange={handleGaraje}
+                checked={garaje === 'si'}
+               />
               <label htmlFor="garaje">Garaje</label>
             </p>
           {/* habitaciones */}
@@ -71,34 +88,81 @@ const Filtro = () => {
           </p>
             {/* piscina */}
             <p>
-                <input name="piscina" type="radio"></input>
+                {/* no */}
+                <input
+                    name="piscina"
+                    type="radio"
+                    id=''
+                    onChange={handlePiscinaChange}
+                    value={1}
+                />
                 <label htmlFor="piscina">no</label>
                 <br></br>
-                <input name="piscina" type="radio"></input>
+                {/* comunitaria */}
+                <input
+                    name="piscina"
+                    type="radio"
+                    id=''
+                    onChange={handlePiscinaChange}
+                    value={2} 
+                />
                 <label htmlFor="piscina">comunitaria</label>
                 <br></br>
-                <input name="piscina" type="radio"></input>
+                {/* privada */}
+                <input
+                    name="piscina"  
+                    type="radio"
+                    id=''
+                    onChange={handlePiscinaChange}
+                    value={3}
+                />
                 <label htmlFor="piscina">privada</label>
                 <br></br>
-                <input name="piscina" type="radio"></input>
+                {/* cualquiera */}
+                <input
+                    name="piscina"
+                    type="radio"
+                    id=''
+                    onChange={handlePiscinaChange}
+                    value={4}
+                />
                 <label htmlFor="piscina">cualquiera</label>
             </p>
             {/* precio */}
+            {ventaAux === "alquiler" ?
             <p>
-            <select>
-              <option>sin mínimo</option>
-              <option >100.000</option>
-              <option >250.000</option>
-              <option >500.000</option>
+            <select value={precioMinimo} onChange={handlePrecioMinimo}>
+              <option value={4}>sin mínimo</option>
+              <option value={1}>100</option>
+              <option value={2}>250</option>
+              <option value={3}>500</option>
           </select>
           <br></br>
-          <select>
-              <option>sin máximo</option>
-              <option >250.000</option>
-              <option >500.000</option>
-              <option >1.000.000</option>
+          <select value={precioMaximo} onChange={handlePrecioMaximo}>
+              <option value={4}>sin máximo</option>
+              <option value={1}>250</option>
+              <option value={2}>500</option>
+              <option value={3}>1.000</option>
           </select>
             </p>
+            :
+            <p>
+            <select value={precioMinimo} onChange={handlePrecioMinimo}>
+              <option value={4}>sin mínimo</option>
+              <option value={1}>100.000</option>
+              <option value={2}>250.000</option>
+              <option value={3}>500.000</option>
+          </select>
+          <br></br>
+          <select value={precioMaximo} onChange={handlePrecioMaximo}>
+              <option value={4}>sin máximo</option>
+              <option value={1}>250.000</option>
+              <option value={2}>500.000</option>
+              <option value={3}>1.000.000</option>
+          </select>
+            </p>
+            }
+
           </div>
     </>)
 }
