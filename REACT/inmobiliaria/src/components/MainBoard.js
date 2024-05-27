@@ -7,14 +7,13 @@ const MainBoard = (props) => {
     return <>
       <div className='MainBoard'>
         {
-        props.propiedades != "" ?
+        props.propiedades != "" && props.propiedades.propiedades.length > 0 ?
         props.propiedades.propiedades.map(dato => (
           <Card
             key={dato.id_propiedad}
             style={{
               width: '18rem',
               margin: '0.5rem',
-              border: 'solid black 1px'
             }}
           >
             <img
@@ -56,7 +55,7 @@ const MainBoard = (props) => {
               </Button>
             </CardBody>
           </Card>
-        )) : ""
+        )) : <><h2>No hay propiedades</h2></>
         }
       </div>
     </>
