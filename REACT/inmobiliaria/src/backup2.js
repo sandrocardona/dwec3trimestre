@@ -1,68 +1,51 @@
+
 import React, { Component, useState } from 'react';
-import { Button } from 'reactstrap';
 
+const Filtro = (props) => {
+    const [habitaciones, setHabitaciones] = useState(4);
+    const [garaje, setGaraje] = useState('no');
+    const [piscina, setPiscina] = useState(4);
+    const [precioMinimo, setPrecioMinimo] = useState(4);
+    const [precioMaximo, setPrecioMaximo] = useState(4);
 
-const SearchEngine = (props) => {
-  const [inputValue, setInputValue] = useState('');
-  const [tipoVenta, setTipoVenta] = useState(1);
-  const [tipoPropiedad, setTipoPropiedad] = useState(1);
-  const [habitaciones, setHabitaciones] = useState('');
+    let ventaAux = props.tipoSales;
 
-  const handleClick = (event) => {
-    event.preventDefault(); // Prevenir comportamiento por defecto del formulario
-    props.clicar(inputValue, tipoVenta, tipoPropiedad); // Llama a la función clicar pasando los valores
-  };
+    const handleHabitacionesChange = (event) => {
+        setHabitaciones(event.target.value);
+        props.filtroExtra(habitaciones, garaje, piscina, precioMinimo, precioMaximo);
+    };
 
-  const handleInputChange = (event) => {
-    setInputValue(event.target.value);
-  };
+    const handleGaraje = (event) => {
+        setGaraje(event.target.checked ? 'si' : 'no');
+        props.filtroExtra(habitaciones, garaje, piscina, precioMinimo, precioMaximo);
+    };
 
-  const handleTipoVentaChange = (event) => {
-    setTipoVenta(event.target.value);
-  };
+    const handlePiscinaChange = (event) => {
+        setPiscina(event.target.value);
+        props.filtroExtra(habitaciones, garaje, piscina, precioMinimo, precioMaximo);
+    };
 
-  const handleHabitacionesChange = (event) => {
-    setHabitaciones(event.target.value);
-  };
+    const handlePrecioMinimo = (event) => {
+        setPrecioMinimo(event.target.value);
+        props.filtroExtra(habitaciones, garaje, piscina, precioMinimo, precioMaximo);
+    };
 
-  const handleTipoPropiedadChange = (event) => {
-    setTipoPropiedad(event.target.value);
-  };
+    const handlePrecioMaximo = (event) => {
+        setPrecioMaximo(event.target.value);
+        props.filtroExtra(habitaciones, garaje, piscina, precioMinimo, precioMaximo);
+    };
+    
 
-  const reiniciarApp = () => { //Botón Limpiar filtro
-    window.location.reload(); // Esto recarga la página
-  };
-
-    return <>
-      <div className='search-engine'>
-        <h2>{props.slogan}</h2>
-        <form>
-          {/* === tipo_venta === */}
-          <select value={tipoVenta} onChange={handleTipoVentaChange}>
-            <option key={"Comprar1"} value={1}>Comprar</option>
-            <option key={"Alquilar2"} value={2}>Alquilar</option>
-            <option key={"Compartir3"} value={3}>Compartir</option>
-            <option key={"TodosVenta"} value={8}>Todos</option>
-          </select>
-          {/* === tipo_propiedad === */}
-          <select value={tipoPropiedad} onChange={handleTipoPropiedadChange}>
-            <option key={"Piso1"} value={1}>Piso</option>
-            <option key={"Casa2"} value={2}>Casa</option>
-            <option key={"Chalet3"} value={3}>Chalet</option>
-            <option key={"Atico4"} value={4}>Ático</option>
-            <option key={"Otros0"} value={0}>Otros</option>
-            <option key={"TodosPropiedad"} value={8}>Todos</option>
-          </select>
-          <input
-            onChange={handleInputChange}
-            value={inputValue}
-            type='text'
-            placeholder='Buscar localidad'
-          />
+    return (<>
           <div className='filter-options'>
             {/* garaje */}
             <p>
-              <input name="garaje" type="checkbox"></input>
+              <input
+                id='garaje'
+                name="garaje" type="checkbox"
+                onChange={handleGaraje}
+                checked={garaje === 'si'}
+               />
               <label htmlFor="garaje">Garaje</label>
             </p>
           {/* habitaciones */}
@@ -105,43 +88,83 @@ const SearchEngine = (props) => {
           </p>
             {/* piscina */}
             <p>
-                <input name="piscina" type="radio"></input>
+                {/* no */}
+                <input
+                    name="piscina"
+                    type="radio"
+                    id=''
+                    onChange={handlePiscinaChange}
+                    value={1}
+                />
                 <label htmlFor="piscina">no</label>
                 <br></br>
-                <input name="piscina" type="radio"></input>
+                {/* comunitaria */}
+                <input
+                    name="piscina"
+                    type="radio"
+                    id=''
+                    onChange={handlePiscinaChange}
+                    value={2} 
+                />
                 <label htmlFor="piscina">comunitaria</label>
                 <br></br>
-                <input name="piscina" type="radio"></input>
+                {/* privada */}
+                <input
+                    name="piscina"  
+                    type="radio"
+                    id=''
+                    onChange={handlePiscinaChange}
+                    value={3}
+                />
                 <label htmlFor="piscina">privada</label>
                 <br></br>
-                <input name="piscina" type="radio"></input>
+                {/* cualquiera */}
+                <input
+                    name="piscina"
+                    type="radio"
+                    id=''
+                    onChange={handlePiscinaChange}
+                    value={4}
+                />
                 <label htmlFor="piscina">cualquiera</label>
             </p>
             {/* precio */}
+            {ventaAux !== 1 ?
             <p>
-            <select>
-              <option>sin mínimo</option>
-              <option >100.000</option>
-              <option >250.000</option>
-              <option >500.000</option>
+            <select value={precioMinimo} onChange={handlePrecioMinimo}>
+              <option value={4}>sin mínimo</option>
+              <option value={1}>100</option>
+              <option value={2}>250</option>
+              <option value={3}>500</option>
           </select>
           <br></br>
-          <select>
-              <option>sin máximo</option>
-              <option >250.000</option>
-              <option >500.000</option>
-              <option >1.000.000</option>
+          <select value={precioMaximo} onChange={handlePrecioMaximo}>
+              <option value={4}>sin máximo</option>
+              <option value={1}>250</option>
+              <option value={2}>500</option>
+              <option value={3}>1.000</option>
           </select>
             </p>
+            :
+            <p>
+            <select value={precioMinimo} onChange={handlePrecioMinimo}>
+              <option value={4}>sin mínimo</option>
+              <option value={1}>100.000</option>
+              <option value={2}>250.000</option>
+              <option value={3}>500.000</option>
+          </select>
+          <br></br>
+          <select value={precioMaximo} onChange={handlePrecioMaximo}>
+              <option value={4}>sin máximo</option>
+              <option value={1}>250.000</option>
+              <option value={2}>500.000</option>
+              <option value={3}>1.000.000</option>
+          </select>
+            </p>
+            }
+
           </div>
-          <Button color="primary" outline onClick={() => reiniciarApp()}>Limpiar filtro</Button>
-          {" "}
-          <Button onClick={handleClick}>Buscar</Button>
-          
+    </>)
+}
 
-        </form>
-      </div>
-    </>
-  }
-
-  export default SearchEngine;
+export default Filtro;

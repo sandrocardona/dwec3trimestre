@@ -26,7 +26,7 @@ class App extends Component {
       buscar: true,
       idPropiedad: "",
       modalPropiedad: false,
-      tipoSales: "alquiler",
+      tipoSales: 1,
     };
   }
 
@@ -67,140 +67,89 @@ class App extends Component {
     let p = this.state.data;
     let flag = false;
     let t = false;
-    let tipoVentaAux = tipoVenta === 1 ? "compra" : "alquiler";
+    let tipoVentaAux = tipoVenta;
+    let propAux;
+    let propdef;
+
+
 
     //tipoVenta != 8 y tipoPropiedad == 8;
     if(tipoVenta != 8 && tipoPropiedad == 8){
       if(localidad && localidad.trim() !== ""){
-        let propAux = this.state.data;
+        propAux = this.state.data;
 
         let propiedadesVenta = propAux.propiedades.filter(propiedad => propiedad.localidad.toLowerCase().includes(localidad.toLowerCase()));
 
-        let propdef = propiedadesVenta.filter(pr => pr.id_venta == tipoVenta);
-
-        let propiedades = {
-          propiedades:  propdef
-        };
+        propdef = propiedadesVenta.filter(pr => pr.id_venta == tipoVenta);
 
         flag = true;
-        this.setState({
-          propiedades: propiedades,
-          buscar: t,
-          tipoSales: tipoVentaAux
-        });
-
       } else if(localidad == ""){
-        let propAux = this.state.data;
+        propAux = this.state.data;
 
-        let propdef = propAux.propiedades.filter(pr => pr.id_venta == tipoVenta);
-
-        let propiedades = {
-          propiedades:  propdef
-        };
+        propdef = propAux.propiedades.filter(pr => pr.id_venta == tipoVenta);
 
         flag = true;
-        this.setState({
-          propiedades: propiedades,
-          buscar: t,
-          tipoSales: tipoVentaAux
-        });
       }
     }
 
     //tipoVenta == 8 y tipoPropiedad != 8;
     if(tipoVenta == 8 && tipoPropiedad != 8){
       if(localidad && localidad.trim() !== ""){
-        let propAux = this.state.data;
+        propAux = this.state.data;
 
         let propiedadesVenta = propAux.propiedades.filter(propiedad => propiedad.localidad.toLowerCase().includes(localidad.toLowerCase()));
 
-        let propdef = propiedadesVenta.filter(pr => pr.id_viviendas == tipoPropiedad);
-
-        let propiedades = {
-          propiedades:  propdef
-        };
+        propdef = propiedadesVenta.filter(pr => pr.id_viviendas == tipoPropiedad);
 
         flag = true;
-        this.setState({
-          propiedades: propiedades,
-          buscar: t,
-          tipoSales: tipoVentaAux
-        });
 
       } else if(localidad == ""){
-        let propAux = this.state.data;
+        propAux = this.state.data;
 
-        let propdef = propAux.propiedades.filter(pr => pr.id_viviendas == tipoPropiedad);
-
-        let propiedades = {
-          propiedades:  propdef
-        };
+        propdef = propAux.propiedades.filter(pr => pr.id_viviendas == tipoPropiedad);
 
         flag = true;
-        this.setState({
-          propiedades: propiedades,
-          buscar: t,
-          tipoSales: tipoVentaAux
-        });
       }
     }
 
     //tipoVenta != 8 y tipoPropiedad != 8;
     if(tipoVenta != 8 && tipoPropiedad != 8){
       if(localidad && localidad.trim() !== ""){
-        let propAux = this.state.data;
+        propAux = this.state.data;
 
         let propiedadesVenta = propAux.propiedades.filter(propiedad => propiedad.localidad.toLowerCase().includes(localidad.toLowerCase()));
 
-        let propdef = propiedadesVenta.filter(pr => pr.id_viviendas == tipoPropiedad && pr.id_venta == tipoVenta);
-
-        let propiedades = {
-          propiedades:  propdef
-        };
+        propdef = propiedadesVenta.filter(pr => pr.id_viviendas == tipoPropiedad && pr.id_venta == tipoVenta);
 
         flag = true;
-        this.setState({
-          propiedades: propiedades,
-          buscar: t,
-          tipoSales: tipoVentaAux
-        });
 
       } else if(localidad == ""){
-        let propAux = this.state.data;
+        propAux = this.state.data;
 
-        let propdef = propAux.propiedades.filter(pr => pr.id_viviendas == tipoPropiedad && pr.id_venta == tipoVenta);
-
-        let propiedades = {
-          propiedades:  propdef
-        };
+        propdef = propAux.propiedades.filter(pr => pr.id_viviendas == tipoPropiedad && pr.id_venta == tipoVenta);
 
         flag = true;
-        this.setState({
-          propiedades: propiedades,
-          buscar: t,
-          tipoSales: tipoVentaAux
-        });
       }
     }
 
     //tipoVenta == 8 y tipoPropiedad == 8;
     if(localidad && localidad.trim() !== "" && tipoVenta == 8 && tipoPropiedad == 8){
-        let propAux = this.state.data;
+        propAux = this.state.data;
 
-        let propdef = propAux.propiedades.filter(propiedad => propiedad.localidad.toLowerCase().includes(localidad.toLowerCase()));
-
-        let propiedades = {
-          propiedades:  propdef
-        };
+        propdef = propAux.propiedades.filter(propiedad => propiedad.localidad.toLowerCase().includes(localidad.toLowerCase()));
 
         flag = true;
-        this.setState({
-          propiedades: propiedades,
-          buscar: t,
-          tipoSales: tipoVentaAux
-        });
-
       }
+
+      let propiedades = {
+        propiedades:  propdef
+      };
+
+      this.setState({
+        propiedades: propiedades,
+        buscar: t,
+        tipoSales: tipoVentaAux
+      });
 
     /* si no hay flag reseteamos las propiedades */
     if (!flag) {
@@ -269,6 +218,40 @@ class App extends Component {
     console.log("value button: " + valor);
   }
 
+  filtroExtra = (habitaciones, garaje, piscina, precioMinimo, precioMaximo) => {
+    console.log("hab: " + habitaciones);
+    console.log("garj: " + garaje);
+    console.log("pool: " + piscina);
+    console.log("min: " + precioMinimo);
+    console.log("max: " + precioMaximo);
+
+    //problema aqui
+    let propAux = this.state.propiedades.propiedades;
+    //si no hay filtros el estado se queda vacio y ya siempre estará vacío
+
+    let propFiltered;
+
+    //numero de habitaciones
+
+      habitaciones == 3 ?
+      propFiltered = propAux.filter(x => x.habitaciones >= habitaciones) :
+      habitaciones == 8 ?
+      propFiltered = propAux :
+      propFiltered = propAux.filter(x => x.habitaciones == habitaciones);
+
+    //garaje si o no
+
+    //piscina 
+
+    let propiedades = {
+      propiedades:  propFiltered
+    };
+
+    this.setState({
+      propiedades: propiedades
+    });
+  }
+
   render(){
     return (
       <div className="App">
@@ -288,7 +271,8 @@ class App extends Component {
          />
         {!this.state.buscar ? 
         <Filtro
-          tipoVenta = {this.state.tipoVenta}
+          tipoSales = {this.state.tipoSales}
+          filtroExtra = {this.filtroExtra}
 
         />
         : null}

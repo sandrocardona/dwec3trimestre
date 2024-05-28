@@ -5,35 +5,39 @@ const Filtro = (props) => {
     const [habitaciones, setHabitaciones] = useState(4);
     const [garaje, setGaraje] = useState('no');
     const [piscina, setPiscina] = useState(4);
-    const [precioMinimo, setPrecioMinimo] = useState(4);
-    const [precioMaximo, setPrecioMaximo] = useState(4);
+    const [precioMinimo, setPrecioMinimo] = useState(8);
+    const [precioMaximo, setPrecioMaximo] = useState(8);
 
-    let ventaAux = props.tipoventa;
+    let ventaAux = props.tipoSales;
 
     const handleHabitacionesChange = (event) => {
         setHabitaciones(event.target.value);
-        props.filtroExtra(habitaciones, garaje, piscina, precioMinimo, precioMaximo);
+        handleFiltros();
     };
 
     const handleGaraje = (event) => {
         setGaraje(event.target.checked ? 'si' : 'no');
-        props.filtroExtra(habitaciones, garaje, piscina, precioMinimo, precioMaximo);
+        handleFiltros();
     };
 
     const handlePiscinaChange = (event) => {
         setPiscina(event.target.value);
-        props.filtroExtra(habitaciones, garaje, piscina, precioMinimo, precioMaximo);
+        handleFiltros();
     };
 
     const handlePrecioMinimo = (event) => {
         setPrecioMinimo(event.target.value);
-        props.filtroExtra(habitaciones, garaje, piscina, precioMinimo, precioMaximo);
+        handleFiltros();
     };
 
     const handlePrecioMaximo = (event) => {
         setPrecioMaximo(event.target.value);
-        props.filtroExtra(habitaciones, garaje, piscina, precioMinimo, precioMaximo);
+        handleFiltros();
     };
+
+    const handleFiltros = () => {
+      props.filtroExtra(habitaciones, garaje, piscina, precioMinimo, precioMaximo);
+    }
     
 
     return (<>
@@ -129,40 +133,25 @@ const Filtro = (props) => {
                 <label htmlFor="piscina">cualquiera</label>
             </p>
             {/* precio */}
-            {ventaAux === "alquiler" ?
             <p>
             <select value={precioMinimo} onChange={handlePrecioMinimo}>
-              <option value={4}>sin mínimo</option>
-              <option value={1}>100</option>
-              <option value={2}>250</option>
-              <option value={3}>500</option>
-          </select>
-          <br></br>
-          <select value={precioMaximo} onChange={handlePrecioMaximo}>
-              <option value={4}>sin máximo</option>
+              <option value={8}>sin mínimo</option>
               <option value={1}>250</option>
               <option value={2}>500</option>
-              <option value={3}>1.000</option>
-          </select>
-            </p>
-            :
-            <p>
-            <select value={precioMinimo} onChange={handlePrecioMinimo}>
-              <option value={4}>sin mínimo</option>
-              <option value={1}>100.000</option>
-              <option value={2}>250.000</option>
-              <option value={3}>500.000</option>
+              <option value={3}>100.000</option>
+              <option value={4}>250.000</option>
+              <option value={5}>500.000</option>
           </select>
           <br></br>
           <select value={precioMaximo} onChange={handlePrecioMaximo}>
-              <option value={4}>sin máximo</option>
-              <option value={1}>250.000</option>
-              <option value={2}>500.000</option>
-              <option value={3}>1.000.000</option>
+              <option value={8}>sin máximo</option>
+              <option value={1}>500</option>
+              <option value={2}>1000</option>
+              <option value={3}>250.000</option>
+              <option value={4}>500.000</option>
+              <option value={5}>1.000.000</option>
           </select>
             </p>
-            }
-
           </div>
     </>)
 }
