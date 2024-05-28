@@ -58,11 +58,15 @@ const MainBoard = (props) => {
               >
                 {dato.informacion}
                 <br />
+                <br />
                 {
                 dato.piscina != "no" ?
                 "Piscina: " + dato.piscina
                 : ""
                 }
+                <br />
+                <br />
+                {dato.habitaciones}
               </CardText>
               <Button onClick={() => handleClick(dato.id_propiedad)} outline>
                 Ver Propiedad

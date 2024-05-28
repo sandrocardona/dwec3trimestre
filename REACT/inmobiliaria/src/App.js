@@ -22,6 +22,7 @@ class App extends Component {
     this.state = {
       slogan: "Buscar propiedad",
       propiedades: [],  //lista para filtrar
+      propiedadesAux: [], //lista resultante al Buscar
       data: [], //lista con todas las propiedades
       buscar: true,
       idPropiedad: "",
@@ -147,6 +148,7 @@ class App extends Component {
 
       this.setState({
         propiedades: propiedades,
+        propiedadesAux: propiedades,
         buscar: t,
         tipoSales: tipoVentaAux
       });
@@ -226,12 +228,13 @@ class App extends Component {
     console.log("max: " + precioMaximo);
 
     //problema aqui
-    let propAux = this.state.propiedades.propiedades;
+    let propAux = this.state.propiedadesAux.propiedades;
     //si no hay filtros el estado se queda vacio y ya siempre estará vacío
 
     let propFiltered;
 
     //numero de habitaciones
+    //cambio
 
       habitaciones == 3 ?
       propFiltered = propAux.filter(x => x.habitaciones >= habitaciones) :
