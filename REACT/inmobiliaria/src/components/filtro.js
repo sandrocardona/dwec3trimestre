@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 const Filtro = (props) => {
-    const [habitaciones, setHabitaciones] = useState(4);
+    const [habitaciones, setHabitaciones] = useState(8);
     const [garaje, setGaraje] = useState('no');
     const [piscina, setPiscina] = useState(4);
     const [precioMinimo, setPrecioMinimo] = useState(8);
@@ -86,7 +86,7 @@ const Filtro = (props) => {
                     type="radio"
                     value={8}
                     onChange={handleHabitacionesChange}
-                    checked={habitaciones === 4}
+                    checked={habitaciones === 8}
                 />
                 <label htmlFor="habitaciones4">Cualquiera</label>
             </p>

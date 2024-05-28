@@ -56,17 +56,20 @@ const MainBoard = (props) => {
                   height: '15rem'
                 }}
               >
-                {dato.informacion}
+{/*                 {dato.informacion} */}
                 <br />
                 <br />
                 {
                 dato.piscina != "no" ?
                 "Piscina: " + dato.piscina
-                : ""
+                : "sin piscina"
                 }
                 <br />
                 <br />
-                {dato.habitaciones}
+                {dato.garaje}
+                <br />
+                <br />
+                {"hab: " + dato.habitaciones}
               </CardText>
               <Button onClick={() => handleClick(dato.id_propiedad)} outline>
                 Ver Propiedad

@@ -227,24 +227,40 @@ class App extends Component {
     console.log("min: " + precioMinimo);
     console.log("max: " + precioMaximo);
 
-    //problema aqui
     let propAux = this.state.propiedadesAux.propiedades;
-    //si no hay filtros el estado se queda vacio y ya siempre estará vacío
+    
+    let propFiltered = propAux;
 
-    let propFiltered;
-
-    //numero de habitaciones
-    //cambio
-
-      habitaciones == 3 ?
-      propFiltered = propAux.filter(x => x.habitaciones >= habitaciones) :
-      habitaciones == 8 ?
-      propFiltered = propAux :
-      propFiltered = propAux.filter(x => x.habitaciones == habitaciones);
+    // Filter by number of habitaciones
+    if (habitaciones !== 8) { // 4 means "cualquiera" based on your UI
+      if (habitaciones === 3) {
+          propFiltered = propFiltered.filter(x => x.habitaciones >= habitaciones);
+      } else {
+          propFiltered = propFiltered.filter(x => x.habitaciones === habitaciones);
+      }
+    } else 
 
     //garaje si o no
 
-    //piscina 
+    if (garaje === "si") {
+      propFiltered = propFiltered.filter(g => g.garaje === 'si');
+    } else if (garaje === "no") {
+      propFiltered = propFiltered.filter(g => g.garaje === 'no');
+    }
+
+    //piscina
+
+  /*
+    if(piscina === 1){
+      propFiltered = propFiltered.filter(p => p.piscina ===)
+    } else if(piscina === 2){
+
+    } else if(piscina === 3){
+
+    } else if(piscina === 4){
+
+    }
+  */
 
     let propiedades = {
       propiedades:  propFiltered
