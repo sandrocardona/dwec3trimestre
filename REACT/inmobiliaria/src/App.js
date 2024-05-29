@@ -6,12 +6,15 @@ import { Button, Modal } from 'reactstrap';
 import SearchEngine from './components/SearchEngine';
 import MainBoard from './components/MainBoard';
 import axios from 'axios';
-import { PHPURL } from './components/url';
+import { GETDATA } from './components/url';
+import { GETCONTACTOS } from './components/url';
 import Atajo from './components/atajos';
 import ModalPropiedad from './components/VerPropiedad';
 import Filtro from './components/filtro';
 import ModalContactar from './components/Contactar';
 import PanelInfo from './components/panelInfo';
+import VerContactos from './components/VerContactos';
+import ModalContactos from './components/ModalContactos';
 
 
 const UploadPropertie = (props) => {
@@ -23,9 +26,13 @@ class App extends Component {
     super(props);
     this.state = {
       slogan: "Buscar propiedad",
+      data: [], //lista con todas las propiedades
       propiedades: [],  //lista para filtrar
       propiedadesAux: [], //lista resultante al Buscar
-      data: [], //lista con todas las propiedades
+      //contactos
+      contactos: [],
+      modalContactos: false,
+      //
       buscar: true,
       idPropiedad: null,
       modalPropiedad: false,
@@ -39,6 +46,12 @@ class App extends Component {
     };
   }
 
+  openContactos = () => {
+    let modal = !this.state.modalContactos;
+    this.setState({
+      modalContactos: modal
+    })
+  }
 
   openVer = (id) => {
     let modal = !this.state.modalPropiedad;
@@ -60,7 +73,7 @@ class App extends Component {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          PHPURL
+          GETDATA
         );
         this.setState({
           propiedades:response.data,
@@ -72,6 +85,21 @@ class App extends Component {
     };
 
     fetchData();
+
+    const fetchContactos = async () => {
+      try {
+        const response = await axios.get(
+          GETCONTACTOS
+        );
+        this.setState({
+          contactos:response.data,
+        });
+      } catch (error) {
+        console.error("Error al obtener datos:", error);
+      }
+    };
+
+    fetchContactos();
   }
 
   handleSearch = (inputValue, tipoVenta, tipoPropiedad) => {
@@ -265,6 +293,11 @@ class App extends Component {
       <div className="App">
         <header className="App-header">
           <h1>Inmobiliaria<img src={logo} className="App-logo" alt="logo" /></h1>
+          <VerContactos
+            contactos={this.state.contactos}
+            isOpen={this.state.modalContactos}
+            openContactos={this.openContactos}
+          />
           <UploadPropertie />
         </header>
         <Atajo
@@ -306,6 +339,11 @@ class App extends Component {
           isOpen={this.state.modalContactar}
           idPropiedad={this.state.idPropiedad}
           contactar = {this.contactar}
+        />
+        <ModalContactos 
+          isOpen={this.state.modalContactos}
+          openContactos={this.openContactos}
+          contactos={this.state.contactos}
         />
       </div>
     );

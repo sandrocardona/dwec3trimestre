@@ -1,7 +1,8 @@
 //ruta del archivo PHP
 
 //clase
-/* export const PHPURL = "http://localhost/Recuperacion/ReactServer/inmobiliaria/"; */
+/* export const GETDATA = "http://localhost/Recuperacion/ReactServer/inmobiliaria/getData.php/"; */
 
 //casa
-export const PHPURL = "http://localhost/Reactserver/ReactServer/inmobiliaria/";
+export const GETDATA = "http://localhost/Reactserver/ReactServer/inmobiliaria/getData.php/";
+export const GETCONTACTOS = "http://localhost/Reactserver/ReactServer/inmobiliaria/getContactos.php/";
