@@ -66,7 +66,7 @@ const MainBoard = (props) => {
                 }
                 <br />
                 <br />
-                {dato.garaje}
+                {"garaje: " + dato.garaje}
                 <br />
                 <br />
                 {"hab: " + dato.habitaciones}

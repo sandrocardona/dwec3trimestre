@@ -1,314 +1,161 @@
-import logo from './logo.svg';
-import './App.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import React, { Component } from 'react';
-import { Button } from 'reactstrap';
-import SearchEngine from './components/SearchEngine';
-import MainBoard from './components/MainBoard';
-import axios from 'axios';
-import { PHPURL } from './components/url';
-import Atajo from './components/atajos';
-import ModalPropiedad from './components/VerPropiedad';
-import Filtro from './components/filtro';
+import React, { useState, useEffect } from 'react';
 
+const Filtro = (props) => {
+    const [habitaciones, setHabitaciones] = useState(8);
+    const [garaje, setGaraje] = useState('no');
+    const [piscina, setPiscina] = useState(4);
+    const [precioMinimo, setPrecioMinimo] = useState(8);
+    const [precioMaximo, setPrecioMaximo] = useState(8);
 
-const UploadPropertie = (props) => {
-  return <Button outline color='success'>Subir anuncio</Button>
-}
+    useEffect(() => {
+        handleFiltros();
+    }, [habitaciones, garaje, piscina, precioMinimo, precioMaximo]);
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      slogan: "Buscar propiedad",
-      propiedades: [],  //lista para filtrar
-      data: [], //lista con todas las propiedades
-      buscar: true,
-      idPropiedad: "",
-      modalPropiedad: false,
-      tipoSales: 1,
-    };
-  }
-
-
-  openVer = (id) => {
-    let modal = !this.state.modalPropiedad;
-    this.setState({
-      modalPropiedad: modal,
-      idPropiedad: id,
-    })
-  };
-
-  componentDidMount(){
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(
-          PHPURL
-        );
-        this.setState({
-          propiedades:response.data,
-          data: response.data,
-        });
-      } catch (error) {
-        console.error("Error al obtener datos:", error);
-      }
+    const handleHabitacionesChange = (event) => {
+        setHabitaciones(Number(event.target.value));
     };
 
-    fetchData();
-  }
+    const handleGaraje = (event) => {
+        setGaraje(event.target.checked ? 'si' : 'no');
+    };
 
-  handleSearch = (inputValue, tipoVenta, tipoPropiedad) => {
-    this.filtrar(inputValue, tipoVenta, tipoPropiedad);
-  }
+    const handlePiscinaChange = (event) => {
+        setPiscina(Number(event.target.value));
+    };
 
-  /* filtro del SearchEngine */
-  filtrar = (localidad, tipoVenta, tipoPropiedad) => {
+    const handlePrecioMinimo = (event) => {
+        setPrecioMinimo(Number(event.target.value));
+    };
 
-    let p = this.state.data;
-    let flag = false;
-    let t = false;
-    let tipoVentaAux = tipoVenta;
+    const handlePrecioMaximo = (event) => {
+        setPrecioMaximo(Number(event.target.value));
+    };
 
-    console.log("tipoVenta: " + tipoVenta);
-    console.log("tipoVentaAux: " + tipoVentaAux);
+    const handleFiltros = () => {
+        props.filtroExtra(habitaciones, garaje, piscina, precioMinimo, precioMaximo);
+    };
 
-    //tipoVenta != 8 y tipoPropiedad == 8;
-    if(tipoVenta != 8 && tipoPropiedad == 8){
-      if(localidad && localidad.trim() !== ""){
-        let propAux = this.state.data;
-
-        let propiedadesVenta = propAux.propiedades.filter(propiedad => propiedad.localidad.toLowerCase().includes(localidad.toLowerCase()));
-
-        let propdef = propiedadesVenta.filter(pr => pr.id_venta == tipoVenta);
-
-        let propiedades = {
-          propiedades:  propdef
-        };
-
-        flag = true;
-        this.setState({
-          propiedades: propiedades,
-          buscar: t,
-          tipoSales: tipoVentaAux
-        });
-
-      } else if(localidad == ""){
-        let propAux = this.state.data;
-
-        let propdef = propAux.propiedades.filter(pr => pr.id_venta == tipoVenta);
-
-        let propiedades = {
-          propiedades:  propdef
-        };
-
-        flag = true;
-        this.setState({
-          propiedades: propiedades,
-          buscar: t,
-          tipoSales: tipoVentaAux
-        });
-      }
-    }
-
-    //tipoVenta == 8 y tipoPropiedad != 8;
-    if(tipoVenta == 8 && tipoPropiedad != 8){
-      if(localidad && localidad.trim() !== ""){
-        let propAux = this.state.data;
-
-        let propiedadesVenta = propAux.propiedades.filter(propiedad => propiedad.localidad.toLowerCase().includes(localidad.toLowerCase()));
-
-        let propdef = propiedadesVenta.filter(pr => pr.id_viviendas == tipoPropiedad);
-
-        let propiedades = {
-          propiedades:  propdef
-        };
-
-        flag = true;
-        this.setState({
-          propiedades: propiedades,
-          buscar: t,
-          tipoSales: tipoVentaAux
-        });
-
-      } else if(localidad == ""){
-        let propAux = this.state.data;
-
-        let propdef = propAux.propiedades.filter(pr => pr.id_viviendas == tipoPropiedad);
-
-        let propiedades = {
-          propiedades:  propdef
-        };
-
-        flag = true;
-        this.setState({
-          propiedades: propiedades,
-          buscar: t,
-          tipoSales: tipoVentaAux
-        });
-      }
-    }
-
-    //tipoVenta != 8 y tipoPropiedad != 8;
-    if(tipoVenta != 8 && tipoPropiedad != 8){
-      if(localidad && localidad.trim() !== ""){
-        let propAux = this.state.data;
-
-        let propiedadesVenta = propAux.propiedades.filter(propiedad => propiedad.localidad.toLowerCase().includes(localidad.toLowerCase()));
-
-        let propdef = propiedadesVenta.filter(pr => pr.id_viviendas == tipoPropiedad && pr.id_venta == tipoVenta);
-
-        let propiedades = {
-          propiedades:  propdef
-        };
-
-        flag = true;
-        this.setState({
-          propiedades: propiedades,
-          buscar: t,
-          tipoSales: tipoVentaAux
-        });
-
-      } else if(localidad == ""){
-        let propAux = this.state.data;
-
-        let propdef = propAux.propiedades.filter(pr => pr.id_viviendas == tipoPropiedad && pr.id_venta == tipoVenta);
-
-        let propiedades = {
-          propiedades:  propdef
-        };
-
-        flag = true;
-        this.setState({
-          propiedades: propiedades,
-          buscar: t,
-          tipoSales: tipoVentaAux
-        });
-      }
-    }
-
-    //tipoVenta == 8 y tipoPropiedad == 8;
-    if(localidad && localidad.trim() !== "" && tipoVenta == 8 && tipoPropiedad == 8){
-        let propAux = this.state.data;
-
-        let propdef = propAux.propiedades.filter(propiedad => propiedad.localidad.toLowerCase().includes(localidad.toLowerCase()));
-
-        let propiedades = {
-          propiedades:  propdef
-        };
-
-        flag = true;
-        this.setState({
-          propiedades: propiedades,
-          buscar: t,
-          tipoSales: tipoVentaAux
-        });
-
-      }
-
-    /* si no hay flag reseteamos las propiedades */
-    if (!flag) {
-      this.setState({propiedades: p,});
-    }
-  }
-
-  /* filtro de atajos */
-  filtro = (valor) => {
-    let data = this.state.data; /* lista completa de propiedades */
-
-    // Viviendas
-    if(valor == 1){
-      let propdef = data.propiedades.filter(pr => pr.id_tipo == valor);
-      let propiedades = {
-        propiedades:  propdef
-      };
-      this.setState({propiedades: propiedades})
-    }
-
-    // Garajes
-    if(valor == 2){
-      let propdef = data.propiedades.filter(pr => pr.id_tipo == valor);
-      let propiedades = {
-        propiedades:  propdef
-      };
-      this.setState({propiedades: propiedades})
-    }
-
-    // Trasteros
-    if(valor == 3){
-      let propdef = data.propiedades.filter(pr => pr.id_tipo == valor);
-      let propiedades = {
-        propiedades:  propdef
-      };
-      this.setState({propiedades: propiedades})
-    }
-
-    // Terrenos
-    if(valor == 4){
-      let propdef = data.propiedades.filter(pr => pr.id_tipo == valor);
-      let propiedades = {
-        propiedades:  propdef
-      };
-      this.setState({propiedades: propiedades})
-    }
-
-    // Terrenos
-    if(valor == 5){
-      let propdef = data.propiedades.filter(pr => pr.piscina != "no");
-      let propiedades = {
-        propiedades:  propdef
-      };
-      this.setState({propiedades: propiedades})
-    }
-
-    // Terrenos
-    if(valor == 6){
-      let propdef = data.propiedades.filter(pr => pr.estado == "Segunda mano");
-      let propiedades = {
-        propiedades:  propdef
-      };
-      this.setState({propiedades: propiedades})
-    }
-
-    console.log("value button: " + valor);
-  }
-
-  render(){
     return (
-      <div className="App">
-        <header className="App-header">
-          <h1>Inmobiliaria<img src={logo} className="App-logo" alt="logo" /></h1>
-          <UploadPropertie />
-        </header>
-        <Atajo
-          data={this.state.data} 
-          filtro = {this.filtro}
-        />
-        <SearchEngine
-          slogan={this.state.slogan}
-          data={this.state.data}
-          propiedades={this.state.propiedades}
-          clicar = {this.handleSearch}
-         />
-        {!this.state.buscar ? 
-        <Filtro
-          tipoSales = {this.state.tipoSales}
-
-        />
-        : null}
-        <MainBoard
-          propiedades={this.state.propiedades}
-          openVer = {this.openVer}
-        />
-        <ModalPropiedad 
-          isOpen={this.state.modalPropiedad}
-          openVer = {this.openVer}
-          idPropiedad = {this.state.idPropiedad}
-          data = {this.state.data}
-        />
-      </div>
+        <div className='filter-options'>
+            {/* Garaje */}
+            <p>
+                <input
+                    id='garaje'
+                    name="garaje"
+                    type="checkbox"
+                    onChange={handleGaraje}
+                    checked={garaje === 'si'}
+                />
+                <label htmlFor="garaje">Garaje</label>
+            </p>
+            {/* Habitaciones */}
+            <p>
+                <input
+                    id="habitaciones1"
+                    name="habitaciones"
+                    type="radio"
+                    value={1}
+                    onChange={handleHabitacionesChange}
+                    checked={habitaciones === 1}
+                />
+                <label htmlFor="habitaciones1">1 habitación</label>
+                <br />
+                <input
+                    id="habitaciones2"
+                    name="habitaciones"
+                    type="radio"
+                    value={2}
+                    onChange={handleHabitacionesChange}
+                    checked={habitaciones === 2}
+                />
+                <label htmlFor="habitaciones2">2 habitaciones</label>
+                <br />
+                <input
+                    id="habitaciones3"
+                    name="habitaciones"
+                    type="radio"
+                    value={3}
+                    onChange={handleHabitacionesChange}
+                    checked={habitaciones === 3}
+                />
+                <label htmlFor="habitaciones3">3 o más</label>
+                <br />
+                <input
+                    id="habitaciones4"
+                    name="habitaciones"
+                    type="radio"
+                    value={8}
+                    onChange={handleHabitacionesChange}
+                    checked={habitaciones === 8}
+                />
+                <label htmlFor="habitaciones4">Cualquiera</label>
+            </p>
+            {/* Piscina */}
+            <p>
+                <input
+                    id="piscina1"
+                    name="piscina"
+                    type="radio"
+                    value={1}
+                    onChange={handlePiscinaChange}
+                    checked={piscina === 1}
+                />
+                <label htmlFor="piscina1">No</label>
+                <br />
+                <input
+                    id="piscina2"
+                    name="piscina"
+                    type="radio"
+                    value={2}
+                    onChange={handlePiscinaChange}
+                    checked={piscina === 2}
+                />
+                <label htmlFor="piscina2">Comunitaria</label>
+                <br />
+                <input
+                    id="piscina3"
+                    name="piscina"
+                    type="radio"
+                    value={3}
+                    onChange={handlePiscinaChange}
+                    checked={piscina === 3}
+                />
+                <label htmlFor="piscina3">Privada</label>
+                <br />
+                <input
+                    id="piscina4"
+                    name="piscina"
+                    type="radio"
+                    value={4}
+                    onChange={handlePiscinaChange}
+                    checked={piscina === 4}
+                />
+                <label htmlFor="piscina4">Cualquiera</label>
+            </p>
+            {/* Precio */}
+            <p>
+                <label htmlFor="precioMinimo"></label>
+                <select id="precioMinimo" value={precioMinimo} onChange={handlePrecioMinimo}>
+                    <option value={8}>Sin mínimo</option>
+                    <option value={1}>250</option>
+                    <option value={2}>500</option>
+                    <option value={3}>100,000</option>
+                    <option value={4}>250,000</option>
+                    <option value={5}>500,000</option>
+                </select>
+                <br />
+                <label htmlFor="precioMaximo"></label>
+                <select id="precioMaximo" value={precioMaximo} onChange={handlePrecioMaximo}>
+                    <option value={8}>Sin máximo</option>
+                    <option value={1}>500</option>
+                    <option value={2}>1,000</option>
+                    <option value={3}>250,000</option>
+                    <option value={4}>500,000</option>
+                    <option value={5}>1,000,000</option>
+                </select>
+            </p>
+        </div>
     );
-  }
+};
 
-}
-
-export default App;
+export default Filtro;

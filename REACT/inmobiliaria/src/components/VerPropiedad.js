@@ -7,8 +7,14 @@ function ModalPropiedad(props) {
     props.openVer();
   };
 
+  const handleContactar = (idPropiedad) =>{
+    props.openVer();
+    props.contactar(idPropiedad);
+  }
+
   let propAux = props.data && props.data.propiedades ? props.data.propiedades : [];
   const propiedad = propAux.find(x => x.id_propiedad === props.idPropiedad);
+  let idPropiedad = props.idPropiedad;
 
   return (
 
@@ -19,7 +25,10 @@ function ModalPropiedad(props) {
         {propiedad ? propiedad.informacion : 'No se encontró la información de la propiedad.'}
         </ModalBody>
         <ModalFooter>
-          <Button color="primary">
+          <Button
+            color="primary"
+            onClick={() => handleContactar(idPropiedad)}
+          >
             Contactar
           </Button>{' '}
           <Button color="secondary" onClick={handleClick}>

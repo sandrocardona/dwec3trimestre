@@ -2,7 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { Component } from 'react';
-import { Button } from 'reactstrap';
+import { Button, Modal } from 'reactstrap';
 import SearchEngine from './components/SearchEngine';
 import MainBoard from './components/MainBoard';
 import axios from 'axios';
@@ -10,6 +10,7 @@ import { PHPURL } from './components/url';
 import Atajo from './components/atajos';
 import ModalPropiedad from './components/VerPropiedad';
 import Filtro from './components/filtro';
+import ModalContactar from './components/Contactar';
 
 
 const UploadPropertie = (props) => {
@@ -25,8 +26,10 @@ class App extends Component {
       propiedadesAux: [], //lista resultante al Buscar
       data: [], //lista con todas las propiedades
       buscar: true,
-      idPropiedad: "",
+      idPropiedad: null,
       modalPropiedad: false,
+      modalContactar:false,
+      modalAnuncio: false,
       tipoSales: 1,
     };
   }
@@ -39,6 +42,14 @@ class App extends Component {
       idPropiedad: id,
     })
   };
+
+  contactar = (id) => {
+    let modal = !this.state.modalContactar;
+    this.setState({
+      modalContactar: modal,
+      idPropiedad: id
+    })
+  }
 
   componentDidMount(){
     const fetchData = async () => {
@@ -60,6 +71,7 @@ class App extends Component {
 
   handleSearch = (inputValue, tipoVenta, tipoPropiedad) => {
     this.filtrar(inputValue, tipoVenta, tipoPropiedad);
+
   }
 
   /* filtro del SearchEngine */
@@ -71,8 +83,6 @@ class App extends Component {
     let tipoVentaAux = tipoVenta;
     let propAux;
     let propdef;
-
-
 
     //tipoVenta != 8 y tipoPropiedad == 8;
     if(tipoVenta != 8 && tipoPropiedad == 8){
@@ -162,77 +172,50 @@ class App extends Component {
   /* filtro de atajos */
   filtro = (valor) => {
     let data = this.state.data; /* lista completa de propiedades */
+    let propdef;
 
     // Viviendas
     if(valor == 1){
-      let propdef = data.propiedades.filter(pr => pr.id_tipo == valor);
-      let propiedades = {
-        propiedades:  propdef
-      };
-      this.setState({propiedades: propiedades})
+      propdef = data.propiedades.filter(pr => pr.id_tipo == valor);
     }
 
     // Garajes
     if(valor == 2){
-      let propdef = data.propiedades.filter(pr => pr.id_tipo == valor);
-      let propiedades = {
-        propiedades:  propdef
-      };
-      this.setState({propiedades: propiedades})
+      propdef = data.propiedades.filter(pr => pr.id_tipo == valor);
     }
 
     // Trasteros
     if(valor == 3){
-      let propdef = data.propiedades.filter(pr => pr.id_tipo == valor);
-      let propiedades = {
-        propiedades:  propdef
-      };
-      this.setState({propiedades: propiedades})
+      propdef = data.propiedades.filter(pr => pr.id_tipo == valor);
     }
 
     // Terrenos
     if(valor == 4){
-      let propdef = data.propiedades.filter(pr => pr.id_tipo == valor);
-      let propiedades = {
-        propiedades:  propdef
-      };
-      this.setState({propiedades: propiedades})
+      propdef = data.propiedades.filter(pr => pr.id_tipo == valor);
     }
 
     // Terrenos
     if(valor == 5){
-      let propdef = data.propiedades.filter(pr => pr.piscina != "no");
-      let propiedades = {
-        propiedades:  propdef
-      };
-      this.setState({propiedades: propiedades})
+      propdef = data.propiedades.filter(pr => pr.piscina != "no");
     }
 
     // Terrenos
     if(valor == 6){
-      let propdef = data.propiedades.filter(pr => pr.estado == "Segunda mano");
-      let propiedades = {
-        propiedades:  propdef
-      };
-      this.setState({propiedades: propiedades})
+      propdef = data.propiedades.filter(pr => pr.estado == "Segunda mano");
     }
 
-    console.log("value button: " + valor);
+    let propiedades = {
+      propiedades:  propdef
+    };
+    this.setState({propiedades: propiedades})
   }
 
   filtroExtra = (habitaciones, garaje, piscina, precioMinimo, precioMaximo) => {
-    console.log("hab: " + habitaciones);
-    console.log("garj: " + garaje);
-    console.log("pool: " + piscina);
-    console.log("min: " + precioMinimo);
-    console.log("max: " + precioMaximo);
-
     let propAux = this.state.propiedadesAux.propiedades;
-    
     let propFiltered = propAux;
 
-    // Filter by number of habitaciones
-    if (habitaciones !== 8) { // 4 means "cualquiera" based on your UI
+    //número de habitaciones
+    if (habitaciones !== 8) {
       if (habitaciones === 3) {
           propFiltered = propFiltered.filter(x => x.habitaciones >= habitaciones);
       } else {
@@ -240,27 +223,24 @@ class App extends Component {
       }
     } else 
 
-    //garaje si o no
-
-    if (garaje === "si") {
+    //garaje
+    if (garaje === 1) {
       propFiltered = propFiltered.filter(g => g.garaje === 'si');
-    } else if (garaje === "no") {
+    } else if (garaje === 2) {
       propFiltered = propFiltered.filter(g => g.garaje === 'no');
     }
 
     //piscina
-
-  /*
     if(piscina === 1){
-      propFiltered = propFiltered.filter(p => p.piscina ===)
+      propFiltered = propFiltered.filter(p => p.piscina === 'no');
     } else if(piscina === 2){
-
+      propFiltered = propFiltered.filter(p => p.piscina === 'comunitaria');
     } else if(piscina === 3){
-
-    } else if(piscina === 4){
-
+      propFiltered = propFiltered.filter(p => p.piscina === 'privada');
     }
-  */
+
+    //Máximo y mínimo
+    propFiltered = propFiltered.filter(m => m.precio >= precioMinimo && m.precio <= precioMaximo); 
 
     let propiedades = {
       propiedades:  propFiltered
@@ -292,7 +272,6 @@ class App extends Component {
         <Filtro
           tipoSales = {this.state.tipoSales}
           filtroExtra = {this.filtroExtra}
-
         />
         : null}
         <MainBoard
@@ -304,6 +283,12 @@ class App extends Component {
           openVer = {this.openVer}
           idPropiedad = {this.state.idPropiedad}
           data = {this.state.data}
+          contactar = {this.contactar}
+        />
+        <ModalContactar
+          isOpen={this.state.modalContactar}
+          idPropiedad={this.state.idPropiedad}
+          contactar = {this.contactar}
         />
       </div>
     );
