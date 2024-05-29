@@ -11,6 +11,7 @@ import Atajo from './components/atajos';
 import ModalPropiedad from './components/VerPropiedad';
 import Filtro from './components/filtro';
 import ModalContactar from './components/Contactar';
+import PanelInfo from './components/panelInfo';
 
 
 const UploadPropertie = (props) => {
@@ -31,6 +32,10 @@ class App extends Component {
       modalContactar:false,
       modalAnuncio: false,
       tipoSales: 1,
+      //valores para recoger info del SearchEngine
+      inputValue: null,
+      tipoVenta: null,
+      tipoPropiedad: null,
     };
   }
 
@@ -71,7 +76,11 @@ class App extends Component {
 
   handleSearch = (inputValue, tipoVenta, tipoPropiedad) => {
     this.filtrar(inputValue, tipoVenta, tipoPropiedad);
-
+    this.setState({
+      inputValue: inputValue,
+      tipoVenta: tipoVenta,
+      tipoPropiedad: tipoPropiedad
+    })
   }
 
   /* filtro del SearchEngine */
@@ -262,12 +271,20 @@ class App extends Component {
           data={this.state.data} 
           filtro = {this.filtro}
         />
+        {this.state.buscar ?
         <SearchEngine
           slogan={this.state.slogan}
           data={this.state.data}
           propiedades={this.state.propiedades}
           clicar = {this.handleSearch}
          />
+        : 
+        <PanelInfo
+          tipoVenta={this.state.tipoVenta}
+          tipoPropiedad={this.state.tipoPropiedad}
+          inputValue={this.state.inputValue}
+        />
+        }
         {!this.state.buscar ? 
         <Filtro
           tipoSales = {this.state.tipoSales}

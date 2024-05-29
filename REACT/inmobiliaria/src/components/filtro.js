@@ -12,6 +12,10 @@ const Filtro = (props) => {
         handleFiltros();
     }, [habitaciones, garaje, piscina, precioMinimo, precioMaximo]);
 
+    const reiniciarApp = () => { //Botón Limpiar filtro
+        window.location.reload(); // Esto recarga la página
+    };
+
     const handleHabitacionesChange = (event) => {
         setHabitaciones(Number(event.target.value));
     };
@@ -179,6 +183,9 @@ const Filtro = (props) => {
                     <option value={500000}>500.000</option>
                     <option value={1000000}>1.000.000</option>
                 </select>
+            </p>
+            <p>
+                <Button color="primary" outline onClick={() => reiniciarApp()}>Limpiar filtro</Button>
             </p>
         </div>
     );

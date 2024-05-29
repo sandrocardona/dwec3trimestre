@@ -23,11 +23,6 @@ const SearchEngine = (props) => {
   const handleTipoPropiedadChange = (event) => {
     setTipoPropiedad(event.target.value);
   };
-
-  const reiniciarApp = () => { //Botón Limpiar filtro
-    window.location.reload(); // Esto recarga la página
-  };
-
     return <>
       <div className='search-engine'>
         <h2>{props.slogan}</h2>
@@ -55,8 +50,6 @@ const SearchEngine = (props) => {
             placeholder='Buscar localidad'
           />
           <Button onClick={handleClick}>Buscar</Button>
-          {" "}
-          <Button color="primary" outline onClick={() => reiniciarApp()}>Limpiar filtro</Button>
         </form>
       </div>
     </>

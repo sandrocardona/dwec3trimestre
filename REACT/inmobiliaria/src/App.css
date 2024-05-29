@@ -36,11 +36,29 @@
   color: #61dafb;
 }
 
+/* div panelinfo */
+.panelinfo{
+  background-color: white;
+  color: black;
+  height: rem;
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem;
+  border: 3px solid black;
+}
+.panelinfo > p{
+  width: 100%;
+  height: 100%;
+  border: 2px solid black;
+  margin-bottom: 0;
+  font-weight: bold;
+}
+
 /* div search engine */
 .search-engine{
   background-color: white;
   color: black;
-  height: auto;
+  height: 8rem;
   display: flex;
   flex-flow: column;
   padding: 0.5rem;
@@ -101,7 +119,6 @@ div.filter-options > p > select{
   background-color: #282c34;
   margin-top: 1rem;
   margin-bottom: 1rem;
-
   display: flex;
   flex-flow: row wrap;
   justify-content: center;
