@@ -69,7 +69,7 @@ class App extends Component {
     })
   }
 
-  componentDidMount(){
+/*   componentDidMount(){
     const fetchData = async () => {
       try {
         const response = await axios.get(
@@ -100,6 +100,27 @@ class App extends Component {
     };
 
     fetchContactos();
+  } */
+
+  componentDidMount() {
+    const fetchData = async () => {
+      try {
+        const [responsePropiedades, responseContactos] = await Promise.all([
+          axios.get(GETDATA),
+          axios.get(GETCONTACTOS)
+        ]);
+
+        this.setState({
+          propiedades: responsePropiedades.data,
+          contactos: responseContactos.data,
+          data: responsePropiedades.data,
+        });
+      } catch (error) {
+        console.error("Error al obtener datos:", error);
+      }
+    };
+
+    fetchData();
   }
 
   handleSearch = (inputValue, tipoVenta, tipoPropiedad) => {

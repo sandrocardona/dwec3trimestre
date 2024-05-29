@@ -4,7 +4,24 @@ const ModalContactos = (props) => {
 
     let contactosAux = props.contactos?.contactos || [];
 
-    let contactos = contactosAux.map(x => x);
+    let contactos = contactosAux.map(x => {
+        return(
+        <tr>
+            <th scope="row">
+            {x.id_contacto}
+            </th>
+            <td>
+            {x.id_propiedad}
+            </td>
+            <td>
+            {x.nombre}
+            </td>
+            <td>
+            {x.telefono}
+            </td>
+        </tr>
+      )
+    });
     
     console.log(contactos);
 
@@ -35,48 +52,7 @@ const ModalContactos = (props) => {
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <th scope="row">
-        1
-      </th>
-      <td>
-        Mark
-      </td>
-      <td>
-        Otto
-      </td>
-      <td>
-        @mdo
-      </td>
-    </tr>
-    <tr>
-      <th scope="row">
-        2
-      </th>
-      <td>
-        Jacob
-      </td>
-      <td>
-        Thornton
-      </td>
-      <td>
-        @fat
-      </td>
-    </tr>
-    <tr>
-      <th scope="row">
-        3
-      </th>
-      <td>
-        Larry
-      </td>
-      <td>
-        the Bird
-      </td>
-      <td>
-        @twitter
-      </td>
-    </tr>
+    {contactos}
   </tbody>
 </Table>
         </ModalBody>
