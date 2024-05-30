@@ -15,10 +15,15 @@ import ModalContactar from './components/Contactar';
 import PanelInfo from './components/panelInfo';
 import VerContactos from './components/VerContactos';
 import ModalContactos from './components/ModalContactos';
+import ModalSubirAnuncio from './components/modalSubirAnuncio';
+import ModalFormAnuncio from './components/modalFormAnuncio';
 
 
 const UploadPropertie = (props) => {
-  return <Button outline color='success'>Subir anuncio</Button>
+  return <Button outline color='success'
+          onClick={props.onClick}
+  >
+    Subir anuncio</Button>
 }
 
 class App extends Component {
@@ -37,7 +42,10 @@ class App extends Component {
       idPropiedad: null,
       modalPropiedad: false,
       modalContactar:false,
-      modalAnuncio: false,
+      modalSubirAnuncio: false,
+      modalFormAnuncio: false,
+      //valor para id_tipo
+      idTipo: null,
       tipoSales: 1,
       //valores para recoger info del SearchEngine
       inputValue: null,
@@ -66,6 +74,22 @@ class App extends Component {
     this.setState({
       modalContactar: modal,
       idPropiedad: id
+    })
+  }
+
+  openSubirAnuncio = (id) => {
+    let modal = !this.state.modalSubirAnuncio;
+    this.setState({
+      modalSubirAnuncio: modal,
+    })
+  }
+
+  openFormAnuncio = (idTipo) => {
+    let modal = !this.state.modalFormAnuncio;
+    console.log(idTipo);
+    this.setState({
+      modalFormAnuncio: modal,
+      idTipo: idTipo,
     })
   }
 
@@ -341,7 +365,9 @@ class App extends Component {
             isOpen={this.state.modalContactos}
             openContactos={this.openContactos}
           />
-          <UploadPropertie />
+          <UploadPropertie
+            onClick={this.openSubirAnuncio}
+          />
         </header>
         <Atajo
           data={this.state.data} 
@@ -388,6 +414,16 @@ class App extends Component {
           isOpen={this.state.modalContactos}
           openContactos={this.openContactos}
           contactos={this.state.contactos}
+        />
+        <ModalSubirAnuncio
+          isOpen={this.state.modalSubirAnuncio}
+          openSubirAnuncio={this.openSubirAnuncio}
+          openFormAnuncio={this.openFormAnuncio}
+        />
+        <ModalFormAnuncio
+          isOpen={this.state.modalFormAnuncio}
+          idTipo={this.state.idTipo}
+          openFormAnuncio={this.openFormAnuncio}
         />
       </div>
     );

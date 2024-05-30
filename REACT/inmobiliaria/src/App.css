@@ -8,6 +8,15 @@
   flex-flow: column;
 }
 
+body{
+  margin: 0;
+  padding: 0;
+}
+
+.element.style{
+  padding: 0;
+}
+
 .App-logo {
   height: 5vmin;
   pointer-events: none;
@@ -172,6 +181,11 @@ div.filter-options > p > select{
   font-size: 12px
 /*   flex: 0 0 30%; */           /* Ajustamos el ancho para asegurar que haya tres botones por fila */
 /*   box-sizing: border-box */;   /* Para incluir el padding y el border en el ancho total */
+}
+
+#modalBotones{
+  display: flex;
+  justify-content: space-around;
 }
 
 /* === filtro === */
