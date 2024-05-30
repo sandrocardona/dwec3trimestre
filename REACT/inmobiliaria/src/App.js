@@ -6,7 +6,7 @@ import { Button, Modal } from 'reactstrap';
 import SearchEngine from './components/SearchEngine';
 import MainBoard from './components/MainBoard';
 import axios from 'axios';
-import { GETDATA } from './components/url';
+import { GETDATA, POSTCONTACTO } from './components/url';
 import { GETCONTACTOS } from './components/url';
 import Atajo from './components/atajos';
 import ModalPropiedad from './components/VerPropiedad';
@@ -67,6 +67,28 @@ class App extends Component {
       modalContactar: modal,
       idPropiedad: id
     })
+  }
+
+  enviarContacto = (nombre, telefono, idPropiedad) => {
+    console.log("Contactando");
+    console.log("nombre: " + nombre);
+    console.log("tlfn: " + telefono);
+    console.log("id: " + idPropiedad);
+
+    axios.post(POSTCONTACTO, {
+      nombre: nombre,
+      telefono: telefono,
+      idPropiedad: idPropiedad
+    })
+    .then(function (response) {
+      console.log(response.data);
+      alert(response.data.message || response.data.error);
+    })
+    .catch(function (error) {
+      console.error('Error:', error);
+    });
+
+    window.location.reload();
   }
 
 /*   componentDidMount(){
@@ -360,6 +382,7 @@ class App extends Component {
           isOpen={this.state.modalContactar}
           idPropiedad={this.state.idPropiedad}
           contactar = {this.contactar}
+          enviarContacto = {this.enviarContacto}
         />
         <ModalContactos 
           isOpen={this.state.modalContactos}

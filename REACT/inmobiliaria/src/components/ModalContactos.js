@@ -6,7 +6,7 @@ const ModalContactos = (props) => {
 
     let contactos = contactosAux.map(x => {
         return(
-        <tr>
+        <tr key={x.id_contacto}>
             <th scope="row">
             {x.id_contacto}
             </th>
@@ -23,8 +23,6 @@ const ModalContactos = (props) => {
       )
     });
     
-    console.log(contactos);
-
     const handleClick = () => {
         props.openContactos();
     };

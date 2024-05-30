@@ -19,6 +19,27 @@
   }
 }
 
+#dataForm{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#h3contacto{
+  width: 100%;
+  text-align: center;
+}
+
+#dataForm > input {
+  border: 2px solid black;
+  height: 2.5rem;
+  border-radius: 5px;
+}
+
+#dataForm > input::placeholder {
+  padding-left: 0.5rem;
+}
+
 .App-header {
   background-color: #282c34;
   min-height: 10vh;
