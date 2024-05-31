@@ -106,7 +106,6 @@ class App extends Component {
     })
     .then(function (response) {
       console.log(response.data);
-      alert(response.data.message || response.data.error);
     })
     .catch(function (error) {
       console.error('Error:', error);
@@ -126,7 +125,7 @@ class App extends Component {
     metros,
     precio,
     habitaciones,
-    baños,
+    bannos,
     piscina,
     garaje,
     trastero,
@@ -134,6 +133,10 @@ class App extends Component {
     nombre,
     telefono
     ) => {
+
+      metros = parseFloat(metros);
+      precio = parseFloat(precio);
+      trastero = parseFloat(trastero)
 
       if(idTipo != 1){
         idViviendas = 0
@@ -153,23 +156,25 @@ class App extends Component {
         "atico.jpg";
       }
 
-      console.log("idTipo" + idTipo);
-      console.log("idViviendas" + idViviendas);
-      console.log("idVenta" + idVenta);
-      console.log("localidad" + localidad);
-      console.log("estado" + estado);
-      console.log("titulo" + titulo);
-      console.log("informacion" + informacion);
-      console.log("metros" + metros);
-      console.log("precio" + precio);
-      console.log("habitaciones" + habitaciones);
-      console.log("baños" + baños);
-      console.log("piscina" + piscina);
-      console.log("garaje" + garaje);
-      console.log("trastero" + trastero);
-      console.log("foto" + foto);
-      console.log("nombre" + nombre);
-      console.log("telefono" + telefono);
+      
+
+/*       console.log("idTipo" + idTipo + " " + typeof(idTipo));
+      console.log("idViviendas" + idViviendas+ " " + typeof(idViviendas));
+      console.log("idVenta" + idVenta + " " + typeof(idVenta));
+      console.log("localidad" + localidad + " " + typeof(localidad));
+      console.log("estado" + estado+ " " + typeof(estado));
+      console.log("titulo" + titulo+ " " + typeof(titulo));
+      console.log("informacion" + informacion + " " + typeof(informacion));
+      console.log("metros" + metros + " " + typeof(metros));
+      console.log("precio" + precio+ " " + typeof(precio));
+      console.log("habitaciones" + habitaciones + " " + typeof(habitaciones));
+      console.log("bannos" + bannos + " " + typeof(bannos));
+      console.log("piscina" + piscina + " " + typeof(piscina));
+      console.log("garaje" + garaje+ " " + typeof(garaje));
+      console.log("trastero" + trastero + " " + typeof(trastero));
+      console.log("foto" + foto+ " " + typeof(foto));
+      console.log("nombre" + nombre + " " + typeof(nombre));
+      console.log("telefono" + telefono + " " + typeof(telefono)); */
 
       axios.post(INSTERTANUNCIO, {
          idTipo: idTipo,
@@ -182,21 +187,22 @@ class App extends Component {
          metros: metros,
          precio: precio,
          habitaciones: habitaciones,
-         baños: baños,
+         bannos: bannos,
          piscina: piscina,
          garaje: garaje,
          trastero: trastero,
          foto: foto,
+         telefono: telefono,
          nombre: nombre,
-         telefono: telefono
       })
       .then(function (response) {
-        console.log(response.data);
-        alert(response.data.message || response.data.error);
+/*         console.log(response.data); */
       })
       .catch(function (error) {
         console.error('Error:', error);
       });
+
+      window.location.reload();
     }
 
 /*   componentDidMount(){
@@ -407,6 +413,12 @@ class App extends Component {
     let propAux = this.state.propiedadesAux.propiedades;
     let propFiltered = propAux;
 
+/*     console.log("hab: " + habitaciones); */
+    console.log("gar: " + garaje);
+/*     console.log("pisci: " + piscina);
+    console.log("min: " + precioMinimo);
+    console.log("max: " + precioMaximo); */
+
     //número de habitaciones
     if (habitaciones !== 8) {
       if (habitaciones === 3) {
@@ -414,13 +426,15 @@ class App extends Component {
       } else {
           propFiltered = propFiltered.filter(x => x.habitaciones === habitaciones);
       }
-    } else 
+    }
 
     //garaje
-    if (garaje === 1) {
+    if (garaje == 1) {
       propFiltered = propFiltered.filter(g => g.garaje === 'si');
-    } else if (garaje === 2) {
+      console.log("aqui en 1");
+    } else if (garaje == 2) {
       propFiltered = propFiltered.filter(g => g.garaje === 'no');
+      console.log("aqui en 2");
     }
 
     //piscina

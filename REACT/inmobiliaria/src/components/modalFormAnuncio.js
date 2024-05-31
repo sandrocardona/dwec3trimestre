@@ -14,7 +14,7 @@ const ModalFormAnuncio = (props) => {
     const [precio, setPrecio] = useState();
     //
     const [habitaciones, setHabitaciones] = useState(0);
-    const [baños, setBaños] = useState(0);
+    const [bannos, setBannos] = useState(0);
     const [piscina, setPiscina] = useState("no");
     const [garaje, setGaraje] = useState("no");
     const [trastero, setTrastero] = useState(0.00);
@@ -42,7 +42,7 @@ const ModalFormAnuncio = (props) => {
         metros,
         precio,
         habitaciones,
-        baños,
+        bannos,
         piscina,
         garaje,
         trastero,
@@ -107,10 +107,10 @@ const ModalFormAnuncio = (props) => {
       }
     };
 
-    const handleBañosChange = (event) => {
+    const handleBannosChange = (event) => {
       const value = Number(event.target.value);
       if (value >= 1 && value <= 9) {
-          setBaños(value);
+          setBannos(value);
       }
     };
 
@@ -239,11 +239,11 @@ const ModalFormAnuncio = (props) => {
                     />
                   </p>
                   <p>
-                    <label>Baños</label><br/>
+                    <label>Bannos</label><br/>
                     <input
                         type="number"
-                        value={baños}
-                        onChange={handleBañosChange}
+                        value={bannos}
+                        onChange={handleBannosChange}
                         min="1"
                         max="9"
                     />
