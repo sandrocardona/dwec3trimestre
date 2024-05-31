@@ -12,18 +12,18 @@ const ModalSubirAnuncio = (props) => {
     }
       
       let v = 1;
-      let rest = 8;
-
-
+      let g = 2;
+      let T = 3;
+      let t = 4;
       return (
         <div>
           <Modal isOpen={props.isOpen}>
             <ModalHeader >Selecciona el tipo de propiedad</ModalHeader>
             <ModalBody id='modalBotones'>
                 <Button color='primary'  onClick={() => handleUpload(v)} >Vivienda</Button>
-                <Button color='danger'  onClick={() => handleUpload(rest)} >Garaje</Button>
-                <Button color='success'  onClick={() => handleUpload(rest)} >Trastero</Button>
-                <Button color='info'  onClick={() => handleUpload(rest)} >Terreno</Button>
+                <Button color='danger'  onClick={() => handleUpload(g)} >Garaje</Button>
+                <Button color='success'  onClick={() => handleUpload(T)} >Trastero</Button>
+                <Button color='info'  onClick={() => handleUpload(t)} >Terreno</Button>
             </ModalBody>
             <ModalFooter>
               <Button color="secondary" onClick={handleClick}>

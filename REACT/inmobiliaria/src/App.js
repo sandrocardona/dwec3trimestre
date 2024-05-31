@@ -6,7 +6,7 @@ import { Button, Modal } from 'reactstrap';
 import SearchEngine from './components/SearchEngine';
 import MainBoard from './components/MainBoard';
 import axios from 'axios';
-import { GETDATA, POSTCONTACTO } from './components/url';
+import { GETDATA, INSTERTANUNCIO, POSTCONTACTO } from './components/url';
 import { GETCONTACTOS } from './components/url';
 import Atajo from './components/atajos';
 import ModalPropiedad from './components/VerPropiedad';
@@ -114,6 +114,90 @@ class App extends Component {
 
     window.location.reload();
   }
+
+  subirAnuncio = (
+    idTipo,
+    idViviendas,
+    idVenta,
+    localidad,
+    estado,
+    titulo,
+    informacion,
+    metros,
+    precio,
+    habitaciones,
+    baños,
+    piscina,
+    garaje,
+    trastero,
+    foto,
+    nombre,
+    telefono
+    ) => {
+
+      if(idTipo != 1){
+        idViviendas = 0
+      }
+
+      foto = 
+      idTipo == 2 ? "garaje.jpg" :
+      idTipo == 3 ? "trastero.jpg" :
+      idTipo == 4 ? "terreno.jpg" :
+      "";
+
+      if(idTipo == 1){
+        foto = 
+        idViviendas == 1 ? "piso.jpg" :
+        idViviendas == 2 ? "casa.jpg" :
+        idViviendas == 3 ? "chalet.jpg" :
+        "atico.jpg";
+      }
+
+      console.log("idTipo" + idTipo);
+      console.log("idViviendas" + idViviendas);
+      console.log("idVenta" + idVenta);
+      console.log("localidad" + localidad);
+      console.log("estado" + estado);
+      console.log("titulo" + titulo);
+      console.log("informacion" + informacion);
+      console.log("metros" + metros);
+      console.log("precio" + precio);
+      console.log("habitaciones" + habitaciones);
+      console.log("baños" + baños);
+      console.log("piscina" + piscina);
+      console.log("garaje" + garaje);
+      console.log("trastero" + trastero);
+      console.log("foto" + foto);
+      console.log("nombre" + nombre);
+      console.log("telefono" + telefono);
+
+      axios.post(INSTERTANUNCIO, {
+         idTipo: idTipo,
+         idViviendas: idViviendas,
+         idVenta: idVenta,
+         localidad: localidad,
+         estado: estado,
+         titulo: titulo,
+         informacion: informacion,
+         metros: metros,
+         precio: precio,
+         habitaciones: habitaciones,
+         baños: baños,
+         piscina: piscina,
+         garaje: garaje,
+         trastero: trastero,
+         foto: foto,
+         nombre: nombre,
+         telefono: telefono
+      })
+      .then(function (response) {
+        console.log(response.data);
+        alert(response.data.message || response.data.error);
+      })
+      .catch(function (error) {
+        console.error('Error:', error);
+      });
+    }
 
 /*   componentDidMount(){
     const fetchData = async () => {
@@ -308,10 +392,15 @@ class App extends Component {
       propdef = data.propiedades.filter(pr => pr.estado == "Segunda mano");
     }
 
+    //
+
     let propiedades = {
       propiedades:  propdef
     };
-    this.setState({propiedades: propiedades})
+    this.setState({
+      propiedades: propiedades,
+      buscar: true,
+    })
   }
 
   filtroExtra = (habitaciones, garaje, piscina, precioMinimo, precioMaximo) => {
@@ -424,6 +513,7 @@ class App extends Component {
           isOpen={this.state.modalFormAnuncio}
           idTipo={this.state.idTipo}
           openFormAnuncio={this.openFormAnuncio}
+          subirAnuncio={this.subirAnuncio}
         />
       </div>
     );

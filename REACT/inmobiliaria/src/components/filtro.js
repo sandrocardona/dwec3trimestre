@@ -8,6 +8,8 @@ const Filtro = (props) => {
     const [precioMinimo, setPrecioMinimo] = useState(0);
     const [precioMaximo, setPrecioMaximo] = useState(Infinity);
 
+    let ventaAux = props.tipoSales;
+
     useEffect(() => {
         handleFiltros();
     }, [habitaciones, garaje, piscina, precioMinimo, precioMaximo]);
@@ -163,27 +165,39 @@ const Filtro = (props) => {
                 <label htmlFor="piscina8">Cualquiera</label>
             </p>
             {/* Precio */}
+            {ventaAux !== 1 ?
             <p>
-                <label htmlFor="precioMinimo"></label>
-                <select id="precioMinimo" value={precioMinimo} onChange={handlePrecioMinimo}>
-                    <option value={0}>Sin mínimo</option>
-                    <option value={250}>250</option>
-                    <option value={500}>500</option>
-                    <option value={100000}>100.000</option>
-                    <option value={300000}>300.000</option>
-                    <option value={500000}>500.000</option>
-                </select>
-                <br />
-                <label htmlFor="precioMaximo"></label>
-                <select id="precioMaximo" value={precioMaximo} onChange={handlePrecioMaximo}>
-                    <option value={Infinity}>Sin máximo</option>
-                    <option value={500}>500</option>
-                    <option value={1000}>1.000</option>
-                    <option value={300000}>300.000</option>
-                    <option value={500000}>500.000</option>
-                    <option value={1000000}>1.000.000</option>
-                </select>
+            <select value={precioMinimo} onChange={handlePrecioMinimo}>
+              <option value={0}>sin mínimo</option>
+              <option value={100}>100</option>
+              <option value={250}>250</option>
+              <option value={500}>500</option>
+          </select>
+          <br></br>
+          <select value={precioMaximo} onChange={handlePrecioMaximo}>
+              <option value={Infinity}>sin máximo</option>
+              <option value={250}>250</option>
+              <option value={500}>500</option>
+              <option value={1000}>1.000</option>
+          </select>
             </p>
+            :
+            <p>
+            <select value={precioMinimo} onChange={handlePrecioMinimo}>
+              <option value={0}>sin mínimo</option>
+              <option value={100000}>100.000</option>
+              <option value={300000}>300.000</option>
+              <option value={500000}>500.000</option>
+          </select>
+          <br></br>
+          <select value={precioMaximo} onChange={handlePrecioMaximo}>
+              <option value={Infinity}>sin máximo</option>
+              <option value={300000}>300.000</option>
+              <option value={500000}>500.000</option>
+              <option value={1000000}>1.000.000</option>
+          </select>
+            </p>
+            }
             <p>
                 <Button color="primary" outline onClick={() => reiniciarApp()}>Limpiar filtro</Button>
             </p>
